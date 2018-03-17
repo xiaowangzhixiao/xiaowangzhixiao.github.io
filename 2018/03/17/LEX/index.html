@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://xiaowangzhixiao.github.io">
   <title>LEX简介 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Lex[toc] 简介Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就">
+  <meta name="description" content="Lex简介Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类to">
 <meta name="keywords" content="linux,编译原理,C语言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LEX简介">
 <meta property="og:url" content="http://xiaowangzhixiao.github.io/2018/03/17/LEX/index.html">
 <meta property="og:site_name" content="东拉西扯">
-<meta property="og:description" content="Lex[toc] 简介Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就">
+<meta property="og:description" content="Lex简介Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类to">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-17T06:47:17.550Z">
+<meta property="og:updated_time" content="2018-03-17T06:48:21.303Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LEX简介">
-<meta name="twitter:description" content="Lex[toc] 简介Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就">
+<meta name="twitter:description" content="Lex简介Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类to">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -169,8 +169,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Lex"><a href="#Lex" class="headerlink" title="Lex"></a>Lex</h1><p>[toc]</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。<br>Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。<br>lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类token，apple就是属于这个类型的一个具体token。对于某个编程语言来说，token的个数是很有限的，不像英语这种自然语言中有几十万个单词。<br>lex工具会帮我们生成一个yylex函数，yacc通过调用这个函数来得知拿到的token是什么类型的，但是token的类型是在yacc中定义的。<br>lex的输入文件一般会被命名成 .l文件，通过lex XX.l 我们得到输出的文件是lex.yy.c</p>
+        <h1 id="Lex"><a href="#Lex" class="headerlink" title="Lex"></a>Lex</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。<br>Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。<br>lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类token，apple就是属于这个类型的一个具体token。对于某个编程语言来说，token的个数是很有限的，不像英语这种自然语言中有几十万个单词。<br>lex工具会帮我们生成一个yylex函数，yacc通过调用这个函数来得知拿到的token是什么类型的，但是token的类型是在yacc中定义的。<br>lex的输入文件一般会被命名成 .l文件，通过lex XX.l 我们得到输出的文件是lex.yy.c</p>
 <h2 id="常规表达式，正则表达式，re"><a href="#常规表达式，正则表达式，re" class="headerlink" title="常规表达式，正则表达式，re"></a>常规表达式，正则表达式，re</h2><h3 id="用-Lex-定义常规表达式"><a href="#用-Lex-定义常规表达式" class="headerlink" title="用 Lex 定义常规表达式"></a>用 Lex 定义常规表达式</h3><table>
 <thead>
 <tr>
