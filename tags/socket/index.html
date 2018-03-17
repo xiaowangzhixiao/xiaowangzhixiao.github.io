@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://xiaowangzhixiao.github.io">
-  <title>CentOS 6.5换源 | 东拉西扯</title>
+  <title>Tag: socket | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="CentOS 6.5换YUM源简介身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。 步骤访问Centos镜像使用帮助查看其中介绍 1.首先备份CentOS-Base.repo mv /etc/yum.repos.d/CentOS-Base.repo /et">
-<meta name="keywords" content="linux">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CentOS 6.5换源">
-<meta property="og:url" content="http://xiaowangzhixiao.github.io/2018/03/17/CentOS-6-5换源/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="东拉西扯">
+<meta property="og:url" content="http://xiaowangzhixiao.github.io/tags/socket/index.html">
 <meta property="og:site_name" content="东拉西扯">
-<meta property="og:description" content="CentOS 6.5换YUM源简介身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。 步骤访问Centos镜像使用帮助查看其中介绍 1.首先备份CentOS-Base.repo mv /etc/yum.repos.d/CentOS-Base.repo /et">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-17T06:31:15.032Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS 6.5换源">
-<meta name="twitter:description" content="CentOS 6.5换YUM源简介身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。 步骤访问Centos镜像使用帮助查看其中介绍 1.首先备份CentOS-Base.repo mv /etc/yum.repos.d/CentOS-Base.repo /et">
+<meta name="twitter:title" content="东拉西扯">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -149,37 +144,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-CentOS-6-5换源" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      CentOS 6.5换源
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/03/17/linux-socket-c-tcp/" class="archive-article-date">
+  	<time datetime="2018-03-17T06:58:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/03/17/linux-socket-c-tcp/">linux下C语言socket tcp通信</a>
     </h1>
   
 
-        
-        <a href="/2018/03/17/CentOS-6-5换源/" class="archive-article-date">
-  	<time datetime="2018-03-17T05:43:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CentOS-6-5换YUM源"><a href="#CentOS-6-5换YUM源" class="headerlink" title="CentOS 6.5换YUM源"></a>CentOS 6.5换YUM源</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>访问<a href="https://lug.ustc.edu.cn/wiki/mirrors/help/centos" target="_blank" rel="noopener">Centos镜像使用帮助</a>查看其中介绍</p>
-<p>1.首先备份CentOS-Base.repo <code>mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</code><br>2.下载相应版本的CentOS-Base.repo, 放入/etc/yum.repos.d/<br>3.运行<code>yum makecache</code>生成缓存</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -187,11 +181,15 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
+        		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -201,120 +199,24 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/编程/折腾//" class="article-tag-list-link color3">折腾</a>
+        			<a href="/categories/编程/C语言//" class="article-tag-list-link color4">C语言</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://xiaowangzhixiao.github.io/2018/03/17/CentOS-6-5换源/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/03/17/LEX/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          LEX简介
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/03/17/开博大吉/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">开博大吉</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -337,9 +239,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
