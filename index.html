@@ -55,12 +55,16 @@
 			
 				<li><a href="/">主页</a></li>
 	        
+				<li><a href="/categories/编程/">编程</a></li>
+	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
     		
     			
     			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+            
     			
             
     			
@@ -103,6 +107,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -121,7 +127,9 @@
 				<ul style="width: 50%">
 				
 				
-					<li style="width: 100%"><a href="/">主页</a></li>
+					<li style="width: 50%"><a href="/">主页</a></li>
+		        
+					<li style="width: 50%"><a href="/categories/编程/">编程</a></li>
 		        
 				</ul>
 			</nav>
@@ -137,6 +145,430 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-yacc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/17/yacc/">yacc</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/17/yacc/" class="archive-article-date">
+  	<time datetime="2018-03-17T06:29:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Yacc"><a href="#Yacc" class="headerlink" title="Yacc"></a>Yacc</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。<br>它用巴克斯范式（BNF）来书写</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li>运行yacc处理语法文件，生成一个解析器</li>
+<li>说明语法：<br> -编写.y语法文件<br> -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。<br> -编写一个函数，使用yyparse()开始解析<br> -编写错误处理例程 如yaerror()</li>
+<li>编译yacc生成的代码以及其他相关源文件</li>
+<li>将目标文件链接到适当的可执行解析器库</li>
+</ol>
+<h2 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h2><p>和LEX类似，yacc的程序也分为三段<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declarations</span><br><span class="line">%%</span><br><span class="line">rules</span><br><span class="line">%%</span><br><span class="line">programs</span><br></pre></td></tr></table></figure></p>
+<h3 id="rules"><a href="#rules" class="headerlink" title="rules"></a>rules</h3><p>yacc中最重要的是其中的文法规则，首先来看文法如何书写<br>yacc文法使用BNF巴克斯范式书写<br>如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">result: components &#123; /*</span><br><span class="line">action to be taken in C */ &#125;</span><br><span class="line">    | components</span><br><span class="line">    |...</span><br><span class="line">;</span><br></pre></td></tr></table></figure></p>
+<p>{}中书写识别出该表达式所做的动作<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">param : NAME EQ NAME &#123;</span><br><span class="line">    printf(&quot;\tName:%s\tValue(name):%s\n&quot;, $1,$3);&#125;</span><br><span class="line">    | NAME EQ VALUE&#123;</span><br><span class="line">    printf(&quot;\tName:%s\tValue(value):%s\n&quot;,$1,$3);&#125;</span><br><span class="line">;</span><br></pre></td></tr></table></figure></p>
+<p>其中$n是使用了产生式中第n个标记的值，lexer通过yylval返回值。$$表示规约后的值。</p>
+<p>标记 NAME 的 Lex 代码是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char [A-Za-z]</span><br><span class="line"> name &#123;char&#125;+</span><br><span class="line"> %%</span><br><span class="line"> &#123;name&#125; &#123; yylval = strdup(yytext); //strdup函数是使用malloc函数进行字符串的复制</span><br><span class="line"> return NAME; &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="declarations"><a href="#declarations" class="headerlink" title="declarations"></a>declarations</h3><p>与LEX类似，使用C语言的声明，需要用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%&#123;</span><br><span class="line">   balabala</span><br><span class="line">%&#125;</span><br></pre></td></tr></table></figure></p>
+<p>来声明，包括include等等，其中需要定义YYSTYPE，它是内置变量yylval的类型，默认为int，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">%&#123;</span><br><span class="line">    #typedef char* string; /*</span><br><span class="line">    to specify token types as char* */</span><br><span class="line">    #define YYSTYPE string /*</span><br><span class="line">    a Yacc variable which has the value of returned token */</span><br><span class="line">%&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用户经常会希望语义值的类型比较复杂，如双精度浮点数，字符串或树结点的指针．这时就可以用语义值类型定义进行说明。因为不同的语法符号的语义值类型可能不同，所以语义值类型说明就是将语义值的类型定义为一个联合（Union），这个联合包括所有可能用到的类型（各自对应一个成员名），为了使用户不必在存取语义值时每次都指出成员名，在语义值类型定义部分还要求用户说明每一个语法符号（终结符和非终结符）的语义值是哪一个联合成员类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">％ union｛</span><br><span class="line">int ival</span><br><span class="line">double dval</span><br><span class="line">INTERVAL VVal;</span><br><span class="line">｝</span><br><span class="line">％token ＜ival＞ DREG VREG</span><br><span class="line">％token ＜dval＞ CONST</span><br><span class="line">％type ＜dyal＞dexp</span><br><span class="line">％type ＜vval＞vexP</span><br></pre></td></tr></table></figure></p>
+<p>使用%union来定义一个联合类型，作为yylval的类型，当声明TOKEN和非终结符时，在中间加&lt;…&gt;来声明语义值的类型，非终结符不需要声明语义值时，不用刻意声明</p>
+<p>声明终结符，即lexer返回的TOKEN：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%token NAME EQ AGE</span><br></pre></td></tr></table></figure></p>
+<p>每个 Yacc 声明段声明了终端符号和非终端符号（标记）的名称，还可能描述操作符优先级和针对不同符号的数据类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% start 非终结符……//声明文法起始符</span><br></pre></td></tr></table></figure></p>
+<p>如果没有上面的说明，yacc自动将语法规则部分中第一条语法规则左部的非终结符作为语法开始符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%left &apos;+&apos; &apos;-&apos;</span><br><span class="line">%left &apos;*&apos; &apos;/&apos;</span><br></pre></td></tr></table></figure></p>
+<p>%left 表示左结合，%right 表示右结合。最后列出的定义拥有最高的优先权。因此乘法和除法拥有比加法和减法更高的优先权。+ - * / 所有这四个算术符都是左结合的。运用这个简单的技术，我们可以消除文法的歧义。</p>
+<p>在表达式中有时要用到一元运算符，而且它可能与某个二元运算符是同一个符号，例如一元运算符负号“-”就与减号’-’相同，显然一元运算符的优先级应该比相应的二元运算符的优先级高。至少应该与*的优先级相同，这可以用yacc的％Prec子句来定义，请看下面的文法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">％token NAME</span><br><span class="line">％left &apos;-&apos;&apos;+’</span><br><span class="line">％left &apos;*&apos;&apos;／&apos;</span><br><span class="line">％％</span><br><span class="line">expr；expr&apos;+&apos; expr</span><br><span class="line">|expr&apos;+&apos; expr</span><br><span class="line">|expr&apos;-’expr</span><br><span class="line">|expr&apos;*&apos; expr</span><br><span class="line">|expr&apos;／’ expr</span><br><span class="line">|&apos;-&apos;expr ％prec&apos;*&apos;</span><br><span class="line">|NAME</span><br><span class="line">;</span><br></pre></td></tr></table></figure></p>
+<p>在上述文法中，为使一元’－’的优先级与*相同，我们使用了子句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">％prec&apos;*&apos;</span><br></pre></td></tr></table></figure></p>
+<p>它说明它所在的语法规则中最右边的运算符或终结符的优先级与％Prec后面的符号的优先级相同，注意％Prec子句必须出现在某语法规则结尾处分号之前，％prec子句并不改变’－’作为二元运算符时的优先级。</p>
+<h3 id="programs"><a href="#programs" class="headerlink" title="programs"></a>programs</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   void main()</span><br><span class="line">   &#123;</span><br><span class="line">       yyparse();</span><br><span class="line">   &#125;</span><br><span class="line">   int yyerror(char* msg)  //用户可以自己实现错误函数</span><br><span class="line">   &#123;</span><br><span class="line">   	printf(&quot;Error: %s</span><br><span class="line">   	encountered \n&quot;, msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/jiary5201314/article/details/8262134" target="_blank" rel="noopener">LEX和YACC的使用</a><br><a href="https://www.ibm.com/developerworks/cn/linux/sdk/lex/" target="_blank" rel="noopener">Yacc 与 Lex 快速入门</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C语言</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程/编译原理//" class="article-tag-list-link color5">编译原理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/17/yacc/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LEX" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/17/LEX/">CentOS 6.5换源</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/17/LEX/" class="archive-article-date">
+  	<time datetime="2018-03-17T05:45:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Lex"><a href="#Lex" class="headerlink" title="Lex"></a>Lex</h1><p>[toc]</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。<br>Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。<br>lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类token，apple就是属于这个类型的一个具体token。对于某个编程语言来说，token的个数是很有限的，不像英语这种自然语言中有几十万个单词。<br>lex工具会帮我们生成一个yylex函数，yacc通过调用这个函数来得知拿到的token是什么类型的，但是token的类型是在yacc中定义的。<br>lex的输入文件一般会被命名成 .l文件，通过lex XX.l 我们得到输出的文件是lex.yy.c</p>
+<h2 id="常规表达式，正则表达式，re"><a href="#常规表达式，正则表达式，re" class="headerlink" title="常规表达式，正则表达式，re"></a>常规表达式，正则表达式，re</h2><h3 id="用-Lex-定义常规表达式"><a href="#用-Lex-定义常规表达式" class="headerlink" title="用 Lex 定义常规表达式"></a>用 Lex 定义常规表达式</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">字符</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">A-Z,a-z,0-9</td>
+<td style="text-align:left">构成了部分模式的字符和数字</td>
+</tr>
+<tr>
+<td style="text-align:left">.</td>
+<td style="text-align:left">匹配任意字符，除了\n。</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">用来指定范围</td>
+</tr>
+<tr>
+<td style="text-align:left">[]</td>
+<td style="text-align:left">一个字符集合，匹配括号中的任意字符如果第一个字符是^那么它表示否定模式。</td>
+</tr>
+<tr>
+<td style="text-align:left">*</td>
+<td style="text-align:left">匹配0个或多个上述模式</td>
+</tr>
+<tr>
+<td style="text-align:left">+</td>
+<td style="text-align:left">匹配1个或多个上述模式</td>
+</tr>
+<tr>
+<td style="text-align:left">？</td>
+<td style="text-align:left">匹配0个或一个上述模式</td>
+</tr>
+<tr>
+<td style="text-align:left">$</td>
+<td style="text-align:left">作为模式的最后一个字符匹配一行的结尾</td>
+</tr>
+<tr>
+<td style="text-align:left">{x,y}</td>
+<td style="text-align:left">指出一个模式可能出现的次数，例如: A{1,3} 表示 A 可能出现1次到3次。</td>
+</tr>
+<tr>
+<td style="text-align:left">\</td>
+<td style="text-align:left">用来转义元字符</td>
+</tr>
+<tr>
+<td style="text-align:left">^</td>
+<td style="text-align:left">用来表示否定</td>
+</tr>
+<tr>
+<td style="text-align:left">&#124;</td>
+<td style="text-align:left">表达式间的逻辑或</td>
+</tr>
+<tr>
+<td style="text-align:left">“&lt;一些符号&gt;”</td>
+<td style="text-align:left">字符的字面含义。元字符具有。</td>
+<td>???</td>
+</tr>
+<tr>
+<td style="text-align:left">/</td>
+<td style="text-align:left">向前匹配。如果在匹配的模版中的“/”后跟有后续表达式，只匹配模版中“/”前 面的部分。如：如果输入 A01，那么在模版 A0/1 中的 A0 是匹配的。</td>
+</tr>
+<tr>
+<td style="text-align:left">()</td>
+<td style="text-align:left">将一系列正则表达式分组</td>
+</tr>
+</tbody>
+</table>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">表达式</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">joke[rs]</td>
+<td style="text-align:left">匹配 jokes 或 joker。</td>
+</tr>
+<tr>
+<td style="text-align:left">A{1,2}shis+</td>
+<td style="text-align:left">匹配 AAshis, Ashis, AAshiss, Ashiss，Ashisss,…</td>
+</tr>
+<tr>
+<td style="text-align:left">(A[b-e])+</td>
+<td style="text-align:left">匹配在 A 出现位置后跟随的从 b 到 e 的所有字符中的 0 个或 1个。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="正则式"><a href="#正则式" class="headerlink" title="正则式"></a>正则式</h3><p>number [0-9]+</p>
+<p>id          [A-Za-z]+[A-Za-z0-9_]*</p>
+<h2 id="Lex编程"><a href="#Lex编程" class="headerlink" title="Lex编程"></a>Lex编程</h2><ol>
+<li>以Lex可以理解的格式指定模式相关是动作。</li>
+<li>在这一文件上运行Lex，生成扫描器的C代码。</li>
+<li>编译链接C代码生成可执行的扫描器。</li>
+</ol>
+<p>一个 Lex 程序分为三个段：第一段是 C 和 Lex 的全局声明，第二段包括模式（C 代码），第三段是补充的 C 函数。 例如, 第三段中一般都有 main() 函数。这些段以%%来分界。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Definition section</span><br><span class="line">%%</span><br><span class="line">Rules section</span><br><span class="line">%%</span><br><span class="line">C code section</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>Definition Section<br>  这块可以放C语言的各种各种include，define等声明语句，但是要用%{ %}括起来。<br>  .l文件，可以放预定义的正则表达式：minus “-“ 还要放token的定义，方法是：代号 正则表达式。然后到了Rules Section就可以通过{符号} 来引用正则表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">%&#123;</span><br><span class="line">int wordCount = 0;</span><br><span class="line">%&#125;</span><br><span class="line">chars [A-za-z\_\&apos;\.\&quot;]</span><br><span class="line">numbers ([0-9])+</span><br><span class="line">delim [&quot; &quot;\n\t]</span><br><span class="line">whitespace &#123;delim&#125;+</span><br><span class="line">words &#123;chars&#125;+</span><br><span class="line">%%</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Rules section<br>  .l文件在这里放置的rules就是每个正则表达式要对应的动作，一般是返回一个token<br>  这里的动作都是用{}扩起来的，用C语言来描述，这些代码可以做你任何想要做的事情</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;words&#125; &#123; wordCount++; /*</span><br><span class="line">increase the word count by one*/ &#125;</span><br><span class="line">&#123;whitespace&#125; &#123; /* do</span><br><span class="line">nothing*/ &#125;</span><br><span class="line">&#123;numbers&#125; &#123; /* one may</span><br><span class="line">want to add some processing here*/ &#125;</span><br><span class="line">%%</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>C code Section<br>  main函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    yylex(); //这一函数开始分析。 它由 Lex 自动生成。</span><br><span class="line">    printf(&quot; No of words: %d\n&quot;, wordCount);</span><br><span class="line">&#125;</span><br><span class="line">/*这一函数在文件（或输入）的末尾调用。 如果函数的返回值是1，就停止解析。</span><br><span class="line"> 因此它可以用来解析多个文件。 代码可以写在第三段，这就能够解析多个文件。</span><br><span class="line"> 方法是使用 yyin 文件指针指向不同的文件，直到所有的文件都被解析。 </span><br><span class="line"> 最后，yywrap() 可以返回 1 来表示解析的结束。*/</span><br><span class="line">int yywrap()</span><br><span class="line">&#123;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="编译运行"><a href="#编译运行" class="headerlink" title="编译运行"></a>编译运行</h2><h3 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h3><p>ubuntu15.10<br>lex/flex 本机预安装了flex，使用lex命令和flex命令相同<br>gcc</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lex file.l                      #生成lex.yy.c</span><br><span class="line">gcc lex.yy.c -o yourname -ll    #编译生成可执行程序 -ll 用来链接lex库</span><br><span class="line">./youname &lt; xxx.c               #运行程序，将输入流重定向为要分析的文件</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C语言</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程/编译原理//" class="article-tag-list-link color5">编译原理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/17/LEX/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CentOS-6-5换源" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/17/CentOS-6-5换源/">CentOS 6.5换源</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/17/CentOS-6-5换源/" class="archive-article-date">
+  	<time datetime="2018-03-17T05:43:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CentOS-6-5换YUM源"><a href="#CentOS-6-5换YUM源" class="headerlink" title="CentOS 6.5换YUM源"></a>CentOS 6.5换YUM源</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>访问<a href="https://lug.ustc.edu.cn/wiki/mirrors/help/centos" target="_blank" rel="noopener">Centos镜像使用帮助</a>查看其中介绍</p>
+<p>1.首先备份CentOS-Base.repo <code>mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</code><br>2.下载相应版本的CentOS-Base.repo, 放入/etc/yum.repos.d/<br>3.运行<code>yum makecache</code>生成缓存</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程/折腾//" class="article-tag-list-link color3">折腾</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/17/CentOS-6-5换源/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-开博大吉" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -167,18 +599,18 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">other</a>
+        			<a href="/categories/随笔//" class="article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
 
       
         <p class="article-more-link">
@@ -250,6 +682,17 @@
       
       
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂项//" class="article-tag-list-link color3">杂项</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
         <p class="article-more-link">
@@ -314,7 +757,7 @@
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
-		showTags: false
+		showTags: true
 	}
 </script>
 
@@ -334,6 +777,8 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
       
     
       
+    
+      
       
       
     
@@ -344,6 +789,8 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
       
       <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      
+        
       
         
       
@@ -368,7 +815,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">other</a>
+                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C语言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
             
             <div class="clearfix"></div>
@@ -419,7 +874,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">BUPT在读学生&lt;br&gt;&lt;br&gt;很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">BUPT在读学生&lt;br&gt;午后的田野，放肆的奔跑&lt;br&gt;&lt;br&gt;很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
   	  	
     	</section>
     
