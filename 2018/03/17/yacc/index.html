@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://xiaowangzhixiao.github.io">
   <title>yacc简介 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Yacc简介Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。它用巴克斯范式（BNF）来书写 步骤 运行yacc处理语法文件，生成一个解析器 说明语法： -编写.y语法文件 -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。 -编写一个函数，使用yyparse()开始解析 -编写错误处理例程 如yaerror() 编译yacc生成">
-<meta name="keywords" content="linux,编译原理,C语言">
+  <meta name="description" content="简介Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。它用巴克斯范式（BNF）来书写 步骤 运行yacc处理语法文件，生成一个解析器 说明语法： -编写.y语法文件 -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。 -编写一个函数，使用yyparse()开始解析 -编写错误处理例程 如yaerror() 编译yacc生成的代码以">
+<meta name="keywords" content="编译原理,C语言,linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="yacc简介">
 <meta property="og:url" content="http://xiaowangzhixiao.github.io/2018/03/17/yacc/index.html">
 <meta property="og:site_name" content="东拉西扯">
-<meta property="og:description" content="Yacc简介Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。它用巴克斯范式（BNF）来书写 步骤 运行yacc处理语法文件，生成一个解析器 说明语法： -编写.y语法文件 -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。 -编写一个函数，使用yyparse()开始解析 -编写错误处理例程 如yaerror() 编译yacc生成">
+<meta property="og:description" content="简介Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。它用巴克斯范式（BNF）来书写 步骤 运行yacc处理语法文件，生成一个解析器 说明语法： -编写.y语法文件 -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。 -编写一个函数，使用yyparse()开始解析 -编写错误处理例程 如yaerror() 编译yacc生成的代码以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-17T07:21:17.680Z">
+<meta property="og:updated_time" content="2018-07-17T02:08:32.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yacc简介">
-<meta name="twitter:description" content="Yacc简介Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。它用巴克斯范式（BNF）来书写 步骤 运行yacc处理语法文件，生成一个解析器 说明语法： -编写.y语法文件 -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。 -编写一个函数，使用yyparse()开始解析 -编写错误处理例程 如yaerror() 编译yacc生成">
+<meta name="twitter:description" content="简介Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。它用巴克斯范式（BNF）来书写 步骤 运行yacc处理语法文件，生成一个解析器 说明语法： -编写.y语法文件 -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。 -编写一个函数，使用yyparse()开始解析 -编写错误处理例程 如yaerror() 编译yacc生成的代码以">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -180,7 +180,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Yacc"><a href="#Yacc" class="headerlink" title="Yacc"></a>Yacc</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。<br>它用巴克斯范式（BNF）来书写</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。<br>它用巴克斯范式（BNF）来书写</p>
 <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
 <li>运行yacc处理语法文件，生成一个解析器</li>
 <li>说明语法：<br> -编写.y语法文件<br> -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。<br> -编写一个函数，使用yyparse()开始解析<br> -编写错误处理例程 如yaerror()</li>
@@ -220,15 +220,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C语言</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
@@ -462,15 +462,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C语言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">

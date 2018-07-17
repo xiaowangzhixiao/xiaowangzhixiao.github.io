@@ -152,6 +152,103 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MapReduce" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/17/MapReduce/">MapReduce和Yarn简介</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/17/MapReduce/" class="archive-article-date">
+  	<time datetime="2018-07-17T02:01:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-17</time>
+</a>
+        
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>一个计算框架，用于轻松编写应用程序，以可靠的容错方式在大型群集（数千个节点）的大型商业硬件上并行处理大量数据</p>
+<h3 id="设计理念"><a href="#设计理念" class="headerlink" title="设计理念"></a>设计理念</h3><ul>
+<li>移动计算而不是移动数据</li>
+<li>分布式计算</li>
+</ul>
+        
+          <a class="article-more-a" href="/2018/07/17/MapReduce/#more">more >></a>
+        
+      
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">大数据</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程/大数据//" class="article-tag-list-link color4">大数据</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/17/MapReduce/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-maven打包java工程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -266,7 +363,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+        <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
 <li>高容错性<ul>
 <li>数据自动保存多个副本</li>
 <li>副本丢失后，自动恢复</li>
@@ -383,7 +480,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="LINUX-C-UDP协议"><a href="#LINUX-C-UDP协议" class="headerlink" title="LINUX C UDP协议"></a>LINUX C UDP协议</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>UDP协议是面向无连接的协议，一般用于一些实时性比较强的或正确率要求不高的通信中。</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>UDP协议是面向无连接的协议，一般用于一些实时性比较强的或正确率要求不高的通信中。</p>
 <h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>上一节当中讲了linux下socket TCP编程，有了TCP的基础，UDP就好理解多了。</p>
         
           <a class="article-more-a" href="/2018/03/19/linux-socket-c-udp/#more">more >></a>
@@ -481,7 +578,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Linux-TCP"><a href="#Linux-TCP" class="headerlink" title="Linux TCP"></a>Linux TCP</h1><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h3><h4 id="1-创建socket"><a href="#1-创建socket" class="headerlink" title="1. 创建socket"></a>1. 创建socket</h4><p>linux中，socket被认为是一个文件，使用文件描述符操控，首先定义一个变量用来存储socket的文件描述符：sockfd。使用以下函数创建socket：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sockfd = socket(AF_INET,SOCK_STREAM,<span class="number">0</span>);</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span> <span class="params">(<span class="keyword">int</span> __domain, <span class="keyword">int</span> __type, <span class="keyword">int</span> __protocol)</span></span>;<span class="comment">//返回sockfd</span></span><br></pre></td></tr></table></figure></p>
+        <h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h3><h4 id="1-创建socket"><a href="#1-创建socket" class="headerlink" title="1. 创建socket"></a>1. 创建socket</h4><p>linux中，socket被认为是一个文件，使用文件描述符操控，首先定义一个变量用来存储socket的文件描述符：sockfd。使用以下函数创建socket：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sockfd = socket(AF_INET,SOCK_STREAM,<span class="number">0</span>);</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span> <span class="params">(<span class="keyword">int</span> __domain, <span class="keyword">int</span> __type, <span class="keyword">int</span> __protocol)</span></span>;<span class="comment">//返回sockfd</span></span><br></pre></td></tr></table></figure></p>
 <p>int __domain: 协议域，AF_INET(IPV4)、AF_INET6(IPV6)、AF_LOCAL（或称AF_UNIX，Unix域socket）、AF_ROUTE，协议域决定了socket的ip地址的类型。<br>int __type: 制定SOCKET的类型，有SOCK_STREAM(数据流),SOCK_DGRAM(报文)<br>int __protocol: 指定协议，通常0，使用默认协议，若type为数据流时，默认tcp，报文时默认UDP<br>
         
           <a class="article-more-a" href="/2018/03/17/linux-socket-c-tcp/#more">more >></a>
@@ -579,7 +676,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Yacc"><a href="#Yacc" class="headerlink" title="Yacc"></a>Yacc</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。<br>它用巴克斯范式（BNF）来书写</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。<br>它用巴克斯范式（BNF）来书写</p>
 <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
 <li>运行yacc处理语法文件，生成一个解析器</li>
 <li>说明语法：<br> -编写.y语法文件<br> -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。<br> -编写一个函数，使用yyparse()开始解析<br> -编写错误处理例程 如yaerror()</li>
@@ -602,15 +699,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C语言</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
@@ -686,7 +783,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Lex"><a href="#Lex" class="headerlink" title="Lex"></a>Lex</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。<br>Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。<br>lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类token，apple就是属于这个类型的一个具体token。对于某个编程语言来说，token的个数是很有限的，不像英语这种自然语言中有几十万个单词。<br>lex工具会帮我们生成一个yylex函数，yacc通过调用这个函数来得知拿到的token是什么类型的，但是token的类型是在yacc中定义的。<br>lex的输入文件一般会被命名成 .l文件，通过lex XX.l 我们得到输出的文件是lex.yy.c</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。<br>Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。<br>lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类token，apple就是属于这个类型的一个具体token。对于某个编程语言来说，token的个数是很有限的，不像英语这种自然语言中有几十万个单词。<br>lex工具会帮我们生成一个yylex函数，yacc通过调用这个函数来得知拿到的token是什么类型的，但是token的类型是在yacc中定义的。<br>lex的输入文件一般会被命名成 .l文件，通过lex XX.l 我们得到输出的文件是lex.yy.c</p>
         
           <a class="article-more-a" href="/2018/03/17/LEX/#more">more >></a>
         
@@ -703,15 +800,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C语言</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
@@ -787,7 +884,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="CentOS-6-5换YUM源"><a href="#CentOS-6-5换YUM源" class="headerlink" title="CentOS 6.5换YUM源"></a>CentOS 6.5换YUM源</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。</p>
 <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>访问<a href="https://lug.ustc.edu.cn/wiki/mirrors/help/centos" target="_blank" rel="noopener">Centos镜像使用帮助</a>查看其中介绍</p>
 <p>1.首先备份CentOS-Base.repo <code>mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</code><br>2.下载相应版本的CentOS-Base.repo, 放入/etc/yum.repos.d/<br>3.运行<code>yum makecache</code>生成缓存</p>
 
@@ -1124,15 +1221,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C语言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">

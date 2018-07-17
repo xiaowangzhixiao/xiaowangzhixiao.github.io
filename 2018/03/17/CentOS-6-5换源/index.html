@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://xiaowangzhixiao.github.io">
   <title>CentOS 6.5换源 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="CentOS 6.5换YUM源简介身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。 步骤访问Centos镜像使用帮助查看其中介绍 1.首先备份CentOS-Base.repo mv /etc/yum.repos.d/CentOS-Base.repo /et">
+  <meta name="description" content="简介身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。 步骤访问Centos镜像使用帮助查看其中介绍 1.首先备份CentOS-Base.repo mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/C">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS 6.5换源">
 <meta property="og:url" content="http://xiaowangzhixiao.github.io/2018/03/17/CentOS-6-5换源/index.html">
 <meta property="og:site_name" content="东拉西扯">
-<meta property="og:description" content="CentOS 6.5换YUM源简介身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。 步骤访问Centos镜像使用帮助查看其中介绍 1.首先备份CentOS-Base.repo mv /etc/yum.repos.d/CentOS-Base.repo /et">
+<meta property="og:description" content="简介身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。 步骤访问Centos镜像使用帮助查看其中介绍 1.首先备份CentOS-Base.repo mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/C">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-22T13:56:39.574Z">
+<meta property="og:updated_time" content="2018-07-17T02:08:17.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 6.5换源">
-<meta name="twitter:description" content="CentOS 6.5换YUM源简介身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。 步骤访问Centos镜像使用帮助查看其中介绍 1.首先备份CentOS-Base.repo mv /etc/yum.repos.d/CentOS-Base.repo /et">
+<meta name="twitter:description" content="简介身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。 步骤访问Centos镜像使用帮助查看其中介绍 1.首先备份CentOS-Base.repo mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/C">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -180,7 +180,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="CentOS-6-5换YUM源"><a href="#CentOS-6-5换YUM源" class="headerlink" title="CentOS 6.5换YUM源"></a>CentOS 6.5换YUM源</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>身处教育网ipv6的环境下，怎么能消耗自己的校内流量来升级安装软件呢，本文介绍给大家将CentOS的yum安装源换为可走ipv6的中科大源，大家有兴趣的话，可用尝试清华源和交大源，据说都不错。</p>
 <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>访问<a href="https://lug.ustc.edu.cn/wiki/mirrors/help/centos" target="_blank" rel="noopener">Centos镜像使用帮助</a>查看其中介绍</p>
 <p>1.首先备份CentOS-Base.repo <code>mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</code><br>2.下载相应版本的CentOS-Base.repo, 放入/etc/yum.repos.d/<br>3.运行<code>yum makecache</code>生成缓存</p>
 
@@ -431,15 +431,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C语言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">

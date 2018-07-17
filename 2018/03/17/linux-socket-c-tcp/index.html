@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://xiaowangzhixiao.github.io">
   <title>linux下C语言socket tcp通信 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux TCP流程服务器端1. 创建socketlinux中，socket被认为是一个文件，使用文件描述符操控，首先定义一个变量用来存储socket的文件描述符：sockfd。使用以下函数创建socket：12sockfd = socket(AF_INET,SOCK_STREAM,0);int socket (int __domain, int __type, int __protocol);">
+  <meta name="description" content="流程服务器端1. 创建socketlinux中，socket被认为是一个文件，使用文件描述符操控，首先定义一个变量用来存储socket的文件描述符：sockfd。使用以下函数创建socket：12sockfd = socket(AF_INET,SOCK_STREAM,0);int socket (int __domain, int __type, int __protocol);//返回sockf">
 <meta name="keywords" content="linux,socket">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux下C语言socket tcp通信">
 <meta property="og:url" content="http://xiaowangzhixiao.github.io/2018/03/17/linux-socket-c-tcp/index.html">
 <meta property="og:site_name" content="东拉西扯">
-<meta property="og:description" content="Linux TCP流程服务器端1. 创建socketlinux中，socket被认为是一个文件，使用文件描述符操控，首先定义一个变量用来存储socket的文件描述符：sockfd。使用以下函数创建socket：12sockfd = socket(AF_INET,SOCK_STREAM,0);int socket (int __domain, int __type, int __protocol);">
+<meta property="og:description" content="流程服务器端1. 创建socketlinux中，socket被认为是一个文件，使用文件描述符操控，首先定义一个变量用来存储socket的文件描述符：sockfd。使用以下函数创建socket：12sockfd = socket(AF_INET,SOCK_STREAM,0);int socket (int __domain, int __type, int __protocol);//返回sockf">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-17T07:47:33.616Z">
+<meta property="og:updated_time" content="2018-07-17T02:08:16.950Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下C语言socket tcp通信">
-<meta name="twitter:description" content="Linux TCP流程服务器端1. 创建socketlinux中，socket被认为是一个文件，使用文件描述符操控，首先定义一个变量用来存储socket的文件描述符：sockfd。使用以下函数创建socket：12sockfd = socket(AF_INET,SOCK_STREAM,0);int socket (int __domain, int __type, int __protocol);">
+<meta name="twitter:description" content="流程服务器端1. 创建socketlinux中，socket被认为是一个文件，使用文件描述符操控，首先定义一个变量用来存储socket的文件描述符：sockfd。使用以下函数创建socket：12sockfd = socket(AF_INET,SOCK_STREAM,0);int socket (int __domain, int __type, int __protocol);//返回sockf">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -180,7 +180,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Linux-TCP"><a href="#Linux-TCP" class="headerlink" title="Linux TCP"></a>Linux TCP</h1><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h3><h4 id="1-创建socket"><a href="#1-创建socket" class="headerlink" title="1. 创建socket"></a>1. 创建socket</h4><p>linux中，socket被认为是一个文件，使用文件描述符操控，首先定义一个变量用来存储socket的文件描述符：sockfd。使用以下函数创建socket：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sockfd = socket(AF_INET,SOCK_STREAM,<span class="number">0</span>);</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span> <span class="params">(<span class="keyword">int</span> __domain, <span class="keyword">int</span> __type, <span class="keyword">int</span> __protocol)</span></span>;<span class="comment">//返回sockfd</span></span><br></pre></td></tr></table></figure></p>
+        <h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h3><h4 id="1-创建socket"><a href="#1-创建socket" class="headerlink" title="1. 创建socket"></a>1. 创建socket</h4><p>linux中，socket被认为是一个文件，使用文件描述符操控，首先定义一个变量用来存储socket的文件描述符：sockfd。使用以下函数创建socket：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sockfd = socket(AF_INET,SOCK_STREAM,<span class="number">0</span>);</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span> <span class="params">(<span class="keyword">int</span> __domain, <span class="keyword">int</span> __type, <span class="keyword">int</span> __protocol)</span></span>;<span class="comment">//返回sockfd</span></span><br></pre></td></tr></table></figure></p>
 <p>int __domain: 协议域，AF_INET(IPV4)、AF_INET6(IPV6)、AF_LOCAL（或称AF_UNIX，Unix域socket）、AF_ROUTE，协议域决定了socket的ip地址的类型。<br>int __type: 制定SOCKET的类型，有SOCK_STREAM(数据流),SOCK_DGRAM(报文)<br>int __protocol: 指定协议，通常0，使用默认协议，若type为数据流时，默认tcp，报文时默认UDP<br><a id="more"></a></p>
 <h4 id="2-绑定"><a href="#2-绑定" class="headerlink" title="2. 绑定"></a>2. 绑定</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span> <span class="params">(<span class="keyword">int</span> __fd, <span class="keyword">const</span> struct sockaddr * __addr, <span class="keyword">socklen_t</span> __len)</span></span></span><br></pre></td></tr></table></figure>
 <p>int __fd socket文件描述符<br>const struct sockaddr * __addr ip地址，其结构体有两种形式，一个是ipv4的一个是ipv6的<br>ipv4对应的是：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> &#123;</span></span><br><span class="line">    <span class="keyword">sa_family_t</span>    sin_family; <span class="comment">/* address family: AF_INET */</span></span><br><span class="line">    <span class="keyword">in_port_t</span>      sin_port;   <span class="comment">/* port in network byte order */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span>   <span class="comment">/* internet address */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Internet address. */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span>       s_addr;     <span class="comment">/* address in network byte order */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
@@ -491,15 +491,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C语言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
