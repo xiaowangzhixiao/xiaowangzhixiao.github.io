@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://xiaowangzhixiao.github.io">
-  <title>Category: C语言 | 东拉西扯</title>
+  <title>Spring配置文件浅析 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="东拉西扯">
-<meta property="og:url" content="http://xiaowangzhixiao.github.io/categories/编程/C语言/index.html">
+  <meta name="description" content="Spring配置文件是用于指导Spring工程进行Bean的生产、依赖关系注入及Bean实例分发的“图纸”">
+<meta name="keywords" content="Spring,XML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring配置文件浅析">
+<meta property="og:url" content="http://xiaowangzhixiao.github.io/2018/08/21/Spring配置文件浅析/index.html">
 <meta property="og:site_name" content="东拉西扯">
+<meta property="og:description" content="Spring配置文件是用于指导Spring工程进行Bean的生产、依赖关系注入及Bean实例分发的“图纸”">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-21T11:42:32.519Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="东拉西扯">
+<meta name="twitter:title" content="Spring配置文件浅析">
+<meta name="twitter:description" content="Spring配置文件是用于指导Spring工程进行Bean的生产、依赖关系注入及Bean实例分发的“图纸”">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -150,52 +155,144 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Spring配置文件浅析" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/19/linux-socket-c-udp/" class="archive-article-date">
-  	<time datetime="2018-03-19T14:54:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/19/linux-socket-c-udp/">linux下C语言socket udp通信</a>
+    <h1 class="article-title" itemprop="name">
+      Spring配置文件浅析
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/08/21/Spring配置文件浅析/" class="archive-article-date">
+  	<time datetime="2018-08-21T11:37:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-21</time>
+</a>
+        
+        
+            <span class="archive-article-date">
+             阅读量 <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Spring配置文件是用于指导Spring工程进行Bean的生产、依赖关系注入及Bean实例分发的“图纸”<br><a id="more"></a></p>
+<h2 id="配置文件实例"><a href="#配置文件实例" class="headerlink" title="配置文件实例"></a>配置文件实例</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--import用于引入其他配置文件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">import</span> <span class="attr">resource</span>=<span class="string">"resource1.xml"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!--bean用于定义bean实例--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"bean1"</span> <span class="attr">class</span>=<span class="string">"xxx1"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"bean2"</span> <span class="attr">class</span>=<span class="string">"xxx2"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hehe"</span> <span class="attr">ref</span>=<span class="string">"bean1"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!--alias用于定义别名--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">alias</span> <span class="attr">alias</span>=<span class="string">"bean3"</span> <span class="attr">name</span>=<span class="string">"bean2"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="容器高层视图"><a href="#容器高层视图" class="headerlink" title="容器高层视图"></a>容器高层视图</h2><p>Spring启动的基本条件：</p>
+<ul>
+<li>Spring框架依赖</li>
+<li>Bean的配置信息</li>
+<li>Bean的实现类</li>
+</ul>
+<h3 id="Bean的元数据信息"><a href="#Bean的元数据信息" class="headerlink" title="Bean的元数据信息"></a>Bean的元数据信息</h3><ul>
+<li>实现类</li>
+<li>属性信息</li>
+<li>依赖关系</li>
+<li>行为配置</li>
+<li>创建方式—构造器还是工厂方法实例化</li>
+</ul>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>使用xmlns schemas实现命名空间</p>
+<h2 id="xml-schema头配置信息"><a href="#xml-schema头配置信息" class="headerlink" title="xml schema头配置信息"></a>xml schema头配置信息</h2><p>一个标准的Spring xml配置文件头如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span> </span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"bean1"</span> <span class="attr">class</span>=<span class="string">"com.xiaowangzhixiao.helloImp.HelloChina"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其中xmlns后没有任何命名的是默认的命名空间，声明Bean时未使用命名空间时的默认空间<br>xmlns:xsi是标准组织定义标准命名空间，为xml每个命名空间中指定相对应的schema<br>xsi:schemaLocation中为每个命名空间指定schema的url<br>xmlns:hahaha定义了hahaha命名空间<br>在schemaLocation中定义xsd的位置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/tx</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/tx/spring-tx.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/aop</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/aop/spring-aop.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="schema命名空间和schema文件对应关系"><a href="#schema命名空间和schema文件对应关系" class="headerlink" title="schema命名空间和schema文件对应关系"></a>schema命名空间和schema文件对应关系</h3><ul>
+<li>命名空间： <code>http://www.springFramework.org/schema/beans</code></li>
+<li>Schema文件：<code>http://www.springFramework.org/schema/beans/spring-beans.xsd</code><br>schema文件可以加版本号例如spring-beans-5.0.0.xsd</li>
+</ul>
+<h3 id="常用schema"><a href="#常用schema" class="headerlink" title="常用schema"></a>常用schema</h3><ul>
+<li>beans.xsd</li>
+<li>aop</li>
+<li>tx    事务</li>
+<li>mvc</li>
+<li>util  简化标准配置</li>
+<li>jee   EJB，JNDI</li>
+<li>jdbc</li>
+<li>jms   </li>
+<li>lang  集成动态语言</li>
+<li>oxm   配置对象映射到shema</li>
+<li>task  任务调度</li>
+<li>tool  集成Spring有用的工具</li>
+</ul>
+<h2 id="bean"><a href="#bean" class="headerlink" title="bean"></a>bean</h2><h3 id="bean的id"><a href="#bean的id" class="headerlink" title="bean的id"></a>bean的id</h3><p>命名方式</p>
+<ul>
+<li>配置全限定类名，只配置类，唯一</li>
+<li>id</li>
+<li>name</li>
+<li>id和name</li>
+<li>指定多个name 用分号分隔</li>
+<li>指定别名<br>id命名规范</li>
+<li>遵循xml命名规则</li>
+<li>字母数字和下划线组成</li>
+<li>驼峰式</li>
+</ul>
+<h3 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h3><h4 id="构造器实例化"><a href="#构造器实例化" class="headerlink" title="构造器实例化"></a>构造器实例化</h4><ol>
+<li><p>空构造器实例化：</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"bean1"</span> <span class="attr">class</span>=<span class="string">"HelloImpl"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有参数构造器实例化</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"bean1"</span> <span class="attr">class</span>=<span class="string">"HelloImpl"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--指定构造器参数--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">value</span>=<span class="string">"Hello Spring"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="静态工厂实例化"><a href="#静态工厂实例化" class="headerlink" title="静态工厂实例化"></a>静态工厂实例化</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"bean"</span> <span class="attr">class</span>=<span class="string">"HelloFactory"</span> <span class="attr">factory-method</span>=<span class="string">"newInstance"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--指定构造器参数--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">value</span>=<span class="string">"Hello Factory"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="实例工厂实例化"><a href="#实例工厂实例化" class="headerlink" title="实例工厂实例化"></a>实例工厂实例化</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--1. 定义实例工厂Bean--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"helloFactory"</span> <span class="attr">class</span>=<span class="string">"HelloFactory"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"hello"</span> <span class="attr">factory-bean</span>=<span class="string">"beanInstanceFactory"</span> <span class="attr">factory-method</span>=<span class="string">"newInstance"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">value</span>=<span class="string">"Hello Spring"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h3><p>scope，创建的Bean对象相对于其他Bean对象的请求可及范围</p>
+<h4 id="作用域类型与配置"><a href="#作用域类型与配置" class="headerlink" title="作用域类型与配置"></a>作用域类型与配置</h4><ol>
+<li>singleton： <code>&lt;bean id=&quot;userInfo&quot; class=&quot;xxx&quot; scope=&quot;singleton&quot;/&gt;</code> 缺省，每次请求Bean时，返回同一个实例对象</li>
+<li>prototype：<code>&lt;bean id=&quot;userInfo&quot; class=&quot;xxx&quot; scope=&quot;prototype&quot;/&gt;</code>  每次请求Bean时，重新创建一个新Bean，默认情况下，Spring容器在启动时不实例化prototype的Bean</li>
+</ol>
+<p>使用Spring的WebApplicationContext时，可以使用以下几种作用域</p>
+<ol>
+<li>request：针对每次Http请求创建Bean<code>&lt;bean id=&quot;userInfo&quot; class=&quot;xxx&quot; scope=&quot;request&quot;/&gt;</code> </li>
+<li>session：Http Session <code>&lt;bean id=&quot;userInfo&quot; class=&quot;xxx&quot; scope=&quot;session&quot;/&gt;</code> </li>
+<li>global session</li>
+</ol>
+<p>在使用Web应用环境相关的作用域时，必须在Web容器中进行一些额外的配置</p>
+<ul>
+<li><p>低版本的Web容器配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>requestContestFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.RequestContextFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>requestContestFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>高版本的Web容器配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">listener-class</span>&gt;</span></span><br><span class="line">org.springframework.web.context.request.RequestContextListener</span><br><span class="line"><span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="自定义作用域"><a href="#自定义作用域" class="headerlink" title="自定义作用域"></a>自定义作用域</h4><ul>
+<li><p>实现自定义Scope类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.beans.factory.config.Scope</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注册自定义类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ConfigutableBeanFactory.registerScope(String scopename,Scope scope);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用Scope类</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">XML</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -205,81 +302,120 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/编程/C语言//" class="article-tag-list-link color4">C语言</a>
+        			<a href="/categories/编程/java//" class="article-tag-list-link color5">java</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://xiaowangzhixiao.github.io/2018/08/21/Spring配置文件浅析/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/17/linux-socket-c-tcp/" class="archive-article-date">
-  	<time datetime="2018-03-17T06:58:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/简化Spring-XML配置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          简化Spring XML配置
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/17/MapReduce/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MapReduce和Yarn简介</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/17/linux-socket-c-tcp/">linux下C语言socket tcp通信</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程/C语言//" class="article-tag-list-link color4">C语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -310,10 +446,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
