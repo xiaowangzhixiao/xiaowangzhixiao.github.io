@@ -152,6 +152,182 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Java虚拟机运行时内存模型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/30/Java虚拟机运行时内存模型/">Java虚拟机运行时内存模型</a>
+    </h1>
+  
+
+        
+        <a href="/2018/09/30/Java虚拟机运行时内存模型/" class="archive-article-date">
+  	<time datetime="2018-09-30T14:52:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-30</time>
+</a>
+        
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <html><br><head><br><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><br><meta content="text/html; charset=utf-8" http-equiv="Content-Type"><br><meta content="text/css" http-equiv="Content-Style-Type"><br><title>java虚拟机运行时内存</title><br></head><br><body><br><h1 align="center" class="root"><br><a name="407os5qi6nrv7kpt5n6emn3j0s">java虚拟机运行时内存</a><br></h1><br><div align="center" class="globalOverview"><br><img src="/img/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98.png"></div><br><h2 class="topic"><br><a name="6jb9bh6jbo3e9vnt37gtre3n7e">程序计数器</a><br></h2><br><h2 class="topic"><br><a name="1nfkogcbgifho8451cssouolj1">虚拟机栈</a><br></h2><br><div class="overview"><br><img src="/img/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88 2.jpg"></div><br><h3 class="topic"><br><a name="7v8phq556po1su30es98oif8s0">&nbsp;局部变量表</a><br></h3><br><h3 class="topic"><br><a name="4troi8h8248rkc5shkf2mtce74">&nbsp;操作数栈</a><br></h3><br><h3 class="topic"><br><a name="3auelu6qun19c2ij7vepbpfqid">&nbsp;动态链接</a><br></h3><br><h3 class="topic"><br><a name="6r3h8gi9b526pshdkvakknsfm9">&nbsp;方法出口</a><br></h3><br><h2 class="topic"><br><a name="7jf17jn05v8crp092tnhif1g85">本地方法栈</a><br></h2><br><h2 class="topic"><br><a name="7o7ktgujjooqd8m6pkc3anet3g">Java堆</a><br></h2><br><div class="overview"><br><img src="/img/Java%E5%A0%86 2.jpg"></div><br><h3 class="topic"><br><a name="396fhu2q4pig7ehmca8hd1eld0">&nbsp;新生代</a><br></h3><br><div class="overview"><br><img src="/img/%E6%96%B0%E7%94%9F%E4%BB%A3 2.jpg"></div><br><h3 class="topic"><br><a name="1e8oe6nkjm8j5le9vre2ie7kf0">&nbsp;&nbsp;Eden</a><br></h3><br><h3 class="topic"><br><a name="0hlgqru77v8h79epuntouu949a">&nbsp;&nbsp;From Survivor</a><br></h3><br><h3 class="topic"><br><a name="3c9b3o82heuls4pgilvr68038s">&nbsp;&nbsp;To Survivor</a><br></h3><br><h3 class="topic"><br><a name="14ahpn4ts5tl21at550qbvtqbf">&nbsp;老年代</a><br></h3><br><h3 class="topic"><br><a name="6la97h8tdgtn1tt76vld5d4k5r">&nbsp;线程私有分配缓冲区TLAB</a><br></h3><br><h2 class="topic"><br><a name="7md98oqslraoairt3sru65bpf2">方法区</a><br></h2><br><div class="overview"><br><img src="/img/%E6%96%B9%E6%B3%95%E5%8C%BA 2.jpg"></div><br><h3 class="topic"><br><a name="34d572fiff1i0mrqprepkm1ot8">&nbsp;类信息</a><br></h3><br><h3 class="topic"><br><a name="7j9hr9hpbbo7tc8mpf0vulslp7">&nbsp;常量</a><br></h3><br><h3 class="topic"><br><a name="1qmpr86ukis1ldh39f98llj1i8">&nbsp;静态变量</a><br></h3><br><h3 class="topic"><br><a name="2kedhq37oincbad5fsfqj82b5l">&nbsp;即时编译器编译后的代码</a><br></h3><br><h3 class="topic"><br><a name="6j1h6ahc13oqpp5akm8dnqtb01">&nbsp;运行时常量池</a><br></h3><br></body><br></html>
+
+
+      
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/09/30/Java虚拟机运行时内存模型/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/29/hello-world/">Hello World</a>
+    </h1>
+  
+
+        
+        <a href="/2018/09/29/hello-world/" class="archive-article-date">
+  	<time datetime="2018-09-29T11:24:16.933Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-29</time>
+</a>
+        
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂项//" class="article-tag-list-link color3">杂项</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/09/29/hello-world/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Spring表达式语言SpEL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -955,214 +1131,6 @@
 
 
   
-    <article id="post-yacc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/17/yacc/">yacc简介</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/17/yacc/" class="archive-article-date">
-  	<time datetime="2018-03-17T06:29:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
-</a>
-        
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。<br>它用巴克斯范式（BNF）来书写</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
-<li>运行yacc处理语法文件，生成一个解析器</li>
-<li>说明语法：<br> -编写.y语法文件<br> -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。<br> -编写一个函数，使用yyparse()开始解析<br> -编写错误处理例程 如yaerror()</li>
-<li>编译yacc生成的代码以及其他相关源文件</li>
-<li>将目标文件链接到适当的可执行解析器库</li>
-</ol>
-        
-          <a class="article-more-a" href="/2018/03/17/yacc/#more">more >></a>
-        
-      
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程/编译原理//" class="article-tag-list-link color5">编译原理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/17/yacc/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LEX" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/17/LEX/">LEX简介</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/17/LEX/" class="archive-article-date">
-  	<time datetime="2018-03-17T05:45:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
-</a>
-        
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。<br>Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。<br>lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类token，apple就是属于这个类型的一个具体token。对于某个编程语言来说，token的个数是很有限的，不像英语这种自然语言中有几十万个单词。<br>lex工具会帮我们生成一个yylex函数，yacc通过调用这个函数来得知拿到的token是什么类型的，但是token的类型是在yacc中定义的。<br>lex的输入文件一般会被命名成 .l文件，通过lex XX.l 我们得到输出的文件是lex.yy.c</p>
-        
-          <a class="article-more-a" href="/2018/03/17/LEX/#more">more >></a>
-        
-      
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程/编译原理//" class="article-tag-list-link color5">编译原理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/17/LEX/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1264,23 +1232,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C语言</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">XML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1292,11 +1256,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">XML</a>
+                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C语言</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
             
             <div class="clearfix"></div>
