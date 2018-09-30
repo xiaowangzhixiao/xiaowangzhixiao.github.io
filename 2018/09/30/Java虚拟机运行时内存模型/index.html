@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://xiaowangzhixiao.github.io">
   <title>Java虚拟机运行时内存模型 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="java虚拟机运行时内存java虚拟机运行时内存程序计数器虚拟机栈&amp;nbsp;局部变量表&amp;nbsp;操作数栈&amp;nbsp;动态链接&amp;nbsp;方法出口本地方法栈Java堆&amp;nbsp;新生代&amp;nbsp;&amp;nbsp;Eden&amp;nbsp;&amp;nbsp;From Survivor&amp;nbsp;&amp;nbsp;To Survivor&amp;nbsp;老年代&amp;nbsp;线程私有分配缓冲区TLAB方法区&amp;nbsp;类信息&amp;nb">
+  <meta name="description" content="java虚拟机运行时内存">
 <meta name="keywords" content="JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java虚拟机运行时内存模型">
 <meta property="og:url" content="http://xiaowangzhixiao.github.io/2018/09/30/Java虚拟机运行时内存模型/index.html">
 <meta property="og:site_name" content="东拉西扯">
-<meta property="og:description" content="java虚拟机运行时内存java虚拟机运行时内存程序计数器虚拟机栈&amp;nbsp;局部变量表&amp;nbsp;操作数栈&amp;nbsp;动态链接&amp;nbsp;方法出口本地方法栈Java堆&amp;nbsp;新生代&amp;nbsp;&amp;nbsp;Eden&amp;nbsp;&amp;nbsp;From Survivor&amp;nbsp;&amp;nbsp;To Survivor&amp;nbsp;老年代&amp;nbsp;线程私有分配缓冲区TLAB方法区&amp;nbsp;类信息&amp;nb">
+<meta property="og:description" content="java虚拟机运行时内存">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://xiaowangzhixiao.github.io/img/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98.png">
 <meta property="og:image" content="http://xiaowangzhixiao.github.io/img/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%202.jpg">
 <meta property="og:image" content="http://xiaowangzhixiao.github.io/img/Java%E5%A0%86%202.jpg">
 <meta property="og:image" content="http://xiaowangzhixiao.github.io/img/%E6%96%B0%E7%94%9F%E4%BB%A3%202.jpg">
 <meta property="og:image" content="http://xiaowangzhixiao.github.io/img/%E6%96%B9%E6%B3%95%E5%8C%BA%202.jpg">
-<meta property="og:updated_time" content="2018-09-30T14:53:04.640Z">
+<meta property="og:updated_time" content="2018-09-30T15:14:11.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机运行时内存模型">
-<meta name="twitter:description" content="java虚拟机运行时内存java虚拟机运行时内存程序计数器虚拟机栈&amp;nbsp;局部变量表&amp;nbsp;操作数栈&amp;nbsp;动态链接&amp;nbsp;方法出口本地方法栈Java堆&amp;nbsp;新生代&amp;nbsp;&amp;nbsp;Eden&amp;nbsp;&amp;nbsp;From Survivor&amp;nbsp;&amp;nbsp;To Survivor&amp;nbsp;老年代&amp;nbsp;线程私有分配缓冲区TLAB方法区&amp;nbsp;类信息&amp;nb">
+<meta name="twitter:description" content="java虚拟机运行时内存">
 <meta name="twitter:image" content="http://xiaowangzhixiao.github.io/img/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98.png">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
@@ -186,8 +186,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <html><br><head><br><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><br><meta content="text/html; charset=utf-8" http-equiv="Content-Type"><br><meta content="text/css" http-equiv="Content-Style-Type"><br><title>java虚拟机运行时内存</title><br></head><br><body><br><h1 align="center" class="root"><br><a name="407os5qi6nrv7kpt5n6emn3j0s">java虚拟机运行时内存</a><br></h1><br><div align="center" class="globalOverview"><br><img src="/img/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98.png"></div><br><h2 class="topic"><br><a name="6jb9bh6jbo3e9vnt37gtre3n7e">程序计数器</a><br></h2><br><h2 class="topic"><br><a name="1nfkogcbgifho8451cssouolj1">虚拟机栈</a><br></h2><br><div class="overview"><br><img src="/img/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88 2.jpg"></div><br><h3 class="topic"><br><a name="7v8phq556po1su30es98oif8s0">&nbsp;局部变量表</a><br></h3><br><h3 class="topic"><br><a name="4troi8h8248rkc5shkf2mtce74">&nbsp;操作数栈</a><br></h3><br><h3 class="topic"><br><a name="3auelu6qun19c2ij7vepbpfqid">&nbsp;动态链接</a><br></h3><br><h3 class="topic"><br><a name="6r3h8gi9b526pshdkvakknsfm9">&nbsp;方法出口</a><br></h3><br><h2 class="topic"><br><a name="7jf17jn05v8crp092tnhif1g85">本地方法栈</a><br></h2><br><h2 class="topic"><br><a name="7o7ktgujjooqd8m6pkc3anet3g">Java堆</a><br></h2><br><div class="overview"><br><img src="/img/Java%E5%A0%86 2.jpg"></div><br><h3 class="topic"><br><a name="396fhu2q4pig7ehmca8hd1eld0">&nbsp;新生代</a><br></h3><br><div class="overview"><br><img src="/img/%E6%96%B0%E7%94%9F%E4%BB%A3 2.jpg"></div><br><h3 class="topic"><br><a name="1e8oe6nkjm8j5le9vre2ie7kf0">&nbsp;&nbsp;Eden</a><br></h3><br><h3 class="topic"><br><a name="0hlgqru77v8h79epuntouu949a">&nbsp;&nbsp;From Survivor</a><br></h3><br><h3 class="topic"><br><a name="3c9b3o82heuls4pgilvr68038s">&nbsp;&nbsp;To Survivor</a><br></h3><br><h3 class="topic"><br><a name="14ahpn4ts5tl21at550qbvtqbf">&nbsp;老年代</a><br></h3><br><h3 class="topic"><br><a name="6la97h8tdgtn1tt76vld5d4k5r">&nbsp;线程私有分配缓冲区TLAB</a><br></h3><br><h2 class="topic"><br><a name="7md98oqslraoairt3sru65bpf2">方法区</a><br></h2><br><div class="overview"><br><img src="/img/%E6%96%B9%E6%B3%95%E5%8C%BA 2.jpg"></div><br><h3 class="topic"><br><a name="34d572fiff1i0mrqprepkm1ot8">&nbsp;类信息</a><br></h3><br><h3 class="topic"><br><a name="7j9hr9hpbbo7tc8mpf0vulslp7">&nbsp;常量</a><br></h3><br><h3 class="topic"><br><a name="1qmpr86ukis1ldh39f98llj1i8">&nbsp;静态变量</a><br></h3><br><h3 class="topic"><br><a name="2kedhq37oincbad5fsfqj82b5l">&nbsp;即时编译器编译后的代码</a><br></h3><br><h3 class="topic"><br><a name="6j1h6ahc13oqpp5akm8dnqtb01">&nbsp;运行时常量池</a><br></h3><br></body><br></html>
-
+        <p><body></body></p>
+<p></p><h1 align="center" class="root"><br><a name="407os5qi6nrv7kpt5n6emn3j0s">java虚拟机运行时内存</a><br></h1><p></p>
+<p><div align="center" class="globalOverview"><br><img src="/img/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98.png"></div><br><a id="more"></a></p>
+<p></p><h2 class="topic"><br><a name="6jb9bh6jbo3e9vnt37gtre3n7e">程序计数器</a><br></h2><p></p>
+<p></p><h2 class="topic"><br><a name="1nfkogcbgifho8451cssouolj1">虚拟机栈</a><br></h2><p></p>
+<p><div class="overview"><br><img src="/img/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88 2.jpg"></div></p>
+<p></p><h3 class="topic"><br><a name="7v8phq556po1su30es98oif8s0">&nbsp;局部变量表</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="4troi8h8248rkc5shkf2mtce74">&nbsp;操作数栈</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="3auelu6qun19c2ij7vepbpfqid">&nbsp;动态链接</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="6r3h8gi9b526pshdkvakknsfm9">&nbsp;方法出口</a><br></h3><p></p>
+<p></p><h2 class="topic"><br><a name="7jf17jn05v8crp092tnhif1g85">本地方法栈</a><br></h2><p></p>
+<p></p><h2 class="topic"><br><a name="7o7ktgujjooqd8m6pkc3anet3g">Java堆</a><br></h2><p></p>
+<p><div class="overview"><br><img src="/img/Java%E5%A0%86 2.jpg"></div></p>
+<p></p><h3 class="topic"><br><a name="396fhu2q4pig7ehmca8hd1eld0">&nbsp;新生代</a><br></h3><p></p>
+<p><div class="overview"><br><img src="/img/%E6%96%B0%E7%94%9F%E4%BB%A3 2.jpg"></div></p>
+<p></p><h3 class="topic"><br><a name="1e8oe6nkjm8j5le9vre2ie7kf0">&nbsp;&nbsp;Eden</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="0hlgqru77v8h79epuntouu949a">&nbsp;&nbsp;From Survivor</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="3c9b3o82heuls4pgilvr68038s">&nbsp;&nbsp;To Survivor</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="14ahpn4ts5tl21at550qbvtqbf">&nbsp;老年代</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="6la97h8tdgtn1tt76vld5d4k5r">&nbsp;线程私有分配缓冲区TLAB</a><br></h3><p></p>
+<p></p><h2 class="topic"><br><a name="7md98oqslraoairt3sru65bpf2">方法区</a><br></h2><p></p>
+<p><div class="overview"><br><img src="/img/%E6%96%B9%E6%B3%95%E5%8C%BA 2.jpg"></div></p>
+<p></p><h3 class="topic"><br><a name="34d572fiff1i0mrqprepkm1ot8">&nbsp;类信息</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="7j9hr9hpbbo7tc8mpf0vulslp7">&nbsp;常量</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="1qmpr86ukis1ldh39f98llj1i8">&nbsp;静态变量</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="2kedhq37oincbad5fsfqj82b5l">&nbsp;即时编译器编译后的代码</a><br></h3><p></p>
+<p></p><h3 class="topic"><br><a name="6j1h6ahc13oqpp5akm8dnqtb01">&nbsp;运行时常量池</a><br></h3><br><br><p></p>
 
       
 
@@ -419,6 +444,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C语言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -443,19 +480,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C语言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">socket</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
             
             <div class="clearfix"></div>
