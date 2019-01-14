@@ -9,7 +9,7 @@
   <title>LEX简介 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="简介Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类token">
-<meta name="keywords" content="编译原理,C语言,linux">
+<meta name="keywords" content="linux,编译原理,C语言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LEX简介">
 <meta property="og:url" content="https://xiaowangzhixiao.github.io/2018/03/17/LEX/index.html">
@@ -175,9 +175,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="简介">简介</span></h2><p>Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。<br>Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。<br>lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类token，apple就是属于这个类型的一个具体token。对于某个编程语言来说，token的个数是很有限的，不像英语这种自然语言中有几十万个单词。<br>lex工具会帮我们生成一个yylex函数，yacc通过调用这个函数来得知拿到的token是什么类型的，但是token的类型是在yacc中定义的。<br>lex的输入文件一般会被命名成 .l文件，通过lex XX.l 我们得到输出的文件是lex.yy.c</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Lex代表Lexical Analyzar，是一种生成扫描器的工具，可以识别文本中的词汇模式。<br>Lex与C是强耦合的，一个.l文件通过公用的LEX程序来传递，并生成c的输出文件。这些文件被编译为词法分析器的可执行版本。<br>lex把每个扫描出来的单词叫统统叫做token，token可以有很多类。对比自然语言的话，英语中的每个单词都是token，token有很多类，比如non(名词)就是一个类token，apple就是属于这个类型的一个具体token。对于某个编程语言来说，token的个数是很有限的，不像英语这种自然语言中有几十万个单词。<br>lex工具会帮我们生成一个yylex函数，yacc通过调用这个函数来得知拿到的token是什么类型的，但是token的类型是在yacc中定义的。<br>lex的输入文件一般会被命名成 .l文件，通过lex XX.l 我们得到输出的文件是lex.yy.c</p>
 <a id="more"></a>
-<h2><span id="常规表达式正则表达式re">常规表达式，正则表达式，re</span></h2><h3><span id="用-lex-定义常规表达式">用 Lex 定义常规表达式</span></h3><div class="table-container">
+<h2 id="常规表达式，正则表达式，re"><a href="#常规表达式，正则表达式，re" class="headerlink" title="常规表达式，正则表达式，re"></a>常规表达式，正则表达式，re</h2><h3 id="用-Lex-定义常规表达式"><a href="#用-Lex-定义常规表达式" class="headerlink" title="用 Lex 定义常规表达式"></a>用 Lex 定义常规表达式</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -250,7 +250,7 @@
 </tbody>
 </table>
 </div>
-<h3><span id="举例">举例</span></h3><div class="table-container">
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -274,9 +274,9 @@
 </tbody>
 </table>
 </div>
-<h3><span id="正则式">正则式</span></h3><p>number [0-9]+</p>
+<h3 id="正则式"><a href="#正则式" class="headerlink" title="正则式"></a>正则式</h3><p>number [0-9]+</p>
 <p>id          [A-Za-z]+[A-Za-z0-9_]*</p>
-<h2><span id="lex编程">Lex编程</span></h2><ol>
+<h2 id="Lex编程"><a href="#Lex编程" class="headerlink" title="Lex编程"></a>Lex编程</h2><ol>
 <li>以Lex可以理解的格式指定模式相关是动作。</li>
 <li>在这一文件上运行Lex，生成扫描器的C代码。</li>
 <li>编译链接C代码生成可执行的扫描器。</li>
@@ -293,8 +293,8 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    yylex(); <span class="comment">//这一函数开始分析。 它由 Lex 自动生成。</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">" No of words: %d\n"</span>, wordCount);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*这一函数在文件（或输入）的末尾调用。 如果函数的返回值是1，就停止解析。</span></span><br><span class="line"><span class="comment"> 因此它可以用来解析多个文件。 代码可以写在第三段，这就能够解析多个文件。</span></span><br><span class="line"><span class="comment"> 方法是使用 yyin 文件指针指向不同的文件，直到所有的文件都被解析。 </span></span><br><span class="line"><span class="comment"> 最后，yywrap() 可以返回 1 来表示解析的结束。*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">yywrap</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2><span id="编译运行">编译运行</span></h2><h3><span id="运行环境">运行环境</span></h3><p>ubuntu15.10<br>lex/flex 本机预安装了flex，使用lex命令和flex命令相同<br>gcc</p>
-<h3><span id="编译">编译</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lex file.l                      #生成lex.yy.c</span><br><span class="line">gcc lex.yy.c -o yourname -ll    #编译生成可执行程序 -ll 用来链接lex库</span><br><span class="line">./youname &lt; xxx.c               #运行程序，将输入流重定向为要分析的文件</span><br></pre></td></tr></table></figure>
+<h2 id="编译运行"><a href="#编译运行" class="headerlink" title="编译运行"></a>编译运行</h2><h3 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h3><p>ubuntu15.10<br>lex/flex 本机预安装了flex，使用lex命令和flex命令相同<br>gcc</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lex file.l                      #生成lex.yy.c</span><br><span class="line">gcc lex.yy.c -o yourname -ll    #编译生成可执行程序 -ll 用来链接lex库</span><br><span class="line">./youname &lt; xxx.c               #运行程序，将输入流重定向为要分析的文件</span><br></pre></td></tr></table></figure>
 
       
 
@@ -308,15 +308,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C语言</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
@@ -553,6 +553,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
               </li>
              
@@ -561,23 +565,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -585,7 +573,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">XML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -175,10 +175,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="简介">简介</span></h2><p>UDP协议是面向无连接的协议，一般用于一些实时性比较强的或正确率要求不高的通信中。</p>
-<h2><span id="流程">流程</span></h2><p>上一节当中讲了linux下socket TCP编程，有了TCP的基础，UDP就好理解多了。</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>UDP协议是面向无连接的协议，一般用于一些实时性比较强的或正确率要求不高的通信中。</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>上一节当中讲了linux下socket TCP编程，有了TCP的基础，UDP就好理解多了。</p>
 <a id="more"></a>
-<h3><span id="接收端">接收端</span></h3><ol>
+<h3 id="接收端"><a href="#接收端" class="headerlink" title="接收端"></a>接收端</h3><ol>
 <li>创建socket</li>
 <li>绑定ip和端口</li>
 <li><p>等待接收 使用recvfrom函数</p>
@@ -187,7 +187,7 @@
 <li><p>close(fd) 关闭SOCKET</p>
 </li>
 </ol>
-<h3><span id="发送端">发送端</span></h3><ol>
+<h3 id="发送端"><a href="#发送端" class="headerlink" title="发送端"></a>发送端</h3><ol>
 <li>创建socket</li>
 <li><p>发送使用sendto()函数</p>
  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Send N bytes of BUF on socket FD to peer at address ADDR (which is</span></span><br><span class="line"><span class="comment">   ADDR_LEN bytes long).  Returns the number sent, or -1 for errors.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   This function is a cancellation point and therefore not marked with</span></span><br><span class="line"><span class="comment">   __THROW.  */</span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> ssize_t <span class="title">sendto</span> <span class="params">(<span class="keyword">int</span> __fd, <span class="keyword">const</span> <span class="keyword">void</span> *__buf, <span class="keyword">size_t</span> __n,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">int</span> __flags, __CONST_SOCKADDR_ARG __addr,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">socklen_t</span> __addr_len)</span></span>;</span><br></pre></td></tr></table></figure>
@@ -449,6 +449,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
               </li>
              
@@ -457,23 +461,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -481,7 +469,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">XML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
               </li>
              
               <li class="article-tag-list-item">
