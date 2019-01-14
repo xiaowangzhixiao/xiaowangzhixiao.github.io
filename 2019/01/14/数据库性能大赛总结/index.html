@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://xiaowangzhixiao.github.io">
   <title>数据库性能大赛总结 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎">
+  <meta name="description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
 <meta name="keywords" content="数据库,c++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库性能大赛总结">
 <meta property="og:url" content="http://xiaowangzhixiao.github.io/2019/01/14/数据库性能大赛总结/index.html">
 <meta property="og:site_name" content="东拉西扯">
-<meta property="og:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎">
+<meta property="og:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-14T10:27:23.863Z">
+<meta property="og:updated_time" content="2019-01-14T12:50:33.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库性能大赛总结">
-<meta name="twitter:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎">
+<meta name="twitter:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -175,7 +175,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>阿里数据库性能大赛总结<br>PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎</p>
+        <p>阿里数据库性能大赛总结<br>PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎<br>本次比赛是我和章润学长使用C++共同完成的，<a href="https://github.com/xiaowangzhixiao/polardb" target="_blank" rel="noopener">代码地址</a></p>
 <a id="more"></a>
 <!-- toc -->
 <ul>
@@ -215,11 +215,28 @@
 </ul>
 </li>
 <li><a href="#3-全序遍历结构设计">3. 全序遍历结构设计</a></li>
-<li><a href="#4-kv数据库流程说明">4. kv数据库流程说明</a></li>
+<li><a href="#4-kv数据库流程说明">4. kv数据库流程说明</a><ul>
+<li><a href="#写入流程">写入流程</a></li>
+<li><a href="#读取流程">读取流程</a></li>
+<li><a href="#恢复流程">恢复流程</a></li>
+<li><a href="#全序遍历流程">全序遍历流程</a></li>
 </ul>
 </li>
-<li><a href="#比赛过程及技术与框架的变更">比赛过程及技术与框架的变更</a></li>
-<li><a href="#不足与改进">不足与改进</a></li>
+</ul>
+</li>
+<li><a href="#比赛过程及技术与框架的变更">比赛过程及技术与框架的变更</a><ul>
+<li><a href="#1-初赛skiplist动态索引">1. 初赛：skiplist动态索引</a></li>
+<li><a href="#2-初赛hashtable动态索引">2. 初赛：hashtable动态索引</a></li>
+<li><a href="#4-复赛direct-io读取value">4. 复赛：direct io读取value</a></li>
+<li><a href="#5-复赛预读线程改为单线程">5. 复赛：预读线程改为单线程</a></li>
+</ul>
+</li>
+<li><a href="#不足与改进">不足与改进</a><ul>
+<li><a href="#1-写入value">1. 写入value</a></li>
+<li><a href="#2-读取value">2. 读取value</a></li>
+<li><a href="#3-通用化">3. 通用化</a></li>
+</ul>
+</li>
 </ul>
 <!-- tocstop -->
 <h1><span id="赛题规则">赛题规则</span></h1><h2><span id="1-赛题背景">1. 赛题背景</span></h2><p>PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎</p>
@@ -258,9 +275,7 @@
 <p><strong>3.参赛引擎只需保证进程意外退出时数据持久化不丢失即可，不要求保证在系统crash时的数据持久化不丢失</strong></p>
 <p><strong>4. 整个评测会有时间限制（具体时限待公布），超时后评测结束且对应提交无结果</strong></p>
 <h3><span id="27-排名规则">2.7 排名规则</span></h3><p>略</p>
-<h3><span id="28-资源限制">2.8 资源限制</span></h3><p>内存占用不得超过：2G（C++), 3G(JAVA)</p>
-<p>磁盘占用不得超过：320G</p>
-<p>不使用压缩库</p>
+<h3><span id="28-资源限制">2.8 资源限制</span></h3><p>内存占用不得超过：2G（C++), 3G(JAVA)<br>磁盘占用不得超过：320G<br>不使用压缩库</p>
 <h3><span id="29-作弊说明">2.9 作弊说明</span></h3><ol>
 <li><p>不得使用第三方kv引擎库（如RocksDB、LevelDB、LMDB等），在其之上封装接口用来参赛</p>
 </li>
@@ -301,7 +316,10 @@
 <h2><span id="2-细节技术问题">2. 细节技术问题</span></h2><h3><span id="数据转换">数据转换</span></h3><p>程序输入的key是字符串的形式，由于长度不变，可以使用uint64表示，我使用了union转换了数据：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> Str2Uint &#123;</span><br><span class="line">    <span class="keyword">char</span> data[<span class="number">8</span>];</span><br><span class="line">    <span class="keyword">uint64_t</span> key;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">uint64_t</span> chang2Uint(<span class="keyword">const</span> PolarString &amp;key) &#123;</span><br><span class="line">    <span class="keyword">union</span> Str2Uint data;</span><br><span class="line">    <span class="keyword">size_t</span> size = key.size();</span><br><span class="line">    <span class="comment">// 可以使用memcpy</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; size) &#123;</span><br><span class="line">            data.data[i] = key[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            data.data[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> data.key;</span><br><span class="line">&#125;</span><br><span class="line">注意，linux系统下数据是小端存储，要使用key进行比较时，需要使用函数bswap_64转换一下，或者在复制时手动将顺序反过来。</span><br></pre></td></tr></table></figure></p>
 <h3><span id="metalog">MetaLog</span></h3><ul>
 <li>MetaLog中内存部分的table使用的数据结构和算法在比赛过程中经过了几次的变化，这个在之后有详细的介绍；</li>
-<li>MetaLog写文件的部分，由于Meta数据每次是16B写入的，文件IO大块数据写入速度较快，则创建文件是使用fallocate预分配大小，并配置为mmap，使用原子变量offset维护偏移量，不使用锁机制，没有锁的开销，充分使用pagecache，加快写入速度。读取时使用direct io或mmap均可，具体使用哪种技术随着table的数据结构在变化。<h3><span id="valuelog">ValueLog</span></h3>ValueLog文件读写同样使用原子变量offset维护文件的偏移量，使用pwrite和pread解决多线程问题读取文件时的并发问题。<br>4KB的value写文件使用了direct io，跳过用户态和pagecache的复制，直接将数据写入磁盘，由于最后阶段一直在优化其他部分，读阶段value没有使用direct io，现在想想，尝试一下可能成绩会更好。<h2><span id="3-全序遍历结构设计">3. 全序遍历结构设计</span></h2></li>
+<li>MetaLog写文件的部分，由于Meta数据每次是16B写入的，文件IO大块数据写入速度较快，则创建文件是使用fallocate预分配大小，并配置为mmap，使用原子变量offset维护偏移量，不使用锁机制，没有锁的开销，充分使用pagecache，加快写入速度。读取时使用direct io或mmap均可，具体使用哪种技术随着table的数据结构在变化。<h3><span id="valuelog">ValueLog</span></h3></li>
+<li>ValueLog文件读写同样使用原子变量offset维护文件的偏移量，使用pwrite和pread解决多线程问题读取文件时的并发问题；</li>
+<li>写入文件阶段利用系统的pagecache聚合，自己指定策略使用fsync刷盘；</li>
+<li>顺序读取时，分片value读文件使用direct io，跳过用户态和pagecache的复制，直接将数据从磁盘读出，由于最后阶段一直在优化其他部分，读阶段value没有使用direct io，现在想想，尝试一下可能成绩会更好。<h2><span id="3-全序遍历结构设计">3. 全序遍历结构设计</span></h2></li>
 <li>整个数据使用高位分片，测评程序要求64个线程全序遍历，那么最好是将64个线程齐头并进，所有线程可以共享同一个分片的value数据。</li>
 <li>根据比赛要求的内存，可以将2-3个分片中的value数据全部读取到内存中，形成了一个滑动窗口的模型，启动一个预读线程，监控当前正在读的分片64个线程读取情况，当64个线程全部读完当前分片i，预读分片就释放分片i的value数据空间，并读取i+2的数据，当然，这个在一开始时要提前读取两个分片，而且要等待所有线程都到达之后再开始读取，否则会有不同步的情况。</li>
 <li>这个模型下并没有强行限制64个线程的齐头并进，完全是由预读线程控制的，换句话说，当遍历速度很快时，齐头并进的效果是由读取速度决定的，当预读线程读取完当前分片，遍历的线程才能开始遍历，当遍历速度较慢或参差不齐时，则64个线程的遍历位置会分布在已经读完成的2个线程里，整体速度取决于最慢的线程，因为只有第i个分片被所有线程读完时，才能进入i+2的预读。<pre class="mermaid">graph LR
@@ -339,8 +357,21 @@
         pi --> pi1
     end</pre>
 
-<h2><span id="4-kv数据库流程说明">4. kv数据库流程说明</span></h2><p>待续</p>
-<h1><span id="比赛过程及技术与框架的变更">比赛过程及技术与框架的变更</span></h1><h1><span id="不足与改进">不足与改进</span></h1>
+<h2><span id="4-kv数据库流程说明">4. kv数据库流程说明</span></h2><h3><span id="写入流程">写入流程</span></h3><ol>
+<li>转换key并获取分片index；</li>
+<li>将value写入ValueLog，获取逻辑地址；</li>
+<li>key与逻辑地址组合为Location，放入MetaLog中，因为写数据和读数据是分开的，所以比赛最终选择了不维护动态索引，在写阶段只使用mmap顺序写入MetaLog文件。<h3><span id="读取流程">读取流程</span></h3></li>
+<li>转换key并获取分片index；</li>
+<li>若是第一次读取该分片，则先将MetaLog文件用mmap映射到内存，使用归并排序，同时重复数据取逻辑地址较大的；</li>
+<li>二分查找取到Location；</li>
+<li>从ValueLog文件中读取value。<h3><span id="恢复流程">恢复流程</span></h3>开64个线程分别负责16个分片中MetaLog数据的归并排序<h3><span id="全序遍历流程">全序遍历流程</span></h3></li>
+<li>第一个线程到来开启预读线程，先读取两个分片的value数据到内存，使用原子变量控制等待所有线程到齐；</li>
+<li>所有线程到齐后，开始顺序遍历分片中的数据，当分片未载入内存时等待；</li>
+<li>预读线程隔一小段时间检测第i个分片是否被64个线程读完，读完就释放第i个分片中value的空间，并加载i+2的value数据，i++。<h1><span id="比赛过程及技术与框架的变更">比赛过程及技术与框架的变更</span></h1><h2><span id="1-初赛skiplist动态索引">1. 初赛：skiplist动态索引</span></h2>在初赛一开始，为了维护动态索引，我学习并实现了skiplist这个数据结构，但是由于其所占空间太大，需要的多余指针较多，内存总是会超出界限。<h2><span id="2-初赛hashtable动态索引">2. 初赛：hashtable动态索引</span></h2>将skiplist换为了hashtable，hash函数是取key的中间几位，这样整个哈希表基本是有序的，为了有序，处理冲突是使用链表的方式，有序插入，这样在查找和遍历方面也能达到很好的平衡，当然这也只是在比赛的环境下，key的分布基本均匀的情况下，在实际生产环境中肯定是不能使用这种hash函数的。这种结构大幅减少了指针所占空间，也没有爆内存，但是由于疏忽，在写value时没做到原子性，初赛一直没有通过，然后就直接改为了静态索引，在写入时没有维护索引，在读取时归并排序整理MetaLog，二分查找。<h2><span id="4-复赛direct-io读取value">4. 复赛：direct io读取value</span></h2>复赛完成了滑动窗口的机制后，整体速度并不快，成绩只是在620s，读取整个分片是正常使用pread，然后学习了使用direct io，在顺序读取时，读取整个分片的value数据使用了direct io，使用之后成绩大幅提升，到达了460s。<h2><span id="5-复赛预读线程改为单线程">5. 复赛：预读线程改为单线程</span></h2>之后对预读线程进行了改进，之前预读线程是64个遍历线程检查条件达到后就启动一个预读线程，为了减小线程开销，就在顺序读取一开始创建了一个预读线程，由一个线程管理数据的释放和预读，这个优化程度并不大，成绩有所抖动，最好一次到达了448s。<h1><span id="不足与改进">不足与改进</span></h1><h2><span id="1-写入value">1. 写入value</span></h2>写入value是使用系统的pagecache进行聚合，然后调用fsync刷盘的，其实可以自己用小文件做数据聚合，然后使用direct io落盘，这样落盘过程控制程度大大加强，效果可能会更好。<h2><span id="2-读取value">2. 读取value</span></h2></li>
+<li>读取value可以使用direct io进行尝试一下，不过不使用direct io，系统会做一定的预读，这两个的性能对于此次比赛的测评程序谁更好也不好说，最好的方式是将系统预读关闭，自己使用direct io，并加入预读机制，这样参数可以调到最佳；</li>
+<li>读取value时可以交个几个线程去负责，这样可以降低64个线程io的竞争。效果可能会更好。<h2><span id="3-通用化">3. 通用化</span></h2>抛开这个比赛，整个系统要到达实用的底部，必然要维护动态索引的，关于一开始尝试的skiplist还可以进一步研究一下。</li>
+</ol>
+
       
 
       
