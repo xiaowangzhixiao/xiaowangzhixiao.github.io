@@ -175,20 +175,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。<br>它用巴克斯范式（BNF）来书写</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+        <h2><span id="简介">简介</span></h2><p>Yacc是一个工具，它将任何一种编程语言的所有语法翻译成针对此钟语言的Yacc语法解析器。<br>它用巴克斯范式（BNF）来书写</p>
+<h2><span id="步骤">步骤</span></h2><ol>
 <li>运行yacc处理语法文件，生成一个解析器</li>
 <li>说明语法：<br> -编写.y语法文件<br> -编写一个词法分析器来处理输入并将标记传递给处解析器。这里可以使用Lex完成。<br> -编写一个函数，使用yyparse()开始解析<br> -编写错误处理例程 如yaerror()</li>
 <li>编译yacc生成的代码以及其他相关源文件</li>
 <li>将目标文件链接到适当的可执行解析器库</li>
 </ol>
 <a id="more"></a>
-<h2 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h2><p>和LEX类似，yacc的程序也分为三段<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declarations</span><br><span class="line">%%</span><br><span class="line">rules</span><br><span class="line">%%</span><br><span class="line">programs</span><br></pre></td></tr></table></figure></p>
-<h3 id="rules"><a href="#rules" class="headerlink" title="rules"></a>rules</h3><p>yacc中最重要的是其中的文法规则，首先来看文法如何书写<br>yacc文法使用BNF巴克斯范式书写<br>如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">result: components &#123; /*</span><br><span class="line">action to be taken in C */ &#125;</span><br><span class="line">    | components</span><br><span class="line">    |...</span><br><span class="line">;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="编写">编写</span></h2><p>和LEX类似，yacc的程序也分为三段<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declarations</span><br><span class="line">%%</span><br><span class="line">rules</span><br><span class="line">%%</span><br><span class="line">programs</span><br></pre></td></tr></table></figure></p>
+<h3><span id="rules">rules</span></h3><p>yacc中最重要的是其中的文法规则，首先来看文法如何书写<br>yacc文法使用BNF巴克斯范式书写<br>如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">result: components &#123; /*</span><br><span class="line">action to be taken in C */ &#125;</span><br><span class="line">    | components</span><br><span class="line">    |...</span><br><span class="line">;</span><br></pre></td></tr></table></figure></p>
 <p>{}中书写识别出该表达式所做的动作<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">param : NAME EQ NAME &#123;</span><br><span class="line">    printf(&quot;\tName:%s\tValue(name):%s\n&quot;, $1,$3);&#125;</span><br><span class="line">    | NAME EQ VALUE&#123;</span><br><span class="line">    printf(&quot;\tName:%s\tValue(value):%s\n&quot;,$1,$3);&#125;</span><br><span class="line">;</span><br></pre></td></tr></table></figure></p>
 <p>其中$n是使用了产生式中第n个标记的值，lexer通过yylval返回值。$$表示规约后的值。</p>
 <p>标记 NAME 的 Lex 代码是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char [A-Za-z]</span><br><span class="line"> name &#123;char&#125;+</span><br><span class="line"> %%</span><br><span class="line"> &#123;name&#125; &#123; yylval = strdup(yytext); //strdup函数是使用malloc函数进行字符串的复制</span><br><span class="line"> return NAME; &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="declarations"><a href="#declarations" class="headerlink" title="declarations"></a>declarations</h3><p>与LEX类似，使用C语言的声明，需要用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%&#123;</span><br><span class="line">   balabala</span><br><span class="line">%&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="declarations">declarations</span></h3><p>与LEX类似，使用C语言的声明，需要用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%&#123;</span><br><span class="line">   balabala</span><br><span class="line">%&#125;</span><br></pre></td></tr></table></figure></p>
 <p>来声明，包括include等等，其中需要定义YYSTYPE，它是内置变量yylval的类型，默认为int，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">%&#123;</span><br><span class="line">    #typedef char* string; /*</span><br><span class="line">    to specify token types as char* */</span><br><span class="line">    #define YYSTYPE string /*</span><br><span class="line">    a Yacc variable which has the value of returned token */</span><br><span class="line">%&#125;</span><br></pre></td></tr></table></figure></p>
 <p>用户经常会希望语义值的类型比较复杂，如双精度浮点数，字符串或树结点的指针．这时就可以用语义值类型定义进行说明。因为不同的语法符号的语义值类型可能不同，所以语义值类型说明就是将语义值的类型定义为一个联合（Union），这个联合包括所有可能用到的类型（各自对应一个成员名），为了使用户不必在存取语义值时每次都指出成员名，在语义值类型定义部分还要求用户说明每一个语法符号（终结符和非终结符）的语义值是哪一个联合成员类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">％ union｛</span><br><span class="line">int ival</span><br><span class="line">double dval</span><br><span class="line">INTERVAL VVal;</span><br><span class="line">｝</span><br><span class="line">％token ＜ival＞ DREG VREG</span><br><span class="line">％token ＜dval＞ CONST</span><br><span class="line">％type ＜dyal＞dexp</span><br><span class="line">％type ＜vval＞vexP</span><br></pre></td></tr></table></figure></p>
 <p>使用%union来定义一个联合类型，作为yylval的类型，当声明TOKEN和非终结符时，在中间加&lt;…&gt;来声明语义值的类型，非终结符不需要声明语义值时，不用刻意声明</p>
@@ -199,8 +199,8 @@
 <p>在表达式中有时要用到一元运算符，而且它可能与某个二元运算符是同一个符号，例如一元运算符负号“-”就与减号’-’相同，显然一元运算符的优先级应该比相应的二元运算符的优先级高。至少应该与*的优先级相同，这可以用yacc的％Prec子句来定义，请看下面的文法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">％token NAME</span><br><span class="line">％left &apos;-&apos;&apos;+’</span><br><span class="line">％left &apos;*&apos;&apos;／&apos;</span><br><span class="line">％％</span><br><span class="line">expr；expr&apos;+&apos; expr</span><br><span class="line">|expr&apos;+&apos; expr</span><br><span class="line">|expr&apos;-’expr</span><br><span class="line">|expr&apos;*&apos; expr</span><br><span class="line">|expr&apos;／’ expr</span><br><span class="line">|&apos;-&apos;expr ％prec&apos;*&apos;</span><br><span class="line">|NAME</span><br><span class="line">;</span><br></pre></td></tr></table></figure></p>
 <p>在上述文法中，为使一元’－’的优先级与*相同，我们使用了子句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">％prec&apos;*&apos;</span><br></pre></td></tr></table></figure></p>
 <p>它说明它所在的语法规则中最右边的运算符或终结符的优先级与％Prec后面的符号的优先级相同，注意％Prec子句必须出现在某语法规则结尾处分号之前，％prec子句并不改变’－’作为二元运算符时的优先级。</p>
-<h3 id="programs"><a href="#programs" class="headerlink" title="programs"></a>programs</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   void main()</span><br><span class="line">   &#123;</span><br><span class="line">       yyparse();</span><br><span class="line">   &#125;</span><br><span class="line">   int yyerror(char* msg)  //用户可以自己实现错误函数</span><br><span class="line">   &#123;</span><br><span class="line">   	printf(&quot;Error: %s</span><br><span class="line">   	encountered \n&quot;, msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/jiary5201314/article/details/8262134" target="_blank" rel="noopener">LEX和YACC的使用</a><br><a href="https://www.ibm.com/developerworks/cn/linux/sdk/lex/" target="_blank" rel="noopener">Yacc 与 Lex 快速入门</a></p>
+<h3><span id="programs">programs</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   void main()</span><br><span class="line">   &#123;</span><br><span class="line">       yyparse();</span><br><span class="line">   &#125;</span><br><span class="line">   int yyerror(char* msg)  //用户可以自己实现错误函数</span><br><span class="line">   &#123;</span><br><span class="line">   	printf(&quot;Error: %s</span><br><span class="line">   	encountered \n&quot;, msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="参考">参考</span></h2><p><a href="http://blog.csdn.net/jiary5201314/article/details/8262134" target="_blank" rel="noopener">LEX和YACC的使用</a><br><a href="https://www.ibm.com/developerworks/cn/linux/sdk/lex/" target="_blank" rel="noopener">Yacc 与 Lex 快速入门</a></p>
 
       
 
@@ -448,15 +448,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -464,7 +460,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -476,11 +472,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">XML</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">XML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,10 +493,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">c++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
             
             <div class="clearfix"></div>

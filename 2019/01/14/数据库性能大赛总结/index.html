@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="东拉西扯">
 <meta property="og:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-14T12:54:15.597Z">
+<meta property="og:updated_time" content="2019-01-14T13:19:07.795Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库性能大赛总结">
 <meta name="twitter:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
@@ -291,7 +291,7 @@
 <li><strong>Recover正确性评测</strong></li>
 </ol>
 <p>此阶段评测程序会并发写入特定数据（key 8B、value 4KB）同时进行任意次kill -9来模拟进程意外退出（参赛引擎需要保证进程意外退出时数据持久化不丢失），接着重新打开DB，调用Read、Range接口来进行正确性校验</p>
-<ol>
+<ol start="2">
 <li><strong>性能评测</strong></li>
 </ol>
 <p>2.1 随机写入：64个线程并发随机写入，每个线程使用Write各写100万次随机数据（key 8B、value 4KB）</p>
@@ -361,17 +361,30 @@
 <h2><span id="4-kv数据库流程说明">4. kv数据库流程说明</span></h2><h3><span id="写入流程">写入流程</span></h3><ol>
 <li>转换key并获取分片index；</li>
 <li>将value写入ValueLog，获取逻辑地址；</li>
-<li>key与逻辑地址组合为Location，放入MetaLog中，因为写数据和读数据是分开的，所以比赛最终选择了不维护动态索引，在写阶段只使用mmap顺序写入MetaLog文件。<h3><span id="读取流程">读取流程</span></h3></li>
+<li>key与逻辑地址组合为Location，放入MetaLog中，因为写数据和读数据是分开的，所以比赛最终选择了不维护动态索引，在写阶段只使用mmap顺序写入MetaLog文件。</li>
+</ol>
+<h3><span id="读取流程">读取流程</span></h3><ol>
 <li>转换key并获取分片index；</li>
 <li>若是第一次读取该分片，则先将MetaLog文件用mmap映射到内存，使用归并排序，同时重复数据取逻辑地址较大的；</li>
 <li>二分查找取到Location；</li>
-<li>从ValueLog文件中读取value。<h3><span id="恢复流程">恢复流程</span></h3>开64个线程分别负责16个分片中MetaLog数据的归并排序<h3><span id="全序遍历流程">全序遍历流程</span></h3></li>
+<li>从ValueLog文件中读取value。</li>
+</ol>
+<h3><span id="恢复流程">恢复流程</span></h3><p>开64个线程分别负责16个分片中MetaLog数据的归并排序</p>
+<h3><span id="全序遍历流程">全序遍历流程</span></h3><ol>
 <li>第一个线程到来开启预读线程，先读取两个分片的value数据到内存，使用原子变量控制等待所有线程到齐；</li>
 <li>所有线程到齐后，开始顺序遍历分片中的数据，当分片未载入内存时等待；</li>
-<li>预读线程隔一小段时间检测第i个分片是否被64个线程读完，读完就释放第i个分片中value的空间，并加载i+2的value数据，i++。<h1><span id="比赛过程及技术与框架的变更">比赛过程及技术与框架的变更</span></h1><h2><span id="1-初赛skiplist动态索引">1. 初赛：skiplist动态索引</span></h2>在初赛一开始，为了维护动态索引，我学习并实现了skiplist这个数据结构，但是由于其所占空间太大，需要的多余指针较多，内存总是会超出界限。<h2><span id="2-初赛hashtable动态索引">2. 初赛：hashtable动态索引</span></h2>将skiplist换为了hashtable，hash函数是取key的中间几位，这样整个哈希表基本是有序的，为了有序，处理冲突是使用链表的方式，有序插入，这样在查找和遍历方面也能达到很好的平衡，当然这也只是在比赛的环境下，key的分布基本均匀的情况下，在实际生产环境中肯定是不能使用这种hash函数的。这种结构大幅减少了指针所占空间，也没有爆内存，但是由于疏忽，在写value时没做到原子性，初赛一直没有通过，然后就直接改为了静态索引，在写入时没有维护索引，在读取时归并排序整理MetaLog，二分查找。<h2><span id="4-复赛direct-io读取value">4. 复赛：direct io读取value</span></h2>复赛完成了滑动窗口的机制后，整体速度并不快，成绩只是在620s，读取整个分片是正常使用pread，然后学习了使用direct io，在顺序读取时，读取整个分片的value数据使用了direct io，使用之后成绩大幅提升，到达了460s。<h2><span id="5-复赛预读线程改为单线程">5. 复赛：预读线程改为单线程</span></h2>之后对预读线程进行了改进，之前预读线程是64个遍历线程检查条件达到后就启动一个预读线程，为了减小线程开销，就在顺序读取一开始创建了一个预读线程，由一个线程管理数据的释放和预读，这个优化程度并不大，成绩有所抖动，最好一次到达了448s。<h1><span id="不足与改进">不足与改进</span></h1><h2><span id="1-写入value">1. 写入value</span></h2>写入value是使用系统的pagecache进行聚合，然后调用fsync刷盘的，其实可以自己用小文件做数据聚合，然后使用direct io落盘，这样落盘过程控制程度大大加强，效果可能会更好。<h2><span id="2-读取value">2. 读取value</span></h2></li>
-<li>读取value可以使用direct io进行尝试一下，不过不使用direct io，系统会做一定的预读，这两个的性能对于此次比赛的测评程序谁更好也不好说，最好的方式是将系统预读关闭，自己使用direct io，并加入预读机制，这样参数可以调到最佳；</li>
-<li>读取value时可以交个几个线程去负责，这样可以降低64个线程io的竞争。效果可能会更好。<h2><span id="3-通用化">3. 通用化</span></h2>抛开这个比赛，整个系统要到达实用的底部，必然要维护动态索引的，关于一开始尝试的skiplist还可以进一步研究一下。</li>
+<li>预读线程隔一小段时间检测第i个分片是否被64个线程读完，读完就释放第i个分片中value的空间，并加载i+2的value数据，i++。</li>
 </ol>
+<h1><span id="比赛过程及技术与框架的变更">比赛过程及技术与框架的变更</span></h1><h2><span id="1-初赛skiplist动态索引">1. 初赛：skiplist动态索引</span></h2><p>在初赛一开始，为了维护动态索引，我学习并实现了skiplist这个数据结构，但是由于其所占空间太大，需要的多余指针较多，内存总是会超出界限。</p>
+<h2><span id="2-初赛hashtable动态索引">2. 初赛：hashtable动态索引</span></h2><p>将skiplist换为了hashtable，hash函数是取key的中间几位，这样整个哈希表基本是有序的，为了有序，处理冲突是使用链表的方式，有序插入，这样在查找和遍历方面也能达到很好的平衡，当然这也只是在比赛的环境下，key的分布基本均匀的情况下，在实际生产环境中肯定是不能使用这种hash函数的。这种结构大幅减少了指针所占空间，也没有爆内存，但是由于疏忽，在写value时没做到原子性，初赛一直没有通过，然后就直接改为了静态索引，在写入时没有维护索引，在读取时归并排序整理MetaLog，二分查找。</p>
+<h2><span id="4-复赛direct-io读取value">4. 复赛：direct io读取value</span></h2><p>复赛完成了滑动窗口的机制后，整体速度并不快，成绩只是在620s，读取整个分片是正常使用pread，然后学习了使用direct io，在顺序读取时，读取整个分片的value数据使用了direct io，使用之后成绩大幅提升，到达了460s。</p>
+<h2><span id="5-复赛预读线程改为单线程">5. 复赛：预读线程改为单线程</span></h2><p>之后对预读线程进行了改进，之前预读线程是64个遍历线程检查条件达到后就启动一个预读线程，为了减小线程开销，就在顺序读取一开始创建了一个预读线程，由一个线程管理数据的释放和预读，这个优化程度并不大，成绩有所抖动，最好一次到达了448s。</p>
+<h1><span id="不足与改进">不足与改进</span></h1><h2><span id="1-写入value">1. 写入value</span></h2><p>写入value是使用系统的pagecache进行聚合，然后调用fsync刷盘的，其实可以自己用小文件做数据聚合，然后使用direct io落盘，这样落盘过程控制程度大大加强，效果可能会更好。</p>
+<h2><span id="2-读取value">2. 读取value</span></h2><ol>
+<li>读取value可以使用direct io进行尝试一下，不过不使用direct io，系统会做一定的预读，这两个的性能对于此次比赛的测评程序谁更好也不好说，最好的方式是将系统预读关闭，自己使用direct io，并加入预读机制，这样参数可以调到最佳；</li>
+<li>读取value时可以交个几个线程去负责，这样可以降低64个线程io的竞争。效果可能会更好。</li>
+</ol>
+<h2><span id="3-通用化">3. 通用化</span></h2><p>抛开这个比赛，整个系统要到达实用的底部，必然要维护动态索引的，关于一开始尝试的skiplist还可以进一步研究一下。</p>
 
       
 
@@ -606,15 +619,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -622,7 +631,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,11 +643,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">XML</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">XML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -647,10 +664,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">c++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
             
             <div class="clearfix"></div>
