@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="东拉西扯">
 <meta property="og:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-14T14:37:50.425Z">
+<meta property="og:updated_time" content="2019-01-14T14:52:16.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库性能大赛总结">
 <meta name="twitter:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
@@ -376,7 +376,7 @@
 <li>所有线程到齐后，开始顺序遍历分片中的数据，当分片未载入内存时等待；</li>
 <li>预读线程隔一小段时间检测第i个分片是否被64个线程读完，读完就释放第i个分片中value的空间，并加载i+2的value数据，i++。</li>
 </ol>
-<h1><span id="3-比赛过程及技术与框架的变更">3. 比赛过程及技术与框架的变更</span></h1><h2><span id="31-初赛skiplist动态索引">3.1. 初赛：skiplist动态索引</span></h2><p>在初赛一开始，为了维护动态索引，我学习并实现了skiplist这个数据结构，但是由于其所占空间太大，需要的多余指针较多，内存总是会超出界限。</p>
+<h1><span id="3-比赛过程及技术与框架的变更">3. 比赛过程及技术与框架的变更</span></h1><h2><span id="31-初赛skiplist动态索引">3.1. 初赛：skiplist动态索引</span></h2><p>在初赛一开始，为了维护动态索引，我学习并实现了skiplist这个数据结构，并且使用__sync_bool_compare_and_swap这样的原子操作保证插入操作的原子性，但是由于其所占空间太大，需要的多余指针较多，内存总是会超出界限。</p>
 <h2><span id="32-初赛hashtable动态索引">3.2. 初赛：hashtable动态索引</span></h2><p>将skiplist换为了hashtable，hash函数是取key的中间几位，这样整个哈希表基本是有序的，为了有序，处理冲突是使用链表的方式，有序插入，这样在查找和遍历方面也能达到很好的平衡，当然这也只是在比赛的环境下，key的分布基本均匀的情况下，在实际生产环境中肯定是不能使用这种hash函数的。这种结构大幅减少了指针所占空间，也没有爆内存，但是由于疏忽，在写value时没做到原子性，初赛一直没有通过，然后就直接改为了静态索引，在写入时没有维护索引，在读取时归并排序整理MetaLog，二分查找。</p>
 <h2><span id="33-复赛direct-io读取value">3.3. 复赛：direct io读取value</span></h2><p>复赛完成了滑动窗口的机制后，整体速度并不快，成绩只是在620s，读取整个分片是正常使用pread，然后学习了使用direct io，在顺序读取时，读取整个分片的value数据使用了direct io，使用之后成绩大幅提升，到达了460s。</p>
 <h2><span id="34-复赛预读线程改为单线程">3.4. 复赛：预读线程改为单线程</span></h2><p>之后对预读线程进行了改进，之前预读线程是64个遍历线程检查条件达到后就启动一个预读线程，为了减小线程开销，就在顺序读取一开始创建了一个预读线程，由一个线程管理数据的释放和预读，这个优化程度并不大，成绩有所抖动，最好一次到达了448s。</p>
