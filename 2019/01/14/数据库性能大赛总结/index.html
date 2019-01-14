@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://xiaowangzhixiao.github.io">
-  <title>maven打包java工程 | 东拉西扯</title>
+  <title>数据库性能大赛总结 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用maven管理java工程，maven的生命周期中有一个重要的package阶段，若是Java Web项目，在pom文件中将知名打包为war包，而若是java工程，则一般打包为jar包，但是如果直接执行maven的package操作时，会只将项目代码打包为jar，而不会带着依赖，单个jar包无法跑起来，下面就介绍两种使用maven打包依赖的方式。">
-<meta name="keywords" content="maven">
+  <meta name="description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎">
+<meta name="keywords" content="数据库,c++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="maven打包java工程">
-<meta property="og:url" content="http://xiaowangzhixiao.github.io/2018/07/16/maven打包java工程/index.html">
+<meta property="og:title" content="数据库性能大赛总结">
+<meta property="og:url" content="http://xiaowangzhixiao.github.io/2019/01/14/数据库性能大赛总结/index.html">
 <meta property="og:site_name" content="东拉西扯">
-<meta property="og:description" content="使用maven管理java工程，maven的生命周期中有一个重要的package阶段，若是Java Web项目，在pom文件中将知名打包为war包，而若是java工程，则一般打包为jar包，但是如果直接执行maven的package操作时，会只将项目代码打包为jar，而不会带着依赖，单个jar包无法跑起来，下面就介绍两种使用maven打包依赖的方式。">
+<meta property="og:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-19T03:27:45.568Z">
+<meta property="og:updated_time" content="2019-01-14T10:24:08.248Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="maven打包java工程">
-<meta name="twitter:description" content="使用maven管理java工程，maven的生命周期中有一个重要的package阶段，若是Java Web项目，在pom文件中将知名打包为war包，而若是java工程，则一般打包为jar包，但是如果直接执行maven的package操作时，会只将项目代码打包为jar，而不会带着依赖，单个jar包无法跑起来，下面就介绍两种使用maven打包依赖的方式。">
+<meta name="twitter:title" content="数据库性能大赛总结">
+<meta name="twitter:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -155,44 +155,193 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-maven打包java工程" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-数据库性能大赛总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      maven打包java工程
+      数据库性能大赛总结
     </h1>
   
 
         
-        <a href="/2018/07/16/maven打包java工程/" class="archive-article-date">
-  	<time datetime="2018-07-16T14:56:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-16</time>
+        <a href="/2019/01/14/数据库性能大赛总结/" class="archive-article-date">
+  	<time datetime="2019-01-14T05:38:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>使用maven管理java工程，maven的生命周期中有一个重要的package阶段，若是Java Web项目，在pom文件中将知名打包为war包，而若是java工程，则一般打包为jar包，但是如果直接执行maven的package操作时，会只将项目代码打包为jar，而不会带着依赖，单个jar包无法跑起来，下面就介绍两种使用maven打包依赖的方式。</p>
+        <p>阿里数据库性能大赛总结<br>PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎</p>
 <a id="more"></a>
-<h2 id="打包为带依赖的jar包"><a href="#打包为带依赖的jar包" class="headerlink" title="打包为带依赖的jar包"></a>打包为带依赖的jar包</h2><p>使用两个maven插件可以将依赖和源码一起打包到jar包中</p>
-<h3 id="assembly"><a href="#assembly" class="headerlink" title="assembly"></a>assembly</h3><p>在pom文件插件部分加入如下配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line">            	<span class="comment">&lt;!-- 程序主类入口，加上可直接用java -jar xxx.jar命令运行 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>$&#123;exec.mainClass&#125;<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">descriptorRef</span>&gt;</span>jar-with-dependencies<span class="tag">&lt;/<span class="name">descriptorRef</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>运行maven的assembly插件即可将代码打包为带依赖的jar包，在target文件夹下可以看到xxx.jar为package阶段打包的，xxx-jar-with-dependencies.jar则为带依赖的jar包<br>上面<code>&lt;descriptorRefs&gt;</code>是官方提供的定制化打包方式，其中有 bin, jar-with-dependencies, src, project这几种配置，具体分别代表什么之后会有更新，一般不推荐使用。<br>推荐使用自定义打包方式，配置如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2-beta-4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">descriptors</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">descriptor</span>&gt;</span>src/main/assembly/src.xml<span class="tag">&lt;/<span class="name">descriptor</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">descriptors</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>$&#123;exec.mainClass&#125;<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span>  </span><br><span class="line">			<span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在src.xml文件中指定了打包操作:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">assembly</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1 http://maven.apache.org/xsd/assembly-1.1.1.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>jar-with-dependencies<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">formats</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">format</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">format</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">formats</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">includeBaseDirectory</span>&gt;</span>false<span class="tag">&lt;/<span class="name">includeBaseDirectory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencySets</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencySet</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">unpack</span>&gt;</span>true<span class="tag">&lt;/<span class="name">unpack</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencySet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencySets</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fileSets</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fileSet</span>&gt;</span></span><br><span class="line">        	<span class="comment">&lt;!-- 资源文件输出 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src\main\resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>\<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">fileSet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fileSet</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span>$&#123;project.build.outputDirectory&#125;<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">fileSet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">fileSets</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="shade"><a href="#shade" class="headerlink" title="shade"></a>shade</h3><p>通过shade插件我们可以为生成的那个jar包选择包含哪些依赖以及排除哪些依赖。 </p>
+<!-- toc -->
+<ul>
+<li><a href="#赛题规则">赛题规则</a><ul>
+<li><a href="#1-赛题背景">1. 赛题背景</a></li>
+<li><a href="#2-初赛赛题描述">2. 初赛赛题描述</a><ul>
+<li><a href="#21-题目内容">2.1 题目内容</a></li>
+<li><a href="#22-语言限定">2.2 语言限定</a></li>
+<li><a href="#23-程序目标">2.3 程序目标</a></li>
+<li><a href="#24-参赛方法说明">2.4 参赛方法说明</a></li>
+<li><a href="#25-测试环境">2.5 测试环境</a></li>
+<li><a href="#26-程序评测逻辑">2.6 程序评测逻辑</a></li>
+<li><a href="#27-排名规则">2.7 排名规则</a></li>
+<li><a href="#28-资源限制">2.8 资源限制</a></li>
+<li><a href="#29-作弊说明">2.9 作弊说明</a></li>
+</ul>
+</li>
+<li><a href="#3-复赛赛题描述">3 复赛赛题描述</a><ul>
+<li><a href="#31-题目内容">3.1 题目内容</a></li>
+<li><a href="#32-程序评测逻辑">3.2 程序评测逻辑</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#赛题分析与架构设计">赛题分析与架构设计</a><ul>
+<li><a href="#1-kv数据库整体框架">1. KV数据库整体框架</a><ul>
+<li><a href="#数据规模分析">数据规模分析</a></li>
+<li><a href="#意外退出分析">意外退出分析</a></li>
+<li><a href="#并发问题分析">并发问题分析</a></li>
+<li><a href="#整体框架设计">整体框架设计</a></li>
+</ul>
+</li>
+<li><a href="#2-细节技术问题">2. 细节技术问题</a><ul>
+<li><a href="#数据转换">数据转换</a></li>
+<li><a href="#metalog">MetaLog</a></li>
+<li><a href="#valuelog">ValueLog</a></li>
+</ul>
+</li>
+<li><a href="#3-全序遍历结构设计">3. 全序遍历结构设计</a></li>
+<li><a href="#4-kv数据库流程说明">4. kv数据库流程说明</a></li>
+</ul>
+</li>
+<li><a href="#比赛过程及技术与框架的变更">比赛过程及技术与框架的变更</a></li>
+<li><a href="#不足与改进">不足与改进</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="赛题规则">赛题规则</span></h1><h2><span id="1-赛题背景">1. 赛题背景</span></h2><p>PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎</p>
+<h2><span id="2-初赛赛题描述">2. 初赛赛题描述</span></h2><h3><span id="21-题目内容">2.1 题目内容</span></h3><p>实现一个简化、高效的kv存储引擎，支持Write、Read接口</p>
+<h3><span id="22-语言限定">2.2 语言限定</span></h3><p>C++ &amp; JAVA</p>
+<p><strong>注：C++和JAVA一起排名</strong></p>
+<h3><span id="23-程序目标">2.3 程序目标</span></h3><p><strong>C++:</strong> 请仔细阅读engine/include/engine.h代码了解基类Engine定义，我们已为大家定义了比赛专用的子类EngineRace（在engine/engine_race目录下），参赛者通过编写代码，完善EngineRace来实现自己的kv存储引擎</p>
+<p><strong>Java：</strong>请仔细阅读engine/engine_java/src/main/java/com/alibabacloud/polar_race/engine/common/AbstractEngine.java了解基类AbstractEngine定义，我们已为大家定义了比赛专用的子类EngineRace（在engine/engine_java/src/main/java/com/alibabacloud/polar_race/engine/common/EngineRace.java文件中），参赛者通过编写代码，完善EngineRace来实现自己的kv存储引擎</p>
+<p><strong>注：</strong></p>
+<p><strong>1. 请完善我们已经定义好的子类EngineRace即可，不需要额外继承基类，否则评测程序可能会找不到实现代码</strong></p>
+<h3><span id="24-参赛方法说明">2.4 参赛方法说明</span></h3><p>略</p>
+<h3><span id="25-测试环境">2.5 测试环境</span></h3><p>CPU：Intel(R) Xeon(R) CPU E5-2682 v4 @ 2.50GHz （64核）</p>
+<p>磁盘：Intel Corporation Device 2701（345G、裸盘IOPS 580K、EXT4 IOPS 400K）</p>
+<p>OS：Linux version 3.10.0-327.ali2010.alios7.x86_64</p>
+<p>文件系统：EXT4</p>
+<p>ulimit -a：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-t: cpu time (seconds)              unlimited</span><br><span class="line">-f: file size (blocks)              unlimited</span><br><span class="line">-d: data seg size (kbytes)          unlimited</span><br><span class="line">-s: stack size (kbytes)             8192</span><br><span class="line">-c: core file size (blocks)         0</span><br><span class="line">-m: resident set size (kbytes)      unlimited</span><br><span class="line">-u: processes                       948671</span><br><span class="line">-n: file descriptors                655350</span><br><span class="line">-l: locked-in-memory size (kbytes)  64</span><br><span class="line">-v: address space (kbytes)          unlimited</span><br><span class="line">-x: file locks                      unlimited</span><br><span class="line">-i: pending signals                 948671</span><br><span class="line">-q: bytes in POSIX msg queues       819200</span><br><span class="line">-e: max nice                        0</span><br><span class="line">-r: max rt priority                 0</span><br><span class="line">-N 15:                              unlimited</span><br></pre></td></tr></table></figure>
+<p>JDK：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java version &quot;1.8.0_152&quot;</span><br><span class="line">OpenJDK Runtime Environment (Alibaba 8.4.8) (build 1.8.0_152-b211)</span><br><span class="line">OpenJDK 64-Bit Server VM (Alibaba 8.4.8) (build 25.152-b211, mixed mode)</span><br></pre></td></tr></table></figure>
+<p>Java JVM参数（已针对比赛场景进行了调优）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-server</span><br><span class="line">-Xms2560m </span><br><span class="line">-Xmx2560m </span><br><span class="line">-XX:MaxDirectMemorySize=256m </span><br><span class="line">-XX:NewRatio=1 </span><br><span class="line">-XX:+UseConcMarkSweepGC </span><br><span class="line">-XX:+UseParNewGC </span><br><span class="line">-XX:-UseBiasedLocking</span><br></pre></td></tr></table></figure>
+<h3><span id="26-程序评测逻辑">2.6 程序评测逻辑</span></h3><p>评测程序分为2个阶段：</p>
 <ol>
-<li>支持两种操作include和exclude </li>
-<li>配置格式：groupId:artifactId[[:type]:classifier]，至少包含groupid和artifactid，type和类名可选 </li>
-<li>支持’*’ 和 ‘?’执行通配符匹配 </li>
+<li><p><strong>Recover正确性评测</strong></p>
+<p>此阶段评测程序会并发写入特定数据（key 8B、value 4KB）同时进行任意次kill -9来模拟进程意外退出（参赛引擎需要保证进程意外退出时数据持久化不丢失），接着重新打开DB，调用Read接口来进行正确性校验</p>
+</li>
+<li><p><strong>性能评测</strong></p>
+<p>2.1 随机写入：64个线程并发随机写入，每个线程使用Write各写100万次随机数据（key 8B、value 4KB）</p>
+<p>2.2 随机读取：64个线程并发随机读取，每个线程各使用Read读取100万次随机数据</p>
+<p>2.3 顺序读取：64个线程并发顺序读取，每个线程使用Range全局<strong>顺序</strong>迭代DB数据2次</p>
+</li>
 </ol>
-<p>shade插件打包时在对spring.schemas文件处理上，它能够将所有jar里的spring.schemas文件进行合并，在最终生成的单一jar包里，spring.schemas包含了所有出现过的版本的集合</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-shade-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>shade<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filters</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">artifact</span>&gt;</span>:<span class="tag">&lt;/<span class="name">artifact</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">excludes</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>META-INF/*.SF<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>META-INF/*.DSA<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>META-INF/*.RSA<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">filters</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 默认值为true.注意这个属性,如果你用这个插件来deploy,或者发布到中央仓库，这个属性会缩减你的pom文件,会把你依赖的&lt;dependency&gt;干掉 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">createDependencyReducedPom</span>&gt;</span>false<span class="tag">&lt;/<span class="name">createDependencyReducedPom</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">transformers</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">transformer</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">implementation</span>=<span class="string">"org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"</span>&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!-- 这个是你的程序入口文件 --&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>com.timer.CollectBuptBBS<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">transformer</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">implementation</span>=<span class="string">"org.apache.maven.plugins.shade.resource.AppendingTransformer"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">resource</span>&gt;</span>META-INF/spring.handlers<span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">transformer</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">implementation</span>=<span class="string">"org.apache.maven.plugins.shade.resource.AppendingTransformer"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">resource</span>&gt;</span>META-INF/spring.schemas<span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">transformers</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>执行mvn package，生成两个jar文件，一个是原始的original-xxx-1.0-SNAPSHOT.jar，一个是可执行的xxx-1.0-SNAPSHOT.jar。</p>
-<h2 id="打包为外部依赖"><a href="#打包为外部依赖" class="headerlink" title="打包为外部依赖"></a>打包为外部依赖</h2><p>在pom文件中进行如下配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-jar-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">addClasspath</span>&gt;</span>true<span class="tag">&lt;/<span class="name">addClasspath</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">classpathPrefix</span>&gt;</span>lib/<span class="tag">&lt;/<span class="name">classpathPrefix</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>com.timer.CollectBuptBBS<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!--拷贝依赖的jar包到lib目录--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-dependency-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>copy<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goal</span>&gt;</span>copy-dependencies<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">					$&#123;project.build.directory&#125;/lib</span><br><span class="line">				<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>执行mvn package,target文件夹中产生jar文件和lib文件夹，jar为源码打包的文件，内部指明了主类和依赖的路径是lib文件夹，lib文件夹中为依赖的jar包，在运行环境中需要将lib和jar文件放到同一路径下执行java -r xxx.jar即可运行。</p>
+<p><strong>注：</strong></p>
+<p><strong>1. 共2个维度测试性能，每一个维度测试结束后会保留DB数据，关闭Engine实例，重启进程，清空PageCache，下一个维度开始后重新打开新的Engine实例</strong>  </p>
+<p><strong>2. 读取阶段会数据进行校验，没有通过的话则评测不通过</strong>  </p>
+<p><strong>3.参赛引擎只需保证进程意外退出时数据持久化不丢失即可，不要求保证在系统crash时的数据持久化不丢失</strong></p>
+<p><strong>4. 整个评测会有时间限制（具体时限待公布），超时后评测结束且对应提交无结果</strong></p>
+<h3><span id="27-排名规则">2.7 排名规则</span></h3><p>在Recover正确性验证通过的情况下，对性能评测阶段整体计时，如果该阶段的正确检测全部通过，则成绩有效，根据总用时从低到高进行排名（用时越短排名越靠前）</p>
+<p>**注：每次评测结束后，评测程序会将性能评测的结果输出到文件，和用户调试日志文件一起打包上传到OSS供参赛者查看，仅保留最近一次运行结果信息，日志下载方法同用户调试日志下载方法</p>
+<h3><span id="28-资源限制">2.8 资源限制</span></h3><p>内存占用不得超过：2G（C++), 3G(JAVA)</p>
+<p>磁盘占用不得超过：320G</p>
+<p>不使用压缩库</p>
+<h3><span id="29-作弊说明">2.9 作弊说明</span></h3><ol>
+<li><p>不得使用第三方kv引擎库（如RocksDB、LevelDB、LMDB等），在其之上封装接口用来参赛</p>
+</li>
+<li><p>禁止使用tmpfs以及share memory等内存。包括但不限于： /dev/shm、/dev/pts、/sys /proc</p>
+</li>
+<li><p>如果发现有作弊行为，包括但不限于：<br> （1）通过hack评测程序，绕过了必须的评测逻辑<br> （2）通过猜测数据格式进行针对性的压缩<br> （3）窃取评测程序代码<br>  … …<br> 则成绩无效，且取消参赛资格。</p>
+</li>
+</ol>
+<h2><span id="3-复赛赛题描述">3 复赛赛题描述</span></h2><p>复赛赛题及要求除如下增项外，其他同初赛一样：</p>
+<h3><span id="31-题目内容">3.1 题目内容</span></h3><p>在初赛题目基础上，还需要额外实现一个Range接口</p>
+<h3><span id="32-程序评测逻辑">3.2 程序评测逻辑</span></h3><p>评测程序分为2个阶段：</p>
+<ol>
+<li><strong>Recover正确性评测</strong></li>
+</ol>
+<p>此阶段评测程序会并发写入特定数据（key 8B、value 4KB）同时进行任意次kill -9来模拟进程意外退出（参赛引擎需要保证进程意外退出时数据持久化不丢失），接着重新打开DB，调用Read、Range接口来进行正确性校验</p>
+<ol>
+<li><strong>性能评测</strong></li>
+</ol>
+<p>2.1 随机写入：64个线程并发随机写入，每个线程使用Write各写100万次随机数据（key 8B、value 4KB）</p>
+<p>2.2 随机读取：64个线程并发随机读取，每个线程各使用Read读取100万次随机数据</p>
+<p>2.3 顺序读取：64个线程并发顺序读取，每个线程各使用Range<strong>有序（增序）</strong>遍历全量数据<strong>2</strong>次</p>
+<p><strong>注：顺序读取阶段除了对迭代出来每条的kv校验是否匹配外，还会额外校验是否严格递增，如不通过则终止，评测失败</strong></p>
+<h1><span id="赛题分析与架构设计">赛题分析与架构设计</span></h1><h2><span id="1-kv数据库整体框架">1. KV数据库整体框架</span></h2><h3><span id="数据规模分析">数据规模分析</span></h3><p>本赛题要实现一个key-value的数据库，key长度为8Byte，value大小固定为4KB，测评过程中，有64个线程，每个线程分别写100万次数据，则value的每个4KB大小的数据总共要占250G，必然要放在磁盘中，内存中放key和value的索引。value的索引可以用value的逻辑位置表示，则可以使用32位整数表示。基本索引结构如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Location</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint64_t</span> key;</span><br><span class="line">    <span class="keyword">uint32_t</span> addr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>由于内存对齐，单个结构体会占用16B，假设不考虑顺序、数据结构，只存放索引，占用977M，gcc编译器下可以使用<strong>attribute</strong>((packed))取消内存对齐，则每个结构体占用12B，整体占用732M，可以完全放到内存中。</p>
+<h3><span id="意外退出分析">意外退出分析</span></h3><p>第一阶段的测评程序中，要求在程序意外退出时，能保证已存储的数据不丢失，那么意味着不仅value要按顺序落盘，key和value逻辑地址组成的索引也需要写到硬盘中，等到程序恢复时重新读取索引值，在内存中重建索引。</p>
+<h3><span id="并发问题分析">并发问题分析</span></h3><p>64个线程并发写数据，最直接的想法是每个线程一个分片，这样可以达到最大并发，线程之间没有互斥关系。但是考虑到一个问题，在复赛阶段要做顺序读取数据，如果各个分片之间没有顺序，会导致在复赛阶段很难实现顺序读取的要求，而且测评程序写入的数据基本是大小均匀分布的，则考虑将分片设为按照大小分片，即取uint64表示的key高位分片，将分片设为有序。</p>
+<h3><span id="整体框架设计">整体框架设计</span></h3><p>根据上述的分析，整个的架构设置为1024个分片，每个分片中有两个模块，分别称为索引日志模块MetaLog和ValueLog模块，ValueLog中管理value的文件写入和读取，MetaLog中管理Location的记录和管理，MetaLog中有两部分，一是索引在内存中的一个数据结构，称为table，为读接口提供高效的查询和更新，二是MetaLog文件，实时记录索引，为防止程序意外退出。</p>
+<pre class="mermaid">graph TB
+    外层接口 --> partion0["partion[0]"]
+    外层接口 --> partion1["partion[1]"]
+    外层接口 --> partioni["partion[i]"]
+    外层接口 --> partion1023["partion[1023]"]
+    partioni --> MetaLog
+    MetaLog --> table
+    MetaLog --> file
+    partioni --> ValueLog</pre>
 
+<h2><span id="2-细节技术问题">2. 细节技术问题</span></h2><h3><span id="数据转换">数据转换</span></h3><p>程序输入的key是字符串的形式，由于长度不变，可以使用uint64表示，我使用了union转换了数据：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> Str2Uint &#123;</span><br><span class="line">    <span class="keyword">char</span> data[<span class="number">8</span>];</span><br><span class="line">    <span class="keyword">uint64_t</span> key;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">uint64_t</span> chang2Uint(<span class="keyword">const</span> PolarString &amp;key) &#123;</span><br><span class="line">    <span class="keyword">union</span> Str2Uint data;</span><br><span class="line">    <span class="keyword">size_t</span> size = key.size();</span><br><span class="line">    <span class="comment">// 可以使用memcpy</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; size) &#123;</span><br><span class="line">            data.data[i] = key[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            data.data[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> data.key;</span><br><span class="line">&#125;</span><br><span class="line">注意，linux系统下数据是小端存储，要使用key进行比较时，需要使用函数bswap_64转换一下，或者在复制时手动将顺序反过来。</span><br></pre></td></tr></table></figure></p>
+<h3><span id="metalog">MetaLog</span></h3><ul>
+<li>MetaLog中内存部分的table使用的数据结构和算法在比赛过程中经过了几次的变化，这个在之后有详细的介绍；</li>
+<li>MetaLog写文件的部分，由于Meta数据每次是16B写入的，文件IO大块数据写入速度较快，则创建文件是使用fallocate预分配大小，并配置为mmap，使用原子变量offset维护偏移量，不使用锁机制，没有锁的开销，充分使用pagecache，加快写入速度。读取时使用direct io或mmap均可，具体使用哪种技术随着table的数据结构在变化。<h3><span id="valuelog">ValueLog</span></h3>ValueLog文件读写同样使用原子变量offset维护文件的偏移量，使用pwrite和pread解决多线程问题读取文件时的并发问题。<br>4KB的value写文件使用了direct io，跳过用户态和pagecache的复制，直接将数据写入磁盘，由于最后阶段一直在优化其他部分，读阶段value没有使用direct io，现在想想，尝试一下可能成绩会更好。<h2><span id="3-全序遍历结构设计">3. 全序遍历结构设计</span></h2></li>
+<li>整个数据使用高位分片，测评程序要求64个线程全序遍历，那么最好是将64个线程齐头并进，所有线程可以共享同一个分片的value数据。</li>
+<li>根据比赛要求的内存，可以将2-3个分片中的value数据全部读取到内存中，形成了一个滑动窗口的模型，启动一个预读线程，监控当前正在读的分片64个线程读取情况，当64个线程全部读完当前分片i，预读分片就释放分片i的value数据空间，并读取i+2的数据，当然，这个在一开始时要提前读取两个分片，而且要等待所有线程都到达之后再开始读取，否则会有不同步的情况。</li>
+<li>这个模型下并没有强行限制64个线程的齐头并进，完全是由预读线程控制的，换句话说，当遍历速度很快时，齐头并进的效果是由读取速度决定的，当预读线程读取完当前分片，遍历的线程才能开始遍历，当遍历速度较慢或参差不齐时，则64个线程的遍历位置会分布在已经读完成的2个线程里，整体速度取决于最慢的线程，因为只有第i个分片被所有线程读完时，才能进入i+2的预读。<pre class="mermaid">graph LR
+  subgraph 未处理的分片
+      pi3["partion[i+3]"] -.-> pi1023["partion[i+1023]"]
+  end
+  subgraph 正在预读的分片
+      pi2["partion[i+2]"]
+      pi2 --> pi3
+  end
+  subgraph 正在读取的分片
+      pi1["partion[i+1]"]
+      pi1 --> pi2
+  end
+  subgraph 已经读取的分片
+      p0["partion[0]"] --> p1["partion[1]"]
+      p1 -.-> pi["partion[i]"]
+      pi --> pi1
+  end</pre>
+
+</li>
+</ul>
+<pre class="mermaid">graph LR
+    subgraph 未处理的分片
+        pi3["partion[i+3]"] -.-> pi1023["partion[i+1023]"]
+    end
+    subgraph 正在读取的分片
+        pi1["partion[i+1]"]
+        pi1 --> pi2["partion[i+2]"]
+        pi2 --> pi3
+    end
+    subgraph 已经读取的分片
+        p0["partion[0]"] --> p1["partion[1]"]
+        p1 -.-> pi["partion[i]"]
+        pi --> pi1
+    end</pre>
+
+<h2><span id="4-kv数据库流程说明">4. kv数据库流程说明</span></h2><p>待续</p>
+<h1><span id="比赛过程及技术与框架的变更">比赛过程及技术与框架的变更</span></h1><h1><span id="不足与改进">不足与改进</span></h1>
       
 
       
@@ -205,7 +354,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
         		</li>
       		
 		</ul>
@@ -221,7 +374,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/编程/java//" class="article-tag-list-link color5">java</a>
+        			<a href="/categories/编程/竞赛//" class="article-tag-list-link color3">竞赛</a>
         		</li>
       		
 		</ul>
@@ -276,7 +429,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://xiaowangzhixiao.github.io/2018/07/16/maven打包java工程/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://xiaowangzhixiao.github.io/2019/01/14/数据库性能大赛总结/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -290,18 +443,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/07/17/MapReduce/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MapReduce和Yarn简介
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/03/22/hadoop/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hadoop学习之hdfs</div>
+    <a href="/2018/09/30/Java虚拟机运行时内存模型/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java虚拟机运行时内存模型</div>
       <i class="icon-circle-right"></i>
     </a>
   
