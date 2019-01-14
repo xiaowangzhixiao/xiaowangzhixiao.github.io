@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="东拉西扯">
 <meta property="og:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-14T10:24:08.248Z">
+<meta property="og:updated_time" content="2019-01-14T10:27:23.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库性能大赛总结">
 <meta name="twitter:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎">
@@ -257,8 +257,7 @@
 <p><strong>2. 读取阶段会数据进行校验，没有通过的话则评测不通过</strong>  </p>
 <p><strong>3.参赛引擎只需保证进程意外退出时数据持久化不丢失即可，不要求保证在系统crash时的数据持久化不丢失</strong></p>
 <p><strong>4. 整个评测会有时间限制（具体时限待公布），超时后评测结束且对应提交无结果</strong></p>
-<h3><span id="27-排名规则">2.7 排名规则</span></h3><p>在Recover正确性验证通过的情况下，对性能评测阶段整体计时，如果该阶段的正确检测全部通过，则成绩有效，根据总用时从低到高进行排名（用时越短排名越靠前）</p>
-<p>**注：每次评测结束后，评测程序会将性能评测的结果输出到文件，和用户调试日志文件一起打包上传到OSS供参赛者查看，仅保留最近一次运行结果信息，日志下载方法同用户调试日志下载方法</p>
+<h3><span id="27-排名规则">2.7 排名规则</span></h3><p>略</p>
 <h3><span id="28-资源限制">2.8 资源限制</span></h3><p>内存占用不得超过：2G（C++), 3G(JAVA)</p>
 <p>磁盘占用不得超过：320G</p>
 <p>不使用压缩库</p>
