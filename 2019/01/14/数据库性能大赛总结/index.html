@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="东拉西扯">
 <meta property="og:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-14T14:52:16.486Z">
+<meta property="og:updated_time" content="2019-01-14T15:22:46.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库性能大赛总结">
 <meta name="twitter:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
@@ -177,78 +177,16 @@
       
         <p>阿里数据库性能大赛总结<br>PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎<br>本次比赛是我和章润学长使用C++共同完成的，<a href="https://github.com/xiaowangzhixiao/polardb" target="_blank" rel="noopener">代码地址</a></p>
 <a id="more"></a>
-<!-- toc -->
-<ul>
-<li><a href="#1-赛题规则">1. 赛题规则</a><ul>
-<li><a href="#11-赛题背景">1.1. 赛题背景</a></li>
-<li><a href="#12-初赛赛题描述">1.2. 初赛赛题描述</a><ul>
-<li><a href="#121-题目内容">1.2.1. 题目内容</a></li>
-<li><a href="#122-语言限定">1.2.2. 语言限定</a></li>
-<li><a href="#123-程序目标">1.2.3. 程序目标</a></li>
-<li><a href="#124-参赛方法说明">1.2.4. 参赛方法说明</a></li>
-<li><a href="#125-测试环境">1.2.5. 测试环境</a></li>
-<li><a href="#126-程序评测逻辑">1.2.6. 程序评测逻辑</a></li>
-<li><a href="#127-排名规则">1.2.7. 排名规则</a></li>
-<li><a href="#128-资源限制">1.2.8. 资源限制</a></li>
-<li><a href="#129-作弊说明">1.2.9. 作弊说明</a></li>
-</ul>
-</li>
-<li><a href="#13-复赛赛题描述">1.3. 复赛赛题描述</a><ul>
-<li><a href="#131-题目内容">1.3.1. 题目内容</a></li>
-<li><a href="#132-程序评测逻辑">1.3.2. 程序评测逻辑</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#2-赛题分析与架构设计">2. 赛题分析与架构设计</a><ul>
-<li><a href="#21-kv数据库整体框架">2.1. KV数据库整体框架</a><ul>
-<li><a href="#211-数据规模分析">2.1.1. 数据规模分析</a></li>
-<li><a href="#212-意外退出分析">2.1.2. 意外退出分析</a></li>
-<li><a href="#213-并发问题分析">2.1.3. 并发问题分析</a></li>
-<li><a href="#214-整体框架设计">2.1.4. 整体框架设计</a></li>
-</ul>
-</li>
-<li><a href="#22-细节技术问题">2.2. 细节技术问题</a><ul>
-<li><a href="#221-数据转换">2.2.1. 数据转换</a></li>
-<li><a href="#222-metalog">2.2.2. MetaLog</a></li>
-<li><a href="#223-valuelog">2.2.3. ValueLog</a></li>
-</ul>
-</li>
-<li><a href="#23-全序遍历结构设计">2.3. 全序遍历结构设计</a></li>
-<li><a href="#24-kv数据库流程说明">2.4. kv数据库流程说明</a><ul>
-<li><a href="#241-写入流程">2.4.1. 写入流程</a></li>
-<li><a href="#242-读取流程">2.4.2. 读取流程</a></li>
-<li><a href="#243-恢复流程">2.4.3. 恢复流程</a></li>
-<li><a href="#244-全序遍历流程">2.4.4. 全序遍历流程</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#3-比赛过程及技术与框架的变更">3. 比赛过程及技术与框架的变更</a><ul>
-<li><a href="#31-初赛skiplist动态索引">3.1. 初赛：skiplist动态索引</a></li>
-<li><a href="#32-初赛hashtable动态索引">3.2. 初赛：hashtable动态索引</a></li>
-<li><a href="#33-复赛direct-io读取value">3.3. 复赛：direct io读取value</a></li>
-<li><a href="#34-复赛预读线程改为单线程">3.4. 复赛：预读线程改为单线程</a></li>
-</ul>
-</li>
-<li><a href="#4-不足与改进">4. 不足与改进</a><ul>
-<li><a href="#41-写入value">4.1. 写入value</a></li>
-<li><a href="#42-读取value">4.2. 读取value</a></li>
-<li><a href="#43-通用化">4.3. 通用化</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h1><span id="1-赛题规则">1. 赛题规则</span></h1><h2><span id="11-赛题背景">1.1. 赛题背景</span></h2><p>PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎</p>
-<h2><span id="12-初赛赛题描述">1.2. 初赛赛题描述</span></h2><h3><span id="121-题目内容">1.2.1. 题目内容</span></h3><p>实现一个简化、高效的kv存储引擎，支持Write、Read接口</p>
-<h3><span id="122-语言限定">1.2.2. 语言限定</span></h3><p>C++ &amp; JAVA</p>
+<h1 id="1-赛题规则"><a href="#1-赛题规则" class="headerlink" title="1. 赛题规则"></a>1. 赛题规则</h1><h2 id="1-1-赛题背景"><a href="#1-1-赛题背景" class="headerlink" title="1.1. 赛题背景"></a>1.1. 赛题背景</h2><p>PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎</p>
+<h2 id="1-2-初赛赛题描述"><a href="#1-2-初赛赛题描述" class="headerlink" title="1.2. 初赛赛题描述"></a>1.2. 初赛赛题描述</h2><h3 id="1-2-1-题目内容"><a href="#1-2-1-题目内容" class="headerlink" title="1.2.1. 题目内容"></a>1.2.1. 题目内容</h3><p>实现一个简化、高效的kv存储引擎，支持Write、Read接口</p>
+<h3 id="1-2-2-语言限定"><a href="#1-2-2-语言限定" class="headerlink" title="1.2.2. 语言限定"></a>1.2.2. 语言限定</h3><p>C++ &amp; JAVA</p>
 <p><strong>注：C++和JAVA一起排名</strong></p>
-<h3><span id="123-程序目标">1.2.3. 程序目标</span></h3><p><strong>C++:</strong> 请仔细阅读engine/include/engine.h代码了解基类Engine定义，我们已为大家定义了比赛专用的子类EngineRace（在engine/engine_race目录下），参赛者通过编写代码，完善EngineRace来实现自己的kv存储引擎</p>
+<h3 id="1-2-3-程序目标"><a href="#1-2-3-程序目标" class="headerlink" title="1.2.3. 程序目标"></a>1.2.3. 程序目标</h3><p><strong>C++:</strong> 请仔细阅读engine/include/engine.h代码了解基类Engine定义，我们已为大家定义了比赛专用的子类EngineRace（在engine/engine_race目录下），参赛者通过编写代码，完善EngineRace来实现自己的kv存储引擎</p>
 <p><strong>Java：</strong>请仔细阅读engine/engine_java/src/main/java/com/alibabacloud/polar_race/engine/common/AbstractEngine.java了解基类AbstractEngine定义，我们已为大家定义了比赛专用的子类EngineRace（在engine/engine_java/src/main/java/com/alibabacloud/polar_race/engine/common/EngineRace.java文件中），参赛者通过编写代码，完善EngineRace来实现自己的kv存储引擎</p>
 <p><strong>注：</strong></p>
 <p><strong>1. 请完善我们已经定义好的子类EngineRace即可，不需要额外继承基类，否则评测程序可能会找不到实现代码</strong></p>
-<h3><span id="124-参赛方法说明">1.2.4. 参赛方法说明</span></h3><p>略</p>
-<h3><span id="125-测试环境">1.2.5. 测试环境</span></h3><p>CPU：Intel(R) Xeon(R) CPU E5-2682 v4 @ 2.50GHz （64核）</p>
+<h3 id="1-2-4-参赛方法说明"><a href="#1-2-4-参赛方法说明" class="headerlink" title="1.2.4. 参赛方法说明"></a>1.2.4. 参赛方法说明</h3><p>略</p>
+<h3 id="1-2-5-测试环境"><a href="#1-2-5-测试环境" class="headerlink" title="1.2.5. 测试环境"></a>1.2.5. 测试环境</h3><p>CPU：Intel(R) Xeon(R) CPU E5-2682 v4 @ 2.50GHz （64核）</p>
 <p>磁盘：Intel Corporation Device 2701（345G、裸盘IOPS 580K、EXT4 IOPS 400K）</p>
 <p>OS：Linux version 3.10.0-327.ali2010.alios7.x86_64</p>
 <p>文件系统：EXT4</p>
@@ -258,7 +196,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java version &quot;1.8.0_152&quot;</span><br><span class="line">OpenJDK Runtime Environment (Alibaba 8.4.8) (build 1.8.0_152-b211)</span><br><span class="line">OpenJDK 64-Bit Server VM (Alibaba 8.4.8) (build 25.152-b211, mixed mode)</span><br></pre></td></tr></table></figure>
 <p>Java JVM参数（已针对比赛场景进行了调优）:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-server</span><br><span class="line">-Xms2560m </span><br><span class="line">-Xmx2560m </span><br><span class="line">-XX:MaxDirectMemorySize=256m </span><br><span class="line">-XX:NewRatio=1 </span><br><span class="line">-XX:+UseConcMarkSweepGC </span><br><span class="line">-XX:+UseParNewGC </span><br><span class="line">-XX:-UseBiasedLocking</span><br></pre></td></tr></table></figure>
-<h3><span id="126-程序评测逻辑">1.2.6. 程序评测逻辑</span></h3><p>评测程序分为2个阶段：</p>
+<h3 id="1-2-6-程序评测逻辑"><a href="#1-2-6-程序评测逻辑" class="headerlink" title="1.2.6. 程序评测逻辑"></a>1.2.6. 程序评测逻辑</h3><p>评测程序分为2个阶段：</p>
 <ol>
 <li><p><strong>Recover正确性评测</strong></p>
 <p>此阶段评测程序会并发写入特定数据（key 8B、value 4KB）同时进行任意次kill -9来模拟进程意外退出（参赛引擎需要保证进程意外退出时数据持久化不丢失），接着重新打开DB，调用Read接口来进行正确性校验</p>
@@ -274,9 +212,9 @@
 <p><strong>2. 读取阶段会数据进行校验，没有通过的话则评测不通过</strong>  </p>
 <p><strong>3.参赛引擎只需保证进程意外退出时数据持久化不丢失即可，不要求保证在系统crash时的数据持久化不丢失</strong></p>
 <p><strong>4. 整个评测会有时间限制（具体时限待公布），超时后评测结束且对应提交无结果</strong></p>
-<h3><span id="127-排名规则">1.2.7. 排名规则</span></h3><p>略</p>
-<h3><span id="128-资源限制">1.2.8. 资源限制</span></h3><p>内存占用不得超过：2G（C++), 3G(JAVA)<br>磁盘占用不得超过：320G<br>不使用压缩库</p>
-<h3><span id="129-作弊说明">1.2.9. 作弊说明</span></h3><ol>
+<h3 id="1-2-7-排名规则"><a href="#1-2-7-排名规则" class="headerlink" title="1.2.7. 排名规则"></a>1.2.7. 排名规则</h3><p>略</p>
+<h3 id="1-2-8-资源限制"><a href="#1-2-8-资源限制" class="headerlink" title="1.2.8. 资源限制"></a>1.2.8. 资源限制</h3><p>内存占用不得超过：2G（C++), 3G(JAVA)<br>磁盘占用不得超过：320G<br>不使用压缩库</p>
+<h3 id="1-2-9-作弊说明"><a href="#1-2-9-作弊说明" class="headerlink" title="1.2.9. 作弊说明"></a>1.2.9. 作弊说明</h3><ol>
 <li><p>不得使用第三方kv引擎库（如RocksDB、LevelDB、LMDB等），在其之上封装接口用来参赛</p>
 </li>
 <li><p>禁止使用tmpfs以及share memory等内存。包括但不限于： /dev/shm、/dev/pts、/sys /proc</p>
@@ -284,9 +222,9 @@
 <li><p>如果发现有作弊行为，包括但不限于：<br> （1）通过hack评测程序，绕过了必须的评测逻辑<br> （2）通过猜测数据格式进行针对性的压缩<br> （3）窃取评测程序代码<br>  … …<br> 则成绩无效，且取消参赛资格。</p>
 </li>
 </ol>
-<h2><span id="13-复赛赛题描述">1.3. 复赛赛题描述</span></h2><p>复赛赛题及要求除如下增项外，其他同初赛一样：</p>
-<h3><span id="131-题目内容">1.3.1. 题目内容</span></h3><p>在初赛题目基础上，还需要额外实现一个Range接口</p>
-<h3><span id="132-程序评测逻辑">1.3.2. 程序评测逻辑</span></h3><p>评测程序分为2个阶段：</p>
+<h2 id="1-3-复赛赛题描述"><a href="#1-3-复赛赛题描述" class="headerlink" title="1.3. 复赛赛题描述"></a>1.3. 复赛赛题描述</h2><p>复赛赛题及要求除如下增项外，其他同初赛一样：</p>
+<h3 id="1-3-1-题目内容"><a href="#1-3-1-题目内容" class="headerlink" title="1.3.1. 题目内容"></a>1.3.1. 题目内容</h3><p>在初赛题目基础上，还需要额外实现一个Range接口</p>
+<h3 id="1-3-2-程序评测逻辑"><a href="#1-3-2-程序评测逻辑" class="headerlink" title="1.3.2. 程序评测逻辑"></a>1.3.2. 程序评测逻辑</h3><p>评测程序分为2个阶段：</p>
 <ol>
 <li><strong>Recover正确性评测</strong></li>
 </ol>
@@ -298,11 +236,11 @@
 <p>2.2 随机读取：64个线程并发随机读取，每个线程各使用Read读取100万次随机数据</p>
 <p>2.3 顺序读取：64个线程并发顺序读取，每个线程各使用Range<strong>有序（增序）</strong>遍历全量数据<strong>2</strong>次</p>
 <p><strong>注：顺序读取阶段除了对迭代出来每条的kv校验是否匹配外，还会额外校验是否严格递增，如不通过则终止，评测失败</strong></p>
-<h1><span id="2-赛题分析与架构设计">2. 赛题分析与架构设计</span></h1><h2><span id="21-kv数据库整体框架">2.1. KV数据库整体框架</span></h2><h3><span id="211-数据规模分析">2.1.1. 数据规模分析</span></h3><p>本赛题要实现一个key-value的数据库，key长度为8Byte，value大小固定为4KB，测评过程中，有64个线程，每个线程分别写100万次数据，则value的每个4KB大小的数据总共要占250G，必然要放在磁盘中，内存中放key和value的索引。value的索引可以用value的逻辑位置表示，则可以使用32位整数表示。基本索引结构如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Location</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint64_t</span> key;</span><br><span class="line">    <span class="keyword">uint32_t</span> addr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-赛题分析与架构设计"><a href="#2-赛题分析与架构设计" class="headerlink" title="2. 赛题分析与架构设计"></a>2. 赛题分析与架构设计</h1><h2 id="2-1-KV数据库整体框架"><a href="#2-1-KV数据库整体框架" class="headerlink" title="2.1. KV数据库整体框架"></a>2.1. KV数据库整体框架</h2><h3 id="2-1-1-数据规模分析"><a href="#2-1-1-数据规模分析" class="headerlink" title="2.1.1. 数据规模分析"></a>2.1.1. 数据规模分析</h3><p>本赛题要实现一个key-value的数据库，key长度为8Byte，value大小固定为4KB，测评过程中，有64个线程，每个线程分别写100万次数据，则value的每个4KB大小的数据总共要占250G，必然要放在磁盘中，内存中放key和value的索引。value的索引可以用value的逻辑位置表示，则可以使用32位整数表示。基本索引结构如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Location</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint64_t</span> key;</span><br><span class="line">    <span class="keyword">uint32_t</span> addr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <p>由于内存对齐，单个结构体会占用16B，假设不考虑顺序、数据结构，只存放索引，占用977M，gcc编译器下可以使用<strong>attribute</strong>((packed))取消内存对齐，则每个结构体占用12B，整体占用732M，可以完全放到内存中。</p>
-<h3><span id="212-意外退出分析">2.1.2. 意外退出分析</span></h3><p>第一阶段的测评程序中，要求在程序意外退出时，能保证已存储的数据不丢失，那么意味着不仅value要按顺序落盘，key和value逻辑地址组成的索引也需要写到硬盘中，等到程序恢复时重新读取索引值，在内存中重建索引。</p>
-<h3><span id="213-并发问题分析">2.1.3. 并发问题分析</span></h3><p>64个线程并发写数据，最直接的想法是每个线程一个分片，这样可以达到最大并发，线程之间没有互斥关系。但是考虑到一个问题，在复赛阶段要做顺序读取数据，如果各个分片之间没有顺序，会导致在复赛阶段很难实现顺序读取的要求，而且测评程序写入的数据基本是大小均匀分布的，则考虑将分片设为按照大小分片，即取uint64表示的key高位分片，将分片设为有序。</p>
-<h3><span id="214-整体框架设计">2.1.4. 整体框架设计</span></h3><p>根据上述的分析，整个的架构设置为1024个分片，每个分片中有两个模块，分别称为索引日志模块MetaLog和ValueLog模块，ValueLog中管理value的文件写入和读取，MetaLog中管理Location的记录和管理，MetaLog中有两部分，一是索引在内存中的一个数据结构，称为table，为读接口提供高效的查询和更新，二是MetaLog文件，实时记录索引，为防止程序意外退出。</p>
+<h3 id="2-1-2-意外退出分析"><a href="#2-1-2-意外退出分析" class="headerlink" title="2.1.2. 意外退出分析"></a>2.1.2. 意外退出分析</h3><p>第一阶段的测评程序中，要求在程序意外退出时，能保证已存储的数据不丢失，那么意味着不仅value要按顺序落盘，key和value逻辑地址组成的索引也需要写到硬盘中，等到程序恢复时重新读取索引值，在内存中重建索引。</p>
+<h3 id="2-1-3-并发问题分析"><a href="#2-1-3-并发问题分析" class="headerlink" title="2.1.3. 并发问题分析"></a>2.1.3. 并发问题分析</h3><p>64个线程并发写数据，最直接的想法是每个线程一个分片，这样可以达到最大并发，线程之间没有互斥关系。但是考虑到一个问题，在复赛阶段要做顺序读取数据，如果各个分片之间没有顺序，会导致在复赛阶段很难实现顺序读取的要求，而且测评程序写入的数据基本是大小均匀分布的，则考虑将分片设为按照大小分片，即取uint64表示的key高位分片，将分片设为有序。</p>
+<h3 id="2-1-4-整体框架设计"><a href="#2-1-4-整体框架设计" class="headerlink" title="2.1.4. 整体框架设计"></a>2.1.4. 整体框架设计</h3><p>根据上述的分析，整个的架构设置为1024个分片，每个分片中有两个模块，分别称为索引日志模块MetaLog和ValueLog模块，ValueLog中管理value的文件写入和读取，MetaLog中管理Location的记录和管理，MetaLog中有两部分，一是索引在内存中的一个数据结构，称为table，为读接口提供高效的查询和更新，二是MetaLog文件，实时记录索引，为防止程序意外退出。</p>
 <pre class="mermaid">graph TB
     外层接口 --> partion0["partion[0]"]
     外层接口 --> partion1["partion[1]"]
@@ -314,14 +252,14 @@
     table --mmap--> file
     partioni --> ValueLog</pre>
 
-<h2><span id="22-细节技术问题">2.2. 细节技术问题</span></h2><h3><span id="221-数据转换">2.2.1. 数据转换</span></h3><p>程序输入的key是字符串的形式，由于长度不变，可以使用uint64表示，我使用了union转换了数据：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> Str2Uint &#123;</span><br><span class="line">    <span class="keyword">char</span> data[<span class="number">8</span>];</span><br><span class="line">    <span class="keyword">uint64_t</span> key;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">uint64_t</span> chang2Uint(<span class="keyword">const</span> PolarString &amp;key) &#123;</span><br><span class="line">    <span class="keyword">union</span> Str2Uint data;</span><br><span class="line">    <span class="keyword">size_t</span> size = key.size();</span><br><span class="line">    <span class="comment">// 可以使用memcpy</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; size) &#123;</span><br><span class="line">            data.data[i] = key[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            data.data[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> data.key;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-2-细节技术问题"><a href="#2-2-细节技术问题" class="headerlink" title="2.2. 细节技术问题"></a>2.2. 细节技术问题</h2><h3 id="2-2-1-数据转换"><a href="#2-2-1-数据转换" class="headerlink" title="2.2.1. 数据转换"></a>2.2.1. 数据转换</h3><p>程序输入的key是字符串的形式，由于长度不变，可以使用uint64表示，我使用了union转换了数据：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> Str2Uint &#123;</span><br><span class="line">    <span class="keyword">char</span> data[<span class="number">8</span>];</span><br><span class="line">    <span class="keyword">uint64_t</span> key;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">uint64_t</span> chang2Uint(<span class="keyword">const</span> PolarString &amp;key) &#123;</span><br><span class="line">    <span class="keyword">union</span> Str2Uint data;</span><br><span class="line">    <span class="keyword">size_t</span> size = key.size();</span><br><span class="line">    <span class="comment">// 可以使用memcpy</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; size) &#123;</span><br><span class="line">            data.data[i] = key[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            data.data[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> data.key;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>注意，linux系统下数据是小端存储，要使用key进行比较时，需要使用函数bswap_64转换一下，或者在复制时手动将顺序反过来。</p>
-<h3><span id="222-metalog">2.2.2. MetaLog</span></h3><ul>
+<h3 id="2-2-2-MetaLog"><a href="#2-2-2-MetaLog" class="headerlink" title="2.2.2. MetaLog"></a>2.2.2. MetaLog</h3><ul>
 <li>MetaLog中内存部分的table使用的数据结构和算法在比赛过程中经过了几次的变化，这个在之后有详细的介绍；</li>
-<li>MetaLog写文件的部分，由于Meta数据每次是16B写入的，文件IO大块数据写入速度较快，则创建文件是使用fallocate预分配大小，并配置为mmap，使用原子变量offset维护偏移量，不使用锁机制，没有锁的开销，充分使用pagecache，加快写入速度。读取时使用direct io或mmap均可，具体使用哪种技术随着table的数据结构在变化。<h3><span id="223-valuelog">2.2.3. ValueLog</span></h3></li>
+<li>MetaLog写文件的部分，由于Meta数据每次是16B写入的，文件IO大块数据写入速度较快，则创建文件是使用fallocate预分配大小，并配置为mmap，使用原子变量offset维护偏移量，不使用锁机制，没有锁的开销，充分使用pagecache，加快写入速度。读取时使用direct io或mmap均可，具体使用哪种技术随着table的数据结构在变化。<h3 id="2-2-3-ValueLog"><a href="#2-2-3-ValueLog" class="headerlink" title="2.2.3. ValueLog"></a>2.2.3. ValueLog</h3></li>
 <li>ValueLog文件读写同样使用原子变量offset维护文件的偏移量，使用pwrite和pread解决多线程问题读取文件时的并发问题；</li>
 <li>写入文件阶段利用系统的pagecache聚合，自己指定策略使用fsync刷盘；</li>
-<li>顺序读取时，分片value读文件使用direct io，跳过用户态和pagecache的复制，直接将数据从磁盘读出，由于最后阶段一直在优化其他部分，读阶段value没有使用direct io，现在想想，尝试一下可能成绩会更好。<h2><span id="23-全序遍历结构设计">2.3. 全序遍历结构设计</span></h2></li>
+<li>顺序读取时，分片value读文件使用direct io，跳过用户态和pagecache的复制，直接将数据从磁盘读出，由于最后阶段一直在优化其他部分，读阶段value没有使用direct io，现在想想，尝试一下可能成绩会更好。<h2 id="2-3-全序遍历结构设计"><a href="#2-3-全序遍历结构设计" class="headerlink" title="2.3. 全序遍历结构设计"></a>2.3. 全序遍历结构设计</h2></li>
 <li>整个数据使用高位分片，测评程序要求64个线程全序遍历，那么最好是将64个线程齐头并进，所有线程可以共享同一个分片的value数据。</li>
 <li>根据比赛要求的内存，可以将2-3个分片中的value数据全部读取到内存中，形成了一个滑动窗口的模型，启动一个预读线程，监控当前正在读的分片64个线程读取情况，当64个线程全部读完当前分片i，预读分片就释放分片i的value数据空间，并读取i+2的数据，当然，这个在一开始时要提前读取两个分片，而且要等待所有线程都到达之后再开始读取，否则会有不同步的情况。</li>
 <li>这个模型下并没有强行限制64个线程的齐头并进，完全是由预读线程控制的，换句话说，当遍历速度很快时，齐头并进的效果是由读取速度决定的，当预读线程读取完当前分片，遍历的线程才能开始遍历，当遍历速度较慢或参差不齐时，则64个线程的遍历位置会分布在已经读完成的2个线程里，整体速度取决于最慢的线程，因为只有第i个分片被所有线程读完时，才能进入i+2的预读。<pre class="mermaid">graph LR
@@ -359,33 +297,33 @@
         pi --> pi1
     end</pre>
 
-<h2><span id="24-kv数据库流程说明">2.4. kv数据库流程说明</span></h2><h3><span id="241-写入流程">2.4.1. 写入流程</span></h3><ol>
+<h2 id="2-4-kv数据库流程说明"><a href="#2-4-kv数据库流程说明" class="headerlink" title="2.4. kv数据库流程说明"></a>2.4. kv数据库流程说明</h2><h3 id="2-4-1-写入流程"><a href="#2-4-1-写入流程" class="headerlink" title="2.4.1. 写入流程"></a>2.4.1. 写入流程</h3><ol>
 <li>转换key并获取分片index；</li>
 <li>将value写入ValueLog，获取逻辑地址；</li>
 <li>key与逻辑地址组合为Location，放入MetaLog中，因为写数据和读数据是分开的，所以比赛最终选择了不维护动态索引，在写阶段只使用mmap顺序写入MetaLog文件。</li>
 </ol>
-<h3><span id="242-读取流程">2.4.2. 读取流程</span></h3><ol>
+<h3 id="2-4-2-读取流程"><a href="#2-4-2-读取流程" class="headerlink" title="2.4.2. 读取流程"></a>2.4.2. 读取流程</h3><ol>
 <li>转换key并获取分片index；</li>
 <li>若是第一次读取该分片，则先将MetaLog文件用mmap映射到内存，使用归并排序，同时重复数据取逻辑地址较大的；</li>
 <li>二分查找取到Location；</li>
 <li>从ValueLog文件中读取value。</li>
 </ol>
-<h3><span id="243-恢复流程">2.4.3. 恢复流程</span></h3><p>开64个线程分别负责16个分片中MetaLog数据的归并排序</p>
-<h3><span id="244-全序遍历流程">2.4.4. 全序遍历流程</span></h3><ol>
+<h3 id="2-4-3-恢复流程"><a href="#2-4-3-恢复流程" class="headerlink" title="2.4.3. 恢复流程"></a>2.4.3. 恢复流程</h3><p>开64个线程分别负责16个分片中MetaLog数据的归并排序</p>
+<h3 id="2-4-4-全序遍历流程"><a href="#2-4-4-全序遍历流程" class="headerlink" title="2.4.4. 全序遍历流程"></a>2.4.4. 全序遍历流程</h3><ol>
 <li>第一个线程到来开启预读线程，先读取两个分片的value数据到内存，使用原子变量控制等待所有线程到齐；</li>
 <li>所有线程到齐后，开始顺序遍历分片中的数据，当分片未载入内存时等待；</li>
 <li>预读线程隔一小段时间检测第i个分片是否被64个线程读完，读完就释放第i个分片中value的空间，并加载i+2的value数据，i++。</li>
 </ol>
-<h1><span id="3-比赛过程及技术与框架的变更">3. 比赛过程及技术与框架的变更</span></h1><h2><span id="31-初赛skiplist动态索引">3.1. 初赛：skiplist动态索引</span></h2><p>在初赛一开始，为了维护动态索引，我学习并实现了skiplist这个数据结构，并且使用__sync_bool_compare_and_swap这样的原子操作保证插入操作的原子性，但是由于其所占空间太大，需要的多余指针较多，内存总是会超出界限。</p>
-<h2><span id="32-初赛hashtable动态索引">3.2. 初赛：hashtable动态索引</span></h2><p>将skiplist换为了hashtable，hash函数是取key的中间几位，这样整个哈希表基本是有序的，为了有序，处理冲突是使用链表的方式，有序插入，这样在查找和遍历方面也能达到很好的平衡，当然这也只是在比赛的环境下，key的分布基本均匀的情况下，在实际生产环境中肯定是不能使用这种hash函数的。这种结构大幅减少了指针所占空间，也没有爆内存，但是由于疏忽，在写value时没做到原子性，初赛一直没有通过，然后就直接改为了静态索引，在写入时没有维护索引，在读取时归并排序整理MetaLog，二分查找。</p>
-<h2><span id="33-复赛direct-io读取value">3.3. 复赛：direct io读取value</span></h2><p>复赛完成了滑动窗口的机制后，整体速度并不快，成绩只是在620s，读取整个分片是正常使用pread，然后学习了使用direct io，在顺序读取时，读取整个分片的value数据使用了direct io，使用之后成绩大幅提升，到达了460s。</p>
-<h2><span id="34-复赛预读线程改为单线程">3.4. 复赛：预读线程改为单线程</span></h2><p>之后对预读线程进行了改进，之前预读线程是64个遍历线程检查条件达到后就启动一个预读线程，为了减小线程开销，就在顺序读取一开始创建了一个预读线程，由一个线程管理数据的释放和预读，这个优化程度并不大，成绩有所抖动，最好一次到达了448s。</p>
-<h1><span id="4-不足与改进">4. 不足与改进</span></h1><h2><span id="41-写入value">4.1. 写入value</span></h2><p>写入value是使用系统的pagecache进行聚合，然后调用fsync刷盘的，其实可以自己用小文件做数据聚合，然后使用direct io落盘，这样落盘过程控制程度大大加强，效果可能会更好。</p>
-<h2><span id="42-读取value">4.2. 读取value</span></h2><ol>
+<h1 id="3-比赛过程及技术与框架的变更"><a href="#3-比赛过程及技术与框架的变更" class="headerlink" title="3. 比赛过程及技术与框架的变更"></a>3. 比赛过程及技术与框架的变更</h1><h2 id="3-1-初赛：skiplist动态索引"><a href="#3-1-初赛：skiplist动态索引" class="headerlink" title="3.1. 初赛：skiplist动态索引"></a>3.1. 初赛：skiplist动态索引</h2><p>在初赛一开始，为了维护动态索引，我学习并实现了skiplist这个数据结构，并且使用__sync_bool_compare_and_swap这样的原子操作保证插入操作的原子性，但是由于其所占空间太大，需要的多余指针较多，内存总是会超出界限。</p>
+<h2 id="3-2-初赛：hashtable动态索引"><a href="#3-2-初赛：hashtable动态索引" class="headerlink" title="3.2. 初赛：hashtable动态索引"></a>3.2. 初赛：hashtable动态索引</h2><p>将skiplist换为了hashtable，hash函数是取key的中间几位，这样整个哈希表基本是有序的，为了有序，处理冲突是使用链表的方式，有序插入，这样在查找和遍历方面也能达到很好的平衡，当然这也只是在比赛的环境下，key的分布基本均匀的情况下，在实际生产环境中肯定是不能使用这种hash函数的。这种结构大幅减少了指针所占空间，也没有爆内存，但是由于疏忽，在写value时没做到原子性，初赛一直没有通过，然后就直接改为了静态索引，在写入时没有维护索引，在读取时归并排序整理MetaLog，二分查找。</p>
+<h2 id="3-3-复赛：direct-io读取value"><a href="#3-3-复赛：direct-io读取value" class="headerlink" title="3.3. 复赛：direct io读取value"></a>3.3. 复赛：direct io读取value</h2><p>复赛完成了滑动窗口的机制后，整体速度并不快，成绩只是在620s，读取整个分片是正常使用pread，然后学习了使用direct io，在顺序读取时，读取整个分片的value数据使用了direct io，使用之后成绩大幅提升，到达了460s。</p>
+<h2 id="3-4-复赛：预读线程改为单线程"><a href="#3-4-复赛：预读线程改为单线程" class="headerlink" title="3.4. 复赛：预读线程改为单线程"></a>3.4. 复赛：预读线程改为单线程</h2><p>之后对预读线程进行了改进，之前预读线程是64个遍历线程检查条件达到后就启动一个预读线程，为了减小线程开销，就在顺序读取一开始创建了一个预读线程，由一个线程管理数据的释放和预读，这个优化程度并不大，成绩有所抖动，最好一次到达了448s。</p>
+<h1 id="4-不足与改进"><a href="#4-不足与改进" class="headerlink" title="4. 不足与改进"></a>4. 不足与改进</h1><h2 id="4-1-写入value"><a href="#4-1-写入value" class="headerlink" title="4.1. 写入value"></a>4.1. 写入value</h2><p>写入value是使用系统的pagecache进行聚合，然后调用fsync刷盘的，其实可以自己用小文件做数据聚合，然后使用direct io落盘，这样落盘过程控制程度大大加强，效果可能会更好。</p>
+<h2 id="4-2-读取value"><a href="#4-2-读取value" class="headerlink" title="4.2. 读取value"></a>4.2. 读取value</h2><ol>
 <li>读取value可以使用direct io进行尝试一下，不过不使用direct io，系统会做一定的预读，这两个的性能对于此次比赛的测评程序谁更好也不好说，最好的方式是将系统预读关闭，自己使用direct io，并加入预读机制，这样参数可以调到最佳；</li>
 <li>读取value时可以交个几个线程去负责，这样可以降低64个线程io的竞争。效果可能会更好。</li>
 </ol>
-<h2><span id="43-通用化">4.3. 通用化</span></h2><p>抛开这个比赛，整个系统要到达实用的地步，必然要维护动态索引的，关于一开始尝试的skiplist还可以进一步研究一下。</p>
+<h2 id="4-3-通用化"><a href="#4-3-通用化" class="headerlink" title="4.3. 通用化"></a>4.3. 通用化</h2><p>抛开这个比赛，整个系统要到达实用的地步，必然要维护动态索引的，关于一开始尝试的skiplist还可以进一步研究一下。</p>
 
       
 
@@ -510,6 +448,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-赛题规则"><span class="toc-number">1.</span> <span class="toc-text">1. 赛题规则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-赛题背景"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 赛题背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-初赛赛题描述"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. 初赛赛题描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-题目内容"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1. 题目内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-语言限定"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.2. 语言限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-3-程序目标"><span class="toc-number">1.2.3.</span> <span class="toc-text">1.2.3. 程序目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-4-参赛方法说明"><span class="toc-number">1.2.4.</span> <span class="toc-text">1.2.4. 参赛方法说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-5-测试环境"><span class="toc-number">1.2.5.</span> <span class="toc-text">1.2.5. 测试环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-6-程序评测逻辑"><span class="toc-number">1.2.6.</span> <span class="toc-text">1.2.6. 程序评测逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-7-排名规则"><span class="toc-number">1.2.7.</span> <span class="toc-text">1.2.7. 排名规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-8-资源限制"><span class="toc-number">1.2.8.</span> <span class="toc-text">1.2.8. 资源限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-9-作弊说明"><span class="toc-number">1.2.9.</span> <span class="toc-text">1.2.9. 作弊说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-复赛赛题描述"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. 复赛赛题描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-题目内容"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1. 题目内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-程序评测逻辑"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.3.2. 程序评测逻辑</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-赛题分析与架构设计"><span class="toc-number">2.</span> <span class="toc-text">2. 赛题分析与架构设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-KV数据库整体框架"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. KV数据库整体框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-数据规模分析"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1. 数据规模分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-意外退出分析"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2. 意外退出分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-3-并发问题分析"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.1.3. 并发问题分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-4-整体框架设计"><span class="toc-number">2.1.4.</span> <span class="toc-text">2.1.4. 整体框架设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-细节技术问题"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 细节技术问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-数据转换"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1. 数据转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-MetaLog"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2. MetaLog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-ValueLog"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3. ValueLog</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-全序遍历结构设计"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. 全序遍历结构设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-kv数据库流程说明"><span class="toc-number">2.4.</span> <span class="toc-text">2.4. kv数据库流程说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-写入流程"><span class="toc-number">2.4.1.</span> <span class="toc-text">2.4.1. 写入流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-2-读取流程"><span class="toc-number">2.4.2.</span> <span class="toc-text">2.4.2. 读取流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-3-恢复流程"><span class="toc-number">2.4.3.</span> <span class="toc-text">2.4.3. 恢复流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-4-全序遍历流程"><span class="toc-number">2.4.4.</span> <span class="toc-text">2.4.4. 全序遍历流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-比赛过程及技术与框架的变更"><span class="toc-number">3.</span> <span class="toc-text">3. 比赛过程及技术与框架的变更</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-初赛：skiplist动态索引"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 初赛：skiplist动态索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-初赛：hashtable动态索引"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 初赛：hashtable动态索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-复赛：direct-io读取value"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. 复赛：direct io读取value</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-复赛：预读线程改为单线程"><span class="toc-number">3.4.</span> <span class="toc-text">3.4. 复赛：预读线程改为单线程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-不足与改进"><span class="toc-number">4.</span> <span class="toc-text">4. 不足与改进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-写入value"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 写入value</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-读取value"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 读取value</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-通用化"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 通用化</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -519,6 +470,16 @@
   
   
 
+  
+  <div id="SOHUCS" sid="数据库性能大赛总结" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "cyu2cSklz",
+        conf: "e3e04adcb01a8c5839155f27bea11091"
+    });
+</script>
+</script>
   
 
   
