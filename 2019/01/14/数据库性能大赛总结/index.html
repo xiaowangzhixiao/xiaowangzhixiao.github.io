@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="东拉西扯">
 <meta property="og:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-14T15:22:46.945Z">
+<meta property="og:updated_time" content="2019-01-15T02:18:49.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库性能大赛总结">
 <meta name="twitter:description" content="阿里数据库性能大赛总结PolarDB作为软硬件结合的代表, 充分使用新硬件, 榨干硬件的红利来为用户获取极致的数据性能, 其中在PolarDB 的设计中, 我们使用 Optane SSD作为所有热数据的写入缓冲区, 通过kernel bypass的方式, 实现了极致的性能。所以本次比赛就以Optane SSD盘为背景，参赛者在其基础之上探索实现一种高效的kv存储引擎本次比赛是我和章润学长使用C++">
@@ -24,7 +24,7 @@
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/img/20110215095220349.jpg">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -60,9 +60,9 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/categories/编程/大数据/">大数据</a></li>
-	        
 				<li><a href="/categories/编程/">技术干货</a></li>
+	        
+				<li><a href="/categories/随笔/">随笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -138,9 +138,9 @@
 				
 					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/categories/编程/大数据/">大数据</a></li>
-		        
 					<li style="width: 33.333333333333336%"><a href="/categories/编程/">技术干货</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/categories/随笔/">随笔</a></li>
 		        
 				</ul>
 			</nav>
@@ -256,32 +256,36 @@
 <p>注意，linux系统下数据是小端存储，要使用key进行比较时，需要使用函数bswap_64转换一下，或者在复制时手动将顺序反过来。</p>
 <h3 id="2-2-2-MetaLog"><a href="#2-2-2-MetaLog" class="headerlink" title="2.2.2. MetaLog"></a>2.2.2. MetaLog</h3><ul>
 <li>MetaLog中内存部分的table使用的数据结构和算法在比赛过程中经过了几次的变化，这个在之后有详细的介绍；</li>
-<li>MetaLog写文件的部分，由于Meta数据每次是16B写入的，文件IO大块数据写入速度较快，则创建文件是使用fallocate预分配大小，并配置为mmap，使用原子变量offset维护偏移量，不使用锁机制，没有锁的开销，充分使用pagecache，加快写入速度。读取时使用direct io或mmap均可，具体使用哪种技术随着table的数据结构在变化。<h3 id="2-2-3-ValueLog"><a href="#2-2-3-ValueLog" class="headerlink" title="2.2.3. ValueLog"></a>2.2.3. ValueLog</h3></li>
+<li>MetaLog写文件的部分，由于Meta数据每次是16B写入的，文件IO大块数据写入速度较快，则创建文件是使用fallocate预分配大小，并配置为mmap，使用原子变量offset维护偏移量，不使用锁机制，没有锁的开销，充分使用pagecache，加快写入速度。读取时使用direct io或mmap均可，具体使用哪种技术随着table的数据结构在变化。</li>
+</ul>
+<h3 id="2-2-3-ValueLog"><a href="#2-2-3-ValueLog" class="headerlink" title="2.2.3. ValueLog"></a>2.2.3. ValueLog</h3><ul>
 <li>ValueLog文件读写同样使用原子变量offset维护文件的偏移量，使用pwrite和pread解决多线程问题读取文件时的并发问题；</li>
 <li>写入文件阶段利用系统的pagecache聚合，自己指定策略使用fsync刷盘；</li>
-<li>顺序读取时，分片value读文件使用direct io，跳过用户态和pagecache的复制，直接将数据从磁盘读出，由于最后阶段一直在优化其他部分，读阶段value没有使用direct io，现在想想，尝试一下可能成绩会更好。<h2 id="2-3-全序遍历结构设计"><a href="#2-3-全序遍历结构设计" class="headerlink" title="2.3. 全序遍历结构设计"></a>2.3. 全序遍历结构设计</h2></li>
+<li>顺序读取时，分片value读文件使用direct io，跳过用户态和pagecache的复制，直接将数据从磁盘读出，由于最后阶段一直在优化其他部分，读阶段value没有使用direct io，现在想想，尝试一下可能成绩会更好。</li>
+</ul>
+<h2 id="2-3-全序遍历结构设计"><a href="#2-3-全序遍历结构设计" class="headerlink" title="2.3. 全序遍历结构设计"></a>2.3. 全序遍历结构设计</h2><ul>
 <li>整个数据使用高位分片，测评程序要求64个线程全序遍历，那么最好是将64个线程齐头并进，所有线程可以共享同一个分片的value数据。</li>
 <li>根据比赛要求的内存，可以将2-3个分片中的value数据全部读取到内存中，形成了一个滑动窗口的模型，启动一个预读线程，监控当前正在读的分片64个线程读取情况，当64个线程全部读完当前分片i，预读分片就释放分片i的value数据空间，并读取i+2的数据，当然，这个在一开始时要提前读取两个分片，而且要等待所有线程都到达之后再开始读取，否则会有不同步的情况。</li>
-<li>这个模型下并没有强行限制64个线程的齐头并进，完全是由预读线程控制的，换句话说，当遍历速度很快时，齐头并进的效果是由读取速度决定的，当预读线程读取完当前分片，遍历的线程才能开始遍历，当遍历速度较慢或参差不齐时，则64个线程的遍历位置会分布在已经读完成的2个线程里，整体速度取决于最慢的线程，因为只有第i个分片被所有线程读完时，才能进入i+2的预读。<pre class="mermaid">graph LR
-  subgraph 未处理的分片
-      pi3["partion[i+3]"] -.-> pi1023["partion[i+1023]"]
-  end
-  subgraph 正在预读的分片
-      pi2["partion[i+2]"]
-      pi2 --> pi3
-  end
-  subgraph 正在读取的分片
-      pi1["partion[i+1]"]
-      pi1 --> pi2
-  end
-  subgraph 已经读取的分片
-      p0["partion[0]"] --> p1["partion[1]"]
-      p1 -.-> pi["partion[i]"]
-      pi --> pi1
-  end</pre>
-
-</li>
+<li>这个模型下并没有强行限制64个线程的齐头并进，完全是由预读线程控制的，换句话说，当遍历速度很快时，齐头并进的效果是由读取速度决定的，当预读线程读取完当前分片，遍历的线程才能开始遍历，当遍历速度较慢或参差不齐时，则64个线程的遍历位置会分布在已经读完成的2个线程里，整体速度取决于最慢的线程，因为只有第i个分片被所有线程读完时，才能进入i+2的预读。</li>
 </ul>
+<pre class="mermaid">graph LR
+    subgraph 未处理的分片
+        pi3["partion[i+3]"] -.-> pi1023["partion[i+1023]"]
+    end
+    subgraph 正在预读的分片
+        pi2["partion[i+2]"]
+        pi2 --> pi3
+    end
+    subgraph 正在读取的分片
+        pi1["partion[i+1]"]
+        pi1 --> pi2
+    end
+    subgraph 已经读取的分片
+        p0["partion[0]"] --> p1["partion[1]"]
+        p1 -.-> pi["partion[i]"]
+        pi --> pi1
+    end</pre>
+
 <pre class="mermaid">graph LR
     subgraph 未处理的分片
         pi3["partion[i+3]"] -.-> pi1023["partion[i+1023]"]
@@ -471,19 +475,25 @@
   
 
   
-  <div id="SOHUCS" sid="数据库性能大赛总结" ></div> 
-<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
-<script type="text/javascript">
-    window.changyan.api.config({
-        appid: "cyu2cSklz",
-        conf: "e3e04adcb01a8c5839155f27bea11091"
-    });
-</script>
-</script>
-  
 
   
 
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "https://xiaowangzhixiao.github.io/2019/01/14/数据库性能大赛总结/",
+  owner: 'xiaowangzhixiao',
+  repo: 'blog_comment',
+  oauth: {
+    client_id: 'ec0444c4026d8b742647',
+    client_secret: '8fde98bf2e63a87a154791c9aab789556e458a99',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
 
 
