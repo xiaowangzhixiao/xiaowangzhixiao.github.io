@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="https://xiaowangzhixiao.github.io">
   <title>stm32cubeMX+vscode开发stm32 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="stm32单片机的开发使用哪个IDE比较好呢，这是这两年开发stm32程序以来一直在探索的。 一开始刚刚进入机器人队，学长交我们的是stm32库函数+keil开发程序，然后玩了一年的MDK，发现不怎么好用，而且keil没法跨平台啊，自己用linux开发单片机程序也想有IDE啊，纯vim+交叉编译工具链问题在于make难写啊，自己学make又记不住，vim也玩得不怎么好，，后来队友教下一届的用iar">
+  <meta name="description" content="stm32单片机的开发使用哪个IDE比较好呢，这是这两年开发stm32程序以来一直在探索的。 一开始刚刚进入机器人队，学长教我们的是stm32库函数+keil开发程序，然后玩了一年的MDK，发现不怎么好用，而且keil没法跨平台啊，自己用linux开发单片机程序也想有IDE啊，纯vim+交叉编译工具链问题在于make难写啊，自己学make又记不住，vim也玩得不怎么好，，后来队友教下一届的用iar">
 <meta name="keywords" content="单片机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="stm32cubeMX+vscode开发stm32">
 <meta property="og:url" content="https://xiaowangzhixiao.github.io/2019/08/14/stm32cubeMX-vscode开发stm32/index.html">
 <meta property="og:site_name" content="东拉西扯">
-<meta property="og:description" content="stm32单片机的开发使用哪个IDE比较好呢，这是这两年开发stm32程序以来一直在探索的。 一开始刚刚进入机器人队，学长交我们的是stm32库函数+keil开发程序，然后玩了一年的MDK，发现不怎么好用，而且keil没法跨平台啊，自己用linux开发单片机程序也想有IDE啊，纯vim+交叉编译工具链问题在于make难写啊，自己学make又记不住，vim也玩得不怎么好，，后来队友教下一届的用iar">
+<meta property="og:description" content="stm32单片机的开发使用哪个IDE比较好呢，这是这两年开发stm32程序以来一直在探索的。 一开始刚刚进入机器人队，学长教我们的是stm32库函数+keil开发程序，然后玩了一年的MDK，发现不怎么好用，而且keil没法跨平台啊，自己用linux开发单片机程序也想有IDE啊，纯vim+交叉编译工具链问题在于make难写啊，自己学make又记不住，vim也玩得不怎么好，，后来队友教下一届的用iar">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://xiaowangzhixiao.github.io/img/mingw环境变量.png">
 <meta property="og:image" content="https://xiaowangzhixiao.github.io/img/make重命名.png">
@@ -25,10 +25,10 @@
 <meta property="og:image" content="https://xiaowangzhixiao.github.io/img/vscode插件.png">
 <meta property="og:image" content="https://xiaowangzhixiao.github.io/img/libusb.png">
 <meta property="og:image" content="https://xiaowangzhixiao.github.io/img/vscode调试.png">
-<meta property="og:updated_time" content="2019-08-15T05:17:01.768Z">
+<meta property="og:updated_time" content="2019-08-15T05:18:01.564Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="stm32cubeMX+vscode开发stm32">
-<meta name="twitter:description" content="stm32单片机的开发使用哪个IDE比较好呢，这是这两年开发stm32程序以来一直在探索的。 一开始刚刚进入机器人队，学长交我们的是stm32库函数+keil开发程序，然后玩了一年的MDK，发现不怎么好用，而且keil没法跨平台啊，自己用linux开发单片机程序也想有IDE啊，纯vim+交叉编译工具链问题在于make难写啊，自己学make又记不住，vim也玩得不怎么好，，后来队友教下一届的用iar">
+<meta name="twitter:description" content="stm32单片机的开发使用哪个IDE比较好呢，这是这两年开发stm32程序以来一直在探索的。 一开始刚刚进入机器人队，学长教我们的是stm32库函数+keil开发程序，然后玩了一年的MDK，发现不怎么好用，而且keil没法跨平台啊，自己用linux开发单片机程序也想有IDE啊，纯vim+交叉编译工具链问题在于make难写啊，自己学make又记不住，vim也玩得不怎么好，，后来队友教下一届的用iar">
 <meta name="twitter:image" content="https://xiaowangzhixiao.github.io/img/mingw环境变量.png">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
@@ -186,7 +186,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>stm32单片机的开发使用哪个IDE比较好呢，这是这两年开发stm32程序以来一直在探索的。</p>
-<p>一开始刚刚进入机器人队，学长交我们的是stm32库函数+keil开发程序，然后玩了一年的MDK，发现不怎么好用，而且keil没法跨平台啊，自己用linux开发单片机程序也想有IDE啊，纯vim+交叉编译工具链问题在于make难写啊，自己学make又记不住，vim也玩得不怎么好，，后来队友教下一届的用iar，，，试用了一下发现，代码补全还没keil来的好，怒弃，这个时候队里使用的底层已经转变成HAL库了，st公司也出了STM32cubeMX，底层配置只要点点点就可以了，点击生成代码就可以生成各家IDE的工程。</p>
+<p>一开始刚刚进入机器人队，学长教我们的是stm32库函数+keil开发程序，然后玩了一年的MDK，发现不怎么好用，而且keil没法跨平台啊，自己用linux开发单片机程序也想有IDE啊，纯vim+交叉编译工具链问题在于make难写啊，自己学make又记不住，vim也玩得不怎么好，，后来队友教下一届的用iar，，，试用了一下发现，代码补全还没keil来的好，怒弃，这个时候队里使用的底层已经转变成HAL库了，st公司也出了STM32cubeMX，底层配置只要点点点就可以了，点击生成代码就可以生成各家IDE的工程。</p>
 <p>我在之前用vscode就发现vscode真不愧是宇宙最强编辑器，所以就开始用vscode写单片机代码，用iar下载和调试。前两天就在想，既然都用vscode写代码了，那直接用它下载调试不就行了，而且有stm32cubeMX，makefile可以自动生成，跨平台开发也实现了，经过一番探索，我成功实现了windows平台下在vscode编写和调试单片机代码，现记录如下。</p>
 <a id="more"></a>
 <h2 id="安装vscode"><a href="#安装vscode" class="headerlink" title="安装vscode"></a>安装vscode</h2><p>正常安装vscode即可，不再赘述。</p>
@@ -494,10 +494,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面向对象</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">控制流</a>
               </li>
              
@@ -506,15 +502,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">面向对象</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">论文阅读</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -526,15 +518,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">论文阅读</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
