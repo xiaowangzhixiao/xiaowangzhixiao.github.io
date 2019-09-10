@@ -6,15 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xiaowangzhixiao.github.io">
-  <title>东拉西扯</title>
+  <title>vscode+jflash开发调试stm32 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="东拉西扯">
-<meta property="og:url" content="https://xiaowangzhixiao.github.io/page/3/index.html">
+  <meta name="description" content="安装vscode正常安装vscode即可，不再赘述。 安装make工具Windows系统没有make工具，需要下载mingw，mingw-w64-install.exe，安装好后将其bin目录加入到环境变量中  这个时候在命令行里输入make -v发现还是找不到命令，这是怎么回事呢，原来是由于mingw中的make不叫make，打开mingw的bin目录将mingw32-make复制一份改名成ma">
+<meta name="keywords" content="单片机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vscode+jflash开发调试stm32">
+<meta property="og:url" content="https://xiaowangzhixiao.github.io/2019/09/10/vscode-jflash开发调试stm32/index.html">
 <meta property="og:site_name" content="东拉西扯">
+<meta property="og:description" content="安装vscode正常安装vscode即可，不再赘述。 安装make工具Windows系统没有make工具，需要下载mingw，mingw-w64-install.exe，安装好后将其bin目录加入到环境变量中  这个时候在命令行里输入make -v发现还是找不到命令，这是怎么回事呢，原来是由于mingw中的make不叫make，打开mingw的bin目录将mingw32-make复制一份改名成ma">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/mingw环境变量.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/make重命名.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/make.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/arm-gcc.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/环境变量2.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/vscode插件.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/configuration.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/CompilerPath.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/Defines.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/debug1.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/debug2.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/vscode调试.png">
+<meta property="og:updated_time" content="2019-09-10T12:55:57.038Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="东拉西扯">
+<meta name="twitter:title" content="vscode+jflash开发调试stm32">
+<meta name="twitter:description" content="安装vscode正常安装vscode即可，不再赘述。 安装make工具Windows系统没有make工具，需要下载mingw，mingw-w64-install.exe，安装好后将其bin目录加入到环境变量中  这个时候在命令行里输入make -v发现还是找不到命令，这是怎么回事呢，原来是由于mingw中的make不叫make，打开mingw的bin目录将mingw32-make复制一份改名成ma">
+<meta name="twitter:image" content="https://xiaowangzhixiao.github.io/img/mingw环境变量.png">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -150,37 +168,62 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-vscode-jflash开发调试stm32" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/17/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      vscode+jflash开发调试stm32
     </h1>
   
 
         
-        <a href="/2018/03/17/hello-world/" class="archive-article-date">
-  	<time datetime="2018-03-17T05:31:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
+        <a href="/2019/09/10/vscode-jflash开发调试stm32/" class="archive-article-date">
+  	<time datetime="2019-09-10T12:12:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h2 id="安装vscode"><a href="#安装vscode" class="headerlink" title="安装vscode"></a>安装vscode</h2><p>正常安装vscode即可，不再赘述。</p>
+<h2 id="安装make工具"><a href="#安装make工具" class="headerlink" title="安装make工具"></a>安装make工具</h2><p>Windows系统没有make工具，需要下载mingw，mingw-w64-install.exe，安装好后将其bin目录加入到环境变量中</p>
+<p><img src="/img/mingw环境变量.png" alt="mingw环境变量"></p>
+<p>这个时候在命令行里输入make -v发现还是找不到命令，这是怎么回事呢，原来是由于mingw中的make不叫make，打开mingw的bin目录将mingw32-make复制一份改名成make就可以了。</p>
+<p><img src="/img/make重命名.png" alt="make重命名"></p>
+<p><img src="/img/make.png" alt="make"></p>
+<h2 id="安装交叉编译工具链"><a href="#安装交叉编译工具链" class="headerlink" title="安装交叉编译工具链"></a>安装交叉编译工具链</h2><p>我们要安装的是ARM GCC Toolchain (<a href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads" target="_blank" rel="noopener">https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads</a>)</p>
+<p>安装好后添加环境变量，在命令行中验证：<br>arm-none-eabi-gcc -v</p>
+<p><img src="/img/arm-gcc.png" alt="arm-gcc"></p>
+<h2 id="安装jflash"><a href="#安装jflash" class="headerlink" title="安装jflash"></a>安装jflash</h2><p>正常安装jflash，一般安装jlink的驱动时会安装，然后需要添加环境变量</p>
+<h2 id="安装clang-llvm"><a href="#安装clang-llvm" class="headerlink" title="安装clang llvm"></a>安装clang llvm</h2><p>安装clang主要是为vscode提供语法补全代码格式化等功能，安装好后添加环境变量</p>
+<p><img src="/img/环境变量2.png" alt="环境变量2.png"></p>
+<h2 id="生成并编译代码"><a href="#生成并编译代码" class="headerlink" title="生成并编译代码"></a>生成并编译代码</h2><p>在STM32CubeMX中配置好工程后选择makefile类型，然后生成代码。</p>
+<p>在文件夹下命令行运行make就可以编译生成可以下载的二进制代码了。</p>
+<h2 id="配置vscode"><a href="#配置vscode" class="headerlink" title="配置vscode"></a>配置vscode</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>需要安装c/c++、ARM、Cortex-dubug，ARM插件用于格式化ARM汇编代码，Cortex-debug插件用于简化调试配置文件</p>
+<p><img src="/img/vscode插件.png" alt="vscode插件.png"></p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>用vscode打开工程文件夹，然后保存为工作区。</p>
+<h4 id="c-cpp-properties-json"><a href="#c-cpp-properties-json" class="headerlink" title="c_cpp_properties.json"></a>c_cpp_properties.json</h4><p>使用ctrl+shift+p,输入命令 <code>C/C++:Edit Configurations(UI)</code>,打开配置界面<br><img src="/img/configuration.png" alt="configuration.png"></p>
+<ul>
+<li>添加新配置</li>
+<li>添加arm-none-eabi-gcc的编译路径</li>
+<li>打开makefile文件，将其中的宏定义添加到配置界面</li>
+<li>c语言版本选择c99</li>
+<li>打开.vscode\c_cpp_properties.json文件将c++版本的配置删除</li>
+</ul>
+<p><img src="/img/CompilerPath.png" alt="CompilerPath.png"><br><img src="/img/Defines.png" alt="Defines.png"></p>
+<p>.vscode\c_cpp_properties.json是用于对C/C++语言的语法提示等的配置，配置完成后.vscode\c_cpp_properties.json如下<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"npc"</span>,</span><br><span class="line">            <span class="attr">"includePath"</span>: [</span><br><span class="line">                <span class="string">"$&#123;workspaceFolder&#125;/**"</span>,</span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"defines"</span>: [</span><br><span class="line">                <span class="string">"_DEBUG"</span>,</span><br><span class="line">                <span class="string">"UNICODE"</span>,</span><br><span class="line">                <span class="string">"_UNICODE"</span>,</span><br><span class="line">                <span class="string">"USE_HAL_DRIVER"</span>,</span><br><span class="line">                <span class="string">"STM32F103xB"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"compilerPath"</span>: <span class="string">"\"D:/GNU Tools ARM Embedded/5.4 2016q3/bin/arm-none-eabi-gcc.exe\""</span>,</span><br><span class="line">            <span class="attr">"cStandard"</span>: <span class="string">"c99"</span>,</span><br><span class="line">            <span class="attr">"intelliSenseMode"</span>: <span class="string">"clang-x86"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"version"</span>: <span class="number">4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="launch-json"><a href="#launch-json" class="headerlink" title="launch.json"></a>launch.json</h4><p>这个文件主要是对调试任务进行配置，使用ctrl+shift+p,输入命令 <code>Debug:Open launch.json</code>，选择Cortex Debug,如下<br><img src="/img/debug1.png" alt="debug1.png"><br><img src="/img/debug2.png" alt="debug2.png"><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"trace"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">       &#123;</span><br><span class="line">            <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceRoot&#125;"</span>,</span><br><span class="line">            <span class="attr">"executable"</span>: <span class="string">"./build/npc.elf"</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"Debug Microcontroller"</span>,</span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"cortex-debug"</span>,</span><br><span class="line">            <span class="attr">"device"</span>: <span class="string">"STM32F103C8"</span>,</span><br><span class="line">            <span class="attr">"servertype"</span>: <span class="string">"jlink"</span>,</span><br><span class="line">            <span class="attr">"svdFile"</span>: <span class="string">"./STM32F103.svd"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>文件中需要配置的地方有</p>
+<ul>
+<li>“executable”: “./build/npc.elf”，改为刚刚编译成功的可执行文件</li>
+<li>device改为自己芯片的类型</li>
+<li>svdFile，用于描述芯片外设的，配置后在调试时可以读取外设的寄存器<h2 id="下载和调试代码"><a href="#下载和调试代码" class="headerlink" title="下载和调试代码"></a>下载和调试代码</h2></li>
+</ul>
+<p>配置好launch.json后，在vscode的调试界面就可以看到刚刚配置的debug，点击运行，就可以进行调试了</p>
+<p><img src="/img/vscode调试.png" alt="vscode调试"></p>
 
       
 
@@ -189,13 +232,28 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">单片机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/杂项//" class="article-tag-list-link color3">杂项</a>
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程/stm32//" class="article-tag-list-link color1">stm32</a>
         		</li>
       		
 		</ul>
@@ -203,16 +261,75 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/17/hello-world/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xiaowangzhixiao.github.io/2019/09/10/vscode-jflash开发调试stm32/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/14/stm32cubeMX-vscode开发stm32/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">stm32cubeMX+vscode开发stm32</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -227,91 +344,48 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-开博大吉" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/17/开博大吉/">开博大吉</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/17/开博大吉/" class="archive-article-date">
-  	<time datetime="2018-03-17T05:31:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="欢迎来到我的博客"><a href="#欢迎来到我的博客" class="headerlink" title="欢迎来到我的博客"></a>欢迎来到我的博客</h1><p>鸣谢：<br>hexo，github，yilia theme</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/随笔//" class="article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/17/开博大吉/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装vscode"><span class="toc-number">1.</span> <span class="toc-text">安装vscode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装make工具"><span class="toc-number">2.</span> <span class="toc-text">安装make工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装交叉编译工具链"><span class="toc-number">3.</span> <span class="toc-text">安装交叉编译工具链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装jflash"><span class="toc-number">4.</span> <span class="toc-text">安装jflash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装clang-llvm"><span class="toc-number">5.</span> <span class="toc-text">安装clang llvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成并编译代码"><span class="toc-number">6.</span> <span class="toc-text">生成并编译代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置vscode"><span class="toc-number">7.</span> <span class="toc-text">配置vscode</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装插件"><span class="toc-number">7.1.</span> <span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件"><span class="toc-number">7.2.</span> <span class="toc-text">配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#c-cpp-properties-json"><span class="toc-number">7.2.1.</span> <span class="toc-text">c_cpp_properties.json</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#launch-json"><span class="toc-number">7.2.2.</span> <span class="toc-text">launch.json</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载和调试代码"><span class="toc-number">8.</span> <span class="toc-text">下载和调试代码</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//www.wenjunjiang.win/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "vscode+jflash开发调试stm32",
+  owner: 'xiaowangzhixiao',
+  repo: 'blog_comment',
+  oauth: {
+    client_id: 'ec0444c4026d8b742647',
+    client_secret: '8fde98bf2e63a87a154791c9aab789556e458a99',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
 
 
@@ -334,8 +408,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

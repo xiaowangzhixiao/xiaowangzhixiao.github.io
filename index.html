@@ -152,6 +152,130 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-vscode-jflash开发调试stm32" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/10/vscode-jflash开发调试stm32/">vscode+jflash开发调试stm32</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/10/vscode-jflash开发调试stm32/" class="archive-article-date">
+  	<time datetime="2019-09-10T12:12:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装vscode"><a href="#安装vscode" class="headerlink" title="安装vscode"></a>安装vscode</h2><p>正常安装vscode即可，不再赘述。</p>
+<h2 id="安装make工具"><a href="#安装make工具" class="headerlink" title="安装make工具"></a>安装make工具</h2><p>Windows系统没有make工具，需要下载mingw，mingw-w64-install.exe，安装好后将其bin目录加入到环境变量中</p>
+<p><img src="/img/mingw环境变量.png" alt="mingw环境变量"></p>
+<p>这个时候在命令行里输入make -v发现还是找不到命令，这是怎么回事呢，原来是由于mingw中的make不叫make，打开mingw的bin目录将mingw32-make复制一份改名成make就可以了。</p>
+<p><img src="/img/make重命名.png" alt="make重命名"></p>
+<p><img src="/img/make.png" alt="make"></p>
+<h2 id="安装交叉编译工具链"><a href="#安装交叉编译工具链" class="headerlink" title="安装交叉编译工具链"></a>安装交叉编译工具链</h2><p>我们要安装的是ARM GCC Toolchain (<a href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads" target="_blank" rel="noopener">https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads</a>)</p>
+<p>安装好后添加环境变量，在命令行中验证：<br>arm-none-eabi-gcc -v</p>
+<p><img src="/img/arm-gcc.png" alt="arm-gcc"></p>
+<h2 id="安装jflash"><a href="#安装jflash" class="headerlink" title="安装jflash"></a>安装jflash</h2><p>正常安装jflash，一般安装jlink的驱动时会安装，然后需要添加环境变量</p>
+<h2 id="安装clang-llvm"><a href="#安装clang-llvm" class="headerlink" title="安装clang llvm"></a>安装clang llvm</h2><p>安装clang主要是为vscode提供语法补全代码格式化等功能，安装好后添加环境变量</p>
+<p><img src="/img/环境变量2.png" alt="环境变量2.png"></p>
+<h2 id="生成并编译代码"><a href="#生成并编译代码" class="headerlink" title="生成并编译代码"></a>生成并编译代码</h2><p>在STM32CubeMX中配置好工程后选择makefile类型，然后生成代码。</p>
+<p>在文件夹下命令行运行make就可以编译生成可以下载的二进制代码了。</p>
+<h2 id="配置vscode"><a href="#配置vscode" class="headerlink" title="配置vscode"></a>配置vscode</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>需要安装c/c++、ARM、Cortex-dubug，ARM插件用于格式化ARM汇编代码，Cortex-debug插件用于简化调试配置文件</p>
+<p><img src="/img/vscode插件.png" alt="vscode插件.png"></p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>用vscode打开工程文件夹，然后保存为工作区。</p>
+<h4 id="c-cpp-properties-json"><a href="#c-cpp-properties-json" class="headerlink" title="c_cpp_properties.json"></a>c_cpp_properties.json</h4><p>使用ctrl+shift+p,输入命令 <code>C/C++:Edit Configurations(UI)</code>,打开配置界面<br><img src="/img/configuration.png" alt="configuration.png"></p>
+<ul>
+<li>添加新配置</li>
+<li>添加arm-none-eabi-gcc的编译路径</li>
+<li>打开makefile文件，将其中的宏定义添加到配置界面</li>
+<li>c语言版本选择c99</li>
+<li>打开.vscode\c_cpp_properties.json文件将c++版本的配置删除</li>
+</ul>
+<p><img src="/img/CompilerPath.png" alt="CompilerPath.png"><br><img src="/img/Defines.png" alt="Defines.png"></p>
+<p>.vscode\c_cpp_properties.json是用于对C/C++语言的语法提示等的配置，配置完成后.vscode\c_cpp_properties.json如下<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"npc"</span>,</span><br><span class="line">            <span class="attr">"includePath"</span>: [</span><br><span class="line">                <span class="string">"$&#123;workspaceFolder&#125;/**"</span>,</span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"defines"</span>: [</span><br><span class="line">                <span class="string">"_DEBUG"</span>,</span><br><span class="line">                <span class="string">"UNICODE"</span>,</span><br><span class="line">                <span class="string">"_UNICODE"</span>,</span><br><span class="line">                <span class="string">"USE_HAL_DRIVER"</span>,</span><br><span class="line">                <span class="string">"STM32F103xB"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"compilerPath"</span>: <span class="string">"\"D:/GNU Tools ARM Embedded/5.4 2016q3/bin/arm-none-eabi-gcc.exe\""</span>,</span><br><span class="line">            <span class="attr">"cStandard"</span>: <span class="string">"c99"</span>,</span><br><span class="line">            <span class="attr">"intelliSenseMode"</span>: <span class="string">"clang-x86"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"version"</span>: <span class="number">4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="launch-json"><a href="#launch-json" class="headerlink" title="launch.json"></a>launch.json</h4><p>这个文件主要是对调试任务进行配置，使用ctrl+shift+p,输入命令 <code>Debug:Open launch.json</code>，选择Cortex Debug,如下<br><img src="/img/debug1.png" alt="debug1.png"><br><img src="/img/debug2.png" alt="debug2.png"><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"trace"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">       &#123;</span><br><span class="line">            <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceRoot&#125;"</span>,</span><br><span class="line">            <span class="attr">"executable"</span>: <span class="string">"./build/npc.elf"</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"Debug Microcontroller"</span>,</span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"cortex-debug"</span>,</span><br><span class="line">            <span class="attr">"device"</span>: <span class="string">"STM32F103C8"</span>,</span><br><span class="line">            <span class="attr">"servertype"</span>: <span class="string">"jlink"</span>,</span><br><span class="line">            <span class="attr">"svdFile"</span>: <span class="string">"./STM32F103.svd"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>文件中需要配置的地方有</p>
+<ul>
+<li>“executable”: “./build/npc.elf”，改为刚刚编译成功的可执行文件</li>
+<li>device改为自己芯片的类型</li>
+<li>svdFile，用于描述芯片外设的，配置后在调试时可以读取外设的寄存器<h2 id="下载和调试代码"><a href="#下载和调试代码" class="headerlink" title="下载和调试代码"></a>下载和调试代码</h2></li>
+</ul>
+<p>配置好launch.json后，在vscode的调试界面就可以看到刚刚配置的debug，点击运行，就可以进行调试了</p>
+<p><img src="/img/vscode调试.png" alt="vscode调试"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">单片机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程/stm32//" class="article-tag-list-link color1">stm32</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/10/vscode-jflash开发调试stm32/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-stm32cubeMX-vscode开发stm32" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1044,97 +1168,6 @@
 
 
   
-    <article id="post-简化Spring-XML配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/21/简化Spring-XML配置/">简化Spring XML配置</a>
-    </h1>
-  
-
-        
-        <a href="/2018/08/21/简化Spring-XML配置/" class="archive-article-date">
-  	<time datetime="2018-08-21T11:49:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本节内容主要介绍了Bean的自动装配、基于注解的配置和基于Java类的配置对XML配置的简化。<br>
-        
-          <a class="article-more-a" href="/2018/08/21/简化Spring-XML配置/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/08/21/简化Spring-XML配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1237,11 +1270,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1254,30 +1287,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">控制流</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">初始化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C语言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">论文阅读</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1294,6 +1303,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">XML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">初始化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C语言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">论文阅读</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
