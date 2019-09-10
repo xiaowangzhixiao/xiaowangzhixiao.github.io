@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="https://xiaowangzhixiao.github.io">
   <title>vscode+jflash开发调试stm32 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装vscode正常安装vscode即可，不再赘述。 安装make工具Windows系统没有make工具，需要下载mingw，mingw-w64-install.exe，安装好后将其bin目录加入到环境变量中  这个时候在命令行里输入make -v发现还是找不到命令，这是怎么回事呢，原来是由于mingw中的make不叫make，打开mingw的bin目录将mingw32-make复制一份改名成ma">
+  <meta name="description" content="下面介绍一下windows下使用vscode和jflash对stm32开发">
 <meta name="keywords" content="单片机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vscode+jflash开发调试stm32">
 <meta property="og:url" content="https://xiaowangzhixiao.github.io/2019/09/10/vscode-jflash开发调试stm32/index.html">
 <meta property="og:site_name" content="东拉西扯">
-<meta property="og:description" content="安装vscode正常安装vscode即可，不再赘述。 安装make工具Windows系统没有make工具，需要下载mingw，mingw-w64-install.exe，安装好后将其bin目录加入到环境变量中  这个时候在命令行里输入make -v发现还是找不到命令，这是怎么回事呢，原来是由于mingw中的make不叫make，打开mingw的bin目录将mingw32-make复制一份改名成ma">
+<meta property="og:description" content="下面介绍一下windows下使用vscode和jflash对stm32开发">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://xiaowangzhixiao.github.io/img/mingw环境变量.png">
 <meta property="og:image" content="https://xiaowangzhixiao.github.io/img/make重命名.png">
@@ -28,10 +28,10 @@
 <meta property="og:image" content="https://xiaowangzhixiao.github.io/img/debug1.png">
 <meta property="og:image" content="https://xiaowangzhixiao.github.io/img/debug2.png">
 <meta property="og:image" content="https://xiaowangzhixiao.github.io/img/vscode调试.png">
-<meta property="og:updated_time" content="2019-09-10T12:55:57.038Z">
+<meta property="og:updated_time" content="2019-09-10T13:01:14.557Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vscode+jflash开发调试stm32">
-<meta name="twitter:description" content="安装vscode正常安装vscode即可，不再赘述。 安装make工具Windows系统没有make工具，需要下载mingw，mingw-w64-install.exe，安装好后将其bin目录加入到环境变量中  这个时候在命令行里输入make -v发现还是找不到命令，这是怎么回事呢，原来是由于mingw中的make不叫make，打开mingw的bin目录将mingw32-make复制一份改名成ma">
+<meta name="twitter:description" content="下面介绍一下windows下使用vscode和jflash对stm32开发">
 <meta name="twitter:image" content="https://xiaowangzhixiao.github.io/img/mingw环境变量.png">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
@@ -188,7 +188,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="安装vscode"><a href="#安装vscode" class="headerlink" title="安装vscode"></a>安装vscode</h2><p>正常安装vscode即可，不再赘述。</p>
+        <p>下面介绍一下windows下使用vscode和jflash对stm32开发<br><a id="more"></a></p>
+<h2 id="安装vscode"><a href="#安装vscode" class="headerlink" title="安装vscode"></a>安装vscode</h2><p>正常安装vscode即可，不再赘述。</p>
 <h2 id="安装make工具"><a href="#安装make工具" class="headerlink" title="安装make工具"></a>安装make工具</h2><p>Windows系统没有make工具，需要下载mingw，mingw-w64-install.exe，安装好后将其bin目录加入到环境变量中</p>
 <p><img src="/img/mingw环境变量.png" alt="mingw环境变量"></p>
 <p>这个时候在命令行里输入make -v发现还是找不到命令，这是怎么回事呢，原来是由于mingw中的make不叫make，打开mingw的bin目录将mingw32-make复制一份改名成make就可以了。</p>
@@ -484,11 +485,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,27 +497,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">控制流</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">XML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">初始化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -540,7 +529,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">初始化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">XML</a>
               </li>
              
               <li class="article-tag-list-item">
