@@ -174,7 +174,7 @@
       
         <p>在使用arm-none-eabi-gcc编译单片机程序时，发现使用printf，sprintf和vsnprintf之类的函数，无法正确序列化float型变量，即%f和%lf都无法正确处理，经过一番google，发现是在默认的情况下，arm-none-eabi-gcc不对浮点数类型进行解析。</p>
 <p><img src="/img/float输出的问题.png" alt="float输出的问题.png"></p>
-<p>如何打开开关呢，在makefile文件中LDFLAGS添加链接选项<code>-u _printf_float</code><br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">LDFLAGS = <span class="variable">$(MCU)</span> -specs=nano.specs -T<span class="variable">$(LDSCRIPT)</span> <span class="variable">$(LIBDIR)</span> <span class="variable">$(LIBS)</span> -Wl,-Map=<span class="variable">$(BUILD_DIR)</span>/<span class="variable">$(TARGET)</span>.map,--cref -Wl,--gc-sections -u _printf_float</span><br></pre></td></tr></table></figure></p>
+<p>如何打开开关呢，在makefile文件中LDFLAGS添加链接选项<code>-u _printf_float</code><br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LDFLAGS = <span class="variable">$(MCU)</span> -specs=nano.specs -T<span class="variable">$(LDSCRIPT)</span> <span class="variable">$(LIBDIR)</span> <span class="variable">$(LIBS)</span> -Wl,-Map=<span class="variable">$(BUILD_DIR)</span>/<span class="variable">$(TARGET)</span>.map,--cref -Wl,--gc-sections -u _printf_float</span><br></pre></td></tr></table></figure></p>
 <p>如果不使用make进行编译和链接呢，一种方法是在所用的ide配置中，寻找链接选项，然后添加那个选项，另一种是在main.c文件中，函数体之外加上一段汇编代码<code>asm(&quot;.global _printf_float&quot;);</code></p>
 
       
