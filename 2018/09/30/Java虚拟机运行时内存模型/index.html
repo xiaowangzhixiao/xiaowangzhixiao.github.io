@@ -5,27 +5,27 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.xiaowangzhi.xyz">
+  <link rel="dns-prefetch" href="https://xiaowangzhixiao.github.io">
   <title>Java虚拟机运行时内存模型 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="java虚拟机运行时内存">
 <meta name="keywords" content="JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java虚拟机运行时内存模型">
-<meta property="og:url" content="https://www.xiaowangzhi.xyz/2018/09/30/Java虚拟机运行时内存模型/index.html">
+<meta property="og:url" content="https://xiaowangzhixiao.github.io/2018/09/30/Java虚拟机运行时内存模型/index.html">
 <meta property="og:site_name" content="东拉西扯">
 <meta property="og:description" content="java虚拟机运行时内存">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.xiaowangzhi.xyz/img/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98.png">
-<meta property="og:image" content="https://www.xiaowangzhi.xyz/img/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%202.jpg">
-<meta property="og:image" content="https://www.xiaowangzhi.xyz/img/Java%E5%A0%86%202.jpg">
-<meta property="og:image" content="https://www.xiaowangzhi.xyz/img/%E6%96%B0%E7%94%9F%E4%BB%A3%202.jpg">
-<meta property="og:image" content="https://www.xiaowangzhi.xyz/img/%E6%96%B9%E6%B3%95%E5%8C%BA%202.jpg">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%202.jpg">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/Java%E5%A0%86%202.jpg">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/%E6%96%B0%E7%94%9F%E4%BB%A3%202.jpg">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/%E6%96%B9%E6%B3%95%E5%8C%BA%202.jpg">
 <meta property="og:updated_time" content="2018-09-30T15:16:49.023Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机运行时内存模型">
 <meta name="twitter:description" content="java虚拟机运行时内存">
-<meta name="twitter:image" content="https://www.xiaowangzhi.xyz/img/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98.png">
+<meta name="twitter:image" content="https://xiaowangzhixiao.github.io/img/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98.png">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -321,7 +321,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.xiaowangzhi.xyz/2018/09/30/Java虚拟机运行时内存模型/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xiaowangzhixiao.github.io/2018/09/30/Java虚拟机运行时内存模型/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -511,15 +511,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面向对象</a>
+                <a href="javascript:void(0)" class="js-tag color4">控制流</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">初始化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -527,7 +531,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">控制流</a>
+                <a href="javascript:void(0)" class="js-tag color5">面向对象</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,10 +540,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C语言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">初始化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,15 +555,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">

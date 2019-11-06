@@ -5,23 +5,23 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.xiaowangzhi.xyz">
+  <link rel="dns-prefetch" href="https://xiaowangzhixiao.github.io">
   <title>arm-none-eabi-gcc打印float型变量问题 | 东拉西扯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="在使用arm-none-eabi-gcc编译单片机程序时，发现使用printf，sprintf和vsnprintf之类的函数，无法正确序列化float型变量，即%f和%lf都无法正确处理，经过一番google，发现是在默认的情况下，arm-none-eabi-gcc不对浮点数类型进行解析。  如何打开开关呢，在makefile文件中LDFLAGS添加链接选项-u _printf_float1LDF">
 <meta name="keywords" content="单片机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="arm-none-eabi-gcc打印float型变量问题">
-<meta property="og:url" content="https://www.xiaowangzhi.xyz/2019/09/15/arm-none-eabi-gcc打印float型变量问题/index.html">
+<meta property="og:url" content="https://xiaowangzhixiao.github.io/2019/09/15/arm-none-eabi-gcc打印float型变量问题/index.html">
 <meta property="og:site_name" content="东拉西扯">
 <meta property="og:description" content="在使用arm-none-eabi-gcc编译单片机程序时，发现使用printf，sprintf和vsnprintf之类的函数，无法正确序列化float型变量，即%f和%lf都无法正确处理，经过一番google，发现是在默认的情况下，arm-none-eabi-gcc不对浮点数类型进行解析。  如何打开开关呢，在makefile文件中LDFLAGS添加链接选项-u _printf_float1LDF">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.xiaowangzhi.xyz/img/float输出的问题.png">
+<meta property="og:image" content="https://xiaowangzhixiao.github.io/img/float输出的问题.png">
 <meta property="og:updated_time" content="2019-09-15T09:24:14.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="arm-none-eabi-gcc打印float型变量问题">
 <meta name="twitter:description" content="在使用arm-none-eabi-gcc编译单片机程序时，发现使用printf，sprintf和vsnprintf之类的函数，无法正确序列化float型变量，即%f和%lf都无法正确处理，经过一番google，发现是在默认的情况下，arm-none-eabi-gcc不对浮点数类型进行解析。  如何打开开关呢，在makefile文件中LDFLAGS添加链接选项-u _printf_float1LDF">
-<meta name="twitter:image" content="https://www.xiaowangzhi.xyz/img/float输出的问题.png">
+<meta name="twitter:image" content="https://xiaowangzhixiao.github.io/img/float输出的问题.png">
   
     <link rel="alternative" href="/atom.xml" title="东拉西扯" type="application/atom+xml">
   
@@ -265,7 +265,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.xiaowangzhi.xyz/2019/09/15/arm-none-eabi-gcc打印float型变量问题/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xiaowangzhixiao.github.io/2019/09/15/arm-none-eabi-gcc打印float型变量问题/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -459,15 +459,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面向对象</a>
+                <a href="javascript:void(0)" class="js-tag color4">控制流</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">初始化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -475,7 +479,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">控制流</a>
+                <a href="javascript:void(0)" class="js-tag color5">面向对象</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,10 +488,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C语言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">初始化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -503,15 +503,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpEL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
