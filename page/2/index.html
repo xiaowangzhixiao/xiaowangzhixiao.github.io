@@ -152,6 +152,98 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-arm-none-eabi-gcc打印float型变量问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/15/arm-none-eabi-gcc打印float型变量问题/">arm-none-eabi-gcc打印float型变量问题</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/15/arm-none-eabi-gcc打印float型变量问题/" class="archive-article-date">
+  	<time datetime="2019-09-15T08:53:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在使用arm-none-eabi-gcc编译单片机程序时，发现使用printf，sprintf和vsnprintf之类的函数，无法正确序列化float型变量，即%f和%lf都无法正确处理，经过一番google，发现是在默认的情况下，arm-none-eabi-gcc不对浮点数类型进行解析。</p>
+<p><img src="/img/float输出的问题.png" alt="float输出的问题.png"></p>
+<p>如何打开开关呢，在makefile文件中LDFLAGS添加链接选项<code>-u _printf_float</code><br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LDFLAGS = <span class="variable">$(MCU)</span> -specs=nano.specs -T<span class="variable">$(LDSCRIPT)</span> <span class="variable">$(LIBDIR)</span> <span class="variable">$(LIBS)</span> -Wl,-Map=<span class="variable">$(BUILD_DIR)</span>/<span class="variable">$(TARGET)</span>.map,--cref -Wl,--gc-sections -u _printf_float</span><br></pre></td></tr></table></figure></p>
+<p>如果不使用make进行编译和链接呢，一种方法是在所用的ide配置中，寻找链接选项，然后添加那个选项，另一种是在main.c文件中，函数体之外加上一段汇编代码<code>asm(&quot;.global _printf_float&quot;);</code></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">单片机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程/stm32//" class="article-tag-list-link color1">stm32</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/15/arm-none-eabi-gcc打印float型变量问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-vscode-jflash开发调试stm32" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -499,7 +591,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/编程/大数据//" class="article-tag-list-link color4">大数据</a>
+        			<a href="/categories/编程/Kafka//" class="article-tag-list-link color1">Kafka</a>
         		</li>
       		
 		</ul>
@@ -575,11 +667,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读书笔记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">初始化</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java编程思想</a>
         		</li>
       		
 		</ul>
@@ -595,11 +687,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/编程/读书笔记//" class="article-tag-list-link color5">读书笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程/读书笔记/Java编程思想//" class="article-tag-list-link color4">Java编程思想</a>
+        			<a href="/categories/编程/Java//" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -674,11 +762,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读书笔记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">控制流</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java编程思想</a>
         		</li>
       		
 		</ul>
@@ -694,11 +782,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/编程/读书笔记//" class="article-tag-list-link color5">读书笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程/读书笔记/Java编程思想//" class="article-tag-list-link color4">Java编程思想</a>
+        			<a href="/categories/编程/Java//" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -773,11 +857,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读书笔记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">面向对象</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java编程思想</a>
         		</li>
       		
 		</ul>
@@ -793,11 +877,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/编程/读书笔记//" class="article-tag-list-link color5">读书笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程/读书笔记/Java编程思想//" class="article-tag-list-link color4">Java编程思想</a>
+        			<a href="/categories/编程/Java//" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -1027,114 +1107,6 @@
 
 
   
-    <article id="post-Spring表达式语言SpEL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/21/Spring表达式语言SpEL/">Spring表达式语言SpEL</a>
-    </h1>
-  
-
-        
-        <a href="/2018/08/21/Spring表达式语言SpEL/" class="archive-article-date">
-  	<time datetime="2018-08-21T11:58:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h2><ul>
-<li>知识<ul>
-<li>熟悉Spring表达式语言的基本概念</li>
-<li>了解Spring表达式语言的主要用途</li>
-<li>清楚Spring表达式语言的应用场景</li>
-</ul>
-</li>
-<li>技能<ul>
-<li>创建基于Java的表达式语言</li>
-<li>创建基于XML的表达式语言</li>
-<li>创建基于注释的表达式语言</li>
-</ul>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/08/21/Spring表达式语言SpEL/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SpEL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程/java//" class="article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/08/21/Spring表达式语言SpEL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1272,6 +1244,10 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">公司分享</a>
               </li>
              
@@ -1281,10 +1257,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hulu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1308,23 +1280,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面向对象</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">控制流</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">初始化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java编程思想</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1336,6 +1296,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
               </li>
              
@@ -1344,7 +1308,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1364,7 +1328,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1372,15 +1336,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开源项目</a>
+                <a href="javascript:void(0)" class="js-tag color3">redis实战</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1388,11 +1344,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1401,6 +1365,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">代码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
               </li>
              
               <li class="article-tag-list-item">
